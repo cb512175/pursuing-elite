@@ -71,7 +71,7 @@ Every **72 hours**, the knowledge gets refreshed:
 
 | Stage | What changes | Status |
 |---|---|---|
-| **v1 (now)** | Retrieval coach in the browser. About 45 curated replies in Clint's words, plus rule-based coaching moves (Courage Credit, the "I can't" reframe, the Elite cap, the faith trigger, crisis and gray zone). No server, no accounts, data on the device. | Live |
+| **v1 (now)** | Retrieval coach in the browser. About 40 curated replies in Clint's words, plus rule-based coaching moves (Courage Credit, the "I can't" reframe, the Elite cap, the faith trigger, crisis and gray zone). No server, no accounts, data on the device. | Live |
 | **v2** | A small HoldFast API (`POST /coachclint/chat`) holds the system prompt (built from the manual), the model key, and a retrieval index of the approved library. The apps flip one setting: `COACHCLINT_CONFIG = { mode: "remote", endpoint }`. The browser safety layer still runs first, and the server runs its own. | Needs a host, a model vendor, and legal review of the crisis flow |
 | **v3** | Accounts and sync, so progress follows the user. A real crisis alert to both HoldFast addresses. Program-lead dashboards (aggregate only). The 72-hour refresh pipeline. The usage-based "familiarity" threshold driven by real session counts. | Planned |
 
