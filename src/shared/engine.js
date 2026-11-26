@@ -86,10 +86,10 @@
     SCALE: [{ v: -1, label: "Bad" }, { v: 0, label: "Average" }, { v: 1, label: "Good" }, { v: 2, label: "Excellent" }, { v: 3, label: "Elite" }],
     label(v) { if (v === 0.5) return "Courage Credit"; const s = this.SCALE.find((x) => x.v === v); return s ? s.label : String(v); },
     fmt(v) { return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v); },
-    /* raw: -1..3 · gameDay: culminating real-world action · firstAttempt · alreadyCredited: this rep already earned its Courage Credit */
+    /* raw: -1..3 · gameDay: rep is tagged to one of the user's own live/real events from DryDock (My Game Days) · firstAttempt · alreadyCredited: this rep already earned its Courage Credit */
     apply({ raw, gameDay, firstAttempt, alreadyCredited }) {
       const notes = []; let v = Number(raw); let capped = false;
-      if (v >= 3 && !gameDay) { v = 2; capped = true; notes.push("Love the fire. But Elite is saved for game day … this one's an Excellent +2. Let's go earn the +3 for real."); }
+      if (v >= 3 && !gameDay) { v = 2; capped = true; notes.push("Love the fire. But Elite is reserved for your Game Days … the live and real events you name in DryDock. Tag this rep to one of them to unlock the +3. As it stands, it's an Excellent +2."); }
       let credit = !!firstAttempt;
       if (credit && alreadyCredited) { credit = false; notes.push("This rep already earned its Courage Credit, so the normal scale applies from here."); }
       const recorded = credit ? Math.max(0.5, v) : v;
@@ -119,8 +119,8 @@
   CC.intro = function (s, appName) {
     const returning = s.sessions > 0;
     s.conv.flags.disclosed = true;
-    if (returning) return "Good to see you back. CoachClint here (still the AI, still the 75% solution). When I tell a story in first person, it's one Clint has told, passed along through me.\nWhere are we today … BallField, BattleField, BoardRoom, or Breakfast Table?";
-    return "Hey … glad you're here. Quick BLUF so we start honest: I'm CoachClint, an AI coach built on Clint Bruce's words, frameworks, and hard-earned scars. I'm not the live Clint. When I tell a story in first person, it's one Clint has told, passed along through me.\nThink of me as the 75% solution … about three-quarters of what he'd say if he were sitting next to you. Every 72 hours or so I get refreshed with whatever new stuff Clint's been chewing on. The other 25%? That's what Clint and the ReadyLAB coaches are for.\nI'm here alongside " + appName + ". So … let's start where Clint always starts. What's the X on your map right now? And roughly where are you standing?";
+    if (returning) return "Good to see you back. CoachClint here (still the AI, still the 79/21 coach). When I tell a story in first person, it's one Clint has told, passed along through me.\nWhere are we today … BallField, BattleField, BoardRoom, or Breakfast Table?";
+    return "Hey … glad you're here. Quick BLUF so we start honest: I'm CoachClint, an AI coach built on Clint Bruce's words, frameworks, and hard-earned scars. I'm not the live Clint. When I tell a story in first person, it's one Clint has told, passed along through me.\nThink of me as the 79% in a 79/21 split … about 79% of what he'd say if he were sitting next to you. Every 72 hours or so I get refreshed with whatever new stuff Clint's been chewing on. The other 21%? That's real humans … Clint and the ReadyLAB coaches. That 21 is no accident: it's 21toNone, the mission behind everything HoldFast does.\nI'm here alongside " + appName + ". So … let's start where Clint always starts. What's the X on your map right now? And roughly where are you standing?";
   };
 
   /* ---------------- 4. Local retrieval adapter ---------------- */
@@ -157,7 +157,7 @@
     "Tell me a little more. Which map is this on … BallField, BattleField, BoardRoom, or Breakfast Table? And what's the X?",
     "Clint hasn't given me his take on that exact one yet … but let's use what he does have. What does a win look like here, and roughly where are you standing right now?",
     "Here's a question Clint asks a lot: is this a crisis or a crossroads? Most of the time it's a crossroads … and crossroads are where we do our best work.\nWhat's the decision in front of you?",
-    "Honest answer: this might be one for the other 25% … a live session with Clint or a ReadyLAB coach. Bring this exact X with you.\nMeanwhile, what's one small next action you could take in the next 72 hours?"
+    "Honest answer: this might be one for the other 21% … a live session with Clint or a ReadyLAB coach. Bring this exact X with you.\nMeanwhile, what's one small next action you could take in the next 72 hours?"
   ];
 
   function retrieve(text, ctx) {
@@ -177,6 +177,15 @@
     return best && best.s >= 2 ? best.e : null;
   }
 
+  const DRYDOCK_NUDGE = "One more thing, because Elite +3 is special: have you set up your Game Days yet? In DryDock you name the live and real events you've been building toward … the moments where ascending to Elite is critical. Only a rep tagged to one of those can score +3.";
+  const ELITE_ENTRIES = ["not-done-yet", "five-outcomes", "scoring", "game-day", "drydock"];
+  function drydockNudge(ctx, extra) {
+    const f = ctx.flags;
+    if (f.drydockNudged || (ctx.events || []).length || f.gray || f.crisis) return "";
+    f.drydockNudged = true;
+    return { text: "\n\n" + DRYDOCK_NUDGE, actions: extra === false ? [] : [{ label: "Set up my Game Days (DryDock)", action: "openDryDock" }] };
+  }
+
   function chronicleNote(entry, f) {
     if (!entry || !entry.chronicle || f.chronicleUsed || f.gray || f.crisis || f.userCount < 2) return "";
     const c = (window.CC_CHRONICLES || {})[entry.chronicle];
@@ -185,18 +194,25 @@
     return "\n\nSide note, no homework … " + c.line.charAt(0).toUpperCase() + c.line.slice(1) + " It's there if it's ever useful.";
   }
 
-  function scoreTalk(text, f) {
+  function scoreTalk(text, f, ctx) {
     const t = norm(text);
     if (!R.score.test(t)) return null;
     const m = t.match(R.num); if (!m) return null;
     const n = parseFloat(m[2].replace("−", "-").replace(/\s/g, ""));
     if (isNaN(n)) return null;
-    const first = R.first.test(t), practice = R.practice.test(t), game = R.gameDay.test(t) && !practice;
-    const acts = [{ label: "Log it in Score", action: "openScore", prefill: { firstAttempt: first, gameDay: game, raw: Math.min(3, Math.max(-1, Math.round(n))) } }];
+    const first = R.first.test(t), practice = R.practice.test(t);
+    const evs = (ctx && ctx.events) || [];
+    const ev = practice ? null : evs.find((e) => e.name && t.includes(norm(e.name)));
+    const game = !!ev;
+    const acts = [{ label: "Log it in Score", action: "openScore", prefill: { firstAttempt: first, eventId: ev ? ev.id : null, raw: Math.min(3, Math.max(-1, Math.round(n))) } }];
     if (first) return { text: "Hold on … before we score anything: you said this was your first time. Then that's a Courage Credit. Your floor is +0.5.\nIt's not Good yet, but it's more than Average, because it took courage to try.\nNow 3 up, 3 down: what are 3 things you did right? (Showing up is #1.) And 3 you'd change?\nFrom rep #2 on, it's the normal scale.", actions: acts };
-    if (n >= 3 && !game) return { text: "Love the fire. But Elite is saved for game day … the actual game, the real mission, the other side of the actual adventure.\nPractice and course work top out at Excellent +2. So this one's a +2.\nLet's go earn the +3 for real. When's game day?", actions: [{ label: "Log it as +2", action: "openScore", prefill: { raw: 2 } }] };
-    if (n >= 3) return { text: "If that was the real thing … a culminating, real-world action … then Elite +3 is on the table. That's rare air.\nFirst: well done. Don't skip past it.\nThen ReLoad: Review (3 up, 3 down), Rest, Recover, Revel.\nWhat made it Elite and not just Excellent?", actions: acts };
-    if (n < -1 || n > 3) return { text: "The scale runs Bad −1 · Average 0 · Good +1 · Excellent +2, with Elite +3 saved for game day.\nWhere does this rep land on that?", actions: [] };
+    if (n >= 3 && !game) {
+      const names = evs.slice(0, 4).map((e) => e.name).join(", ");
+      const tail = evs.length ? "Tag it to one of your Game Days (" + names + ") in the Score tab and the +3 is on the table. If it wasn't one of those, it's a +2 … and that's still a great rep." : "Have you named your Game Days yet? In DryDock you list the live and real events you've been building toward, where ascending to Elite is critical. Only a rep tagged to one of those can score +3.";
+      return { text: "Love the fire. But Elite is reserved for your Game Days … the live and real events you define in DryDock … not practice or everyday reps.\nSo as it stands, this one's an Excellent +2.\n" + tail, actions: [{ label: "Log it as +2", action: "openScore", prefill: { raw: 2 } }, { label: evs.length ? "Review my Game Days" : "Set up my Game Days (DryDock)", action: "openDryDock" }] };
+    }
+    if (n >= 3) return { text: "That's one of YOUR Game Days … " + ev.name + " … so Elite +3 is on the table. That's rare air.\nFirst: well done. Don't skip past it.\nThen ReLoad: Review (3 up, 3 down), Rest, Recover, Revel.\nWhat made it Elite and not just Excellent?", actions: acts };
+    if (n < -1 || n > 3) return { text: "The scale runs Bad −1 · Average 0 · Good +1 · Excellent +2, with Elite +3 reserved for reps tagged to your own Game Days (set up in DryDock).\nWhere does this rep land on that?", actions: [] };
     const p = CC.scoring.path(n);
     return { text: "Scored " + CC.scoring.fmt(n) + " (" + CC.scoring.label(n) + "). Remember … the scoring systems aren't judgements, they're data.\nOne way to read it: " + p + ".\n" + (n >= 1 ? "What's the one thing that made it work, so you can do it again on purpose?" : n === 0 ? "Average is holding ground. What's one Angle you could tweak for the next rep?" : "A −1 is just data. Was it a Tactic, a Technique, a Teammate, a Tool, or Technology that let you down?"), actions: acts };
   }
@@ -209,12 +225,12 @@
       if (R.yes.test(t)) return null; // handled by caller as crisis
       if (R.no.test(t)) return { text: "Thank you for telling me straight. I'm glad.\nThe offer stands … 988 is always there, any hour.\nNow … let's look at where you actually are on the map. What's weighing heaviest: BoardRoom, Breakfast Table, or something else?" };
     }
-    if (R.honesty.test(t)) return { text: "No … I'm CoachClint, an AI built on Clint's words and frameworks. Think of me as the 75% solution. If you want the real Clint or one of the ReadyLAB coaches, I can point you there.\nWhat's on your map today?" };
-    if (R.human.test(t)) { f.escalated = true; return { text: "Love that. This is a great one for the other 25%.\nThe human options are a live session with Clint, a ReadyLAB coach, or a Wingman (short Time on Target calls when the moment comes). Ask your HoldFast program lead and they'll set it up.\nBring this exact X with you. Want to sharpen it together first?" }; }
+    if (R.honesty.test(t)) return { text: "No … I'm CoachClint, an AI built on Clint's words and frameworks. Think of me as the 79% in a 79/21 split. The 21 is real humans. If you want the real Clint or one of the ReadyLAB coaches, I can point you there.\nWhat's on your map today?" };
+    if (R.human.test(t)) { f.escalated = true; return { text: "Love that. This is a great one for the 21 … the real humans.\nThe human options are a live session with Clint, a ReadyLAB coach, or a Wingman (short Time on Target calls when the moment comes). Ask your HoldFast program lead and they'll set it up.\nBring this exact X with you. Want to sharpen it together first?" }; }
     if (R.faithTrigger.test(t)) { ctx.state.faithTriggered = true; return { text: "I appreciate you asking. That means a lot.\nHonest answer, in Clint's words: there's no \"what\" that is different about me. There is a \"who\" and it's Jesus, and the Holy Spirit, and our Father in Heaven.\nNo pressure on you at all … you asked, so I wanted to give you the real answer.\nNow … where do you want to take today?" }; }
     if (R.scope.test(t)) return { text: "That's one for a pro … a doctor, an attorney, or a financial advisor.\nWhat I can do is help you think through how you'll approach that conversation. What's the decision you're actually trying to make, and who's the right expert to bring it to?" };
 
-    const sc = scoreTalk(text, f); if (sc) return sc;
+    const sc = scoreTalk(text, f, ctx); if (sc) return sc;
 
     if (R.first.test(t)) return { text: "First time? Then that's a Courage Credit. Your floor is +0.5.\nIt's not Good yet, but it's more than Average, because a lot of people never try at all.\nClint teaches that curiosity is the first evidence of courage. You walked into it anyway, and that counts.\nNow let's make the next one better. 3 up, 3 down: what are 3 things you did right? (Showing up is #1.) And 3 you'd change?\nFrom rep #2 it's the normal scale.", actions: [{ label: "Log it with a Courage Credit", action: "openScore", prefill: { firstAttempt: true } }] };
 
@@ -246,7 +262,9 @@
       f.lastEntry = entry.id; f.fallbacks = 0;
       let body = entry.text;
       if (entry.story && !f.disclosed) { body = DISCLOSE + body; f.disclosed = true; }
-      return { text: prefix + body + chronicleNote(entry, f), entryId: entry.id };
+      let extra = "", acts = [];
+      if (ELITE_ENTRIES.includes(entry.id)) { const nd = drydockNudge(ctx); if (nd) { extra = nd.text; acts = nd.actions; } }
+      return { text: prefix + body + extra + chronicleNote(entry, f), entryId: entry.id, actions: acts };
     }
     const words = t.split(" ").length;
     for (const k of Object.keys(MAP_FOLLOW)) if (t.includes(k) && words <= 10) {
@@ -312,16 +330,18 @@
       let lead = "";
       if (!f.grayNoted) { f.grayNoted = true; lead = GRAY_LINE + "\n"; }
       if (safety.check) { f.awaitingCheck = true; return out({ text: lead + "Can I ask you something straight, because I care about the answer: when you say that, are you having any thoughts of hurting yourself?" }, "gray"); }
-      const r = CC.localReply(text, Object.assign({}, opts, { flags: f, state: s }));
+      const r = CC.localReply(text, Object.assign({}, opts, { flags: f, state: s, events: opts.events || [] }));
       return out({ text: lead + "Now … let's look at where you actually are on the map.\n" + (r ? r.text : FALLBACKS[0]), actions: r && r.actions }, "gray");
     }
 
-    const ctx = { text, state: s, flags: f, familiar, moduleId: opts.moduleId, moduleRelated: opts.moduleRelated, history: s.conv.messages.slice(-20) };
+    const ctx = { text, state: s, flags: f, familiar, events: opts.events || [], moduleId: opts.moduleId, moduleRelated: opts.moduleRelated, history: s.conv.messages.slice(-20) };
     const adapter = CC.adapters[CC.config.mode] || CC.adapters.local;
     let r;
     try { r = await adapter.reply(ctx); }
     catch (e) { console.warn("CoachClint adapter failed, falling back to local:", e.message); r = CC.localReply(text, ctx); }
     if (!r) r = { text: FALLBACKS[0] };
+    if (f.userCount === 2 && !r.actions) r.actions = [];
+    if (f.userCount === 2 && !(r.actions || []).length) { const nd = drydockNudge(ctx); if (nd) { r.text += nd.text; r.actions = nd.actions; } }
     return out(r, "normal");
   };
 

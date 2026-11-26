@@ -8,7 +8,7 @@ window.APP = {
   kicker: "HoldFast · PursuingElite",
   headline: "Living and leading beyond excellence.",
   intro: "Every endeavor ends in one of five outcomes: Bad, Average, Good, Excellent, or Elite. The difference between Excellent and Elite is a choice … are you done, or Not Done Yet? These short lessons walk through the five qualities elites have in common, one rep at a time.",
-  how: ["Learn: a short lesson in Clint's words", "Rep: one real action this week", "Score: Bad −1 to Excellent +2 (Elite +3 is for game day)", "Talk it through with CoachClint"],
+  how: ["Learn: a short lesson in Clint's words", "Rep: one real action this week", "Score: Bad −1 to Excellent +2 (Elite +3 is for your Game Days)", "Talk it through with CoachClint"],
   scoreFocusLabel: "PursuitPoint",
   scoreFocus: ["Balance", "Curiosity", "Tribalism", "Intentionalism", "Authenticity", "Not Done Yet (ReLoad)"],
   breakdown: null,
@@ -35,14 +35,14 @@ window.APP = {
         "\"Most of life comes down to what outcomes you're willing to accept from yourself and others in missions that matter most.\" On the things that matter most, Clint says accept only <b>Excellent to Elite</b>.",
         "<b>Excellent</b> is an X on the map … a measurable standard. <b>Elite</b> is \"a mythical ridgeline just a little bit further than you thought possible until you had the view from excellent.\"",
         "In this app every rep gets scored on the official HoldFast scale: <b>Bad −1 · Average 0 · Good +1 · Excellent +2</b>.",
-        "<b>Elite +3 is saved for game day</b> … the actual game, the real mission, the other side of the actual adventure. Never practice, drills, or course work. The Elite <i>mindset</i> is for every day; the Elite <i>score</i> is for game day.",
+        "<b>Elite +3 is reserved for your Game Days</b> … the live and real events <i>you</i> name in DryDock, the moments you've been building toward where ascending into Elite is critical. Never practice or everyday reps. The Elite <i>mindset</i> is for every day; the Elite <i>score</i> is for the moments you named.",
         "<b>The Courage Credit:</b> the first time you ever try something, your floor is <b>+0.5</b>. \"We can't call it good, but it's more than average because it took courage to try it.\" It shows as its own badge, every time.",
         "\"The scoring systems aren't judgements … they're data.\" They give you a fast way to pick a path: push, pause, or pivot."
       ],
       quote: "The scoring systems aren't judgements … they're data.",
       rep: "Score one rep from today in the Score tab. Be honest. It's data.",
       reflect: "What's one mission that matters to you where you've been accepting Good?",
-      note: "The 5 outcomes are Bad, Average, Good, Excellent, Elite. The app scale is Bad −1, Average 0, Good +1, Excellent +2, with Elite +3 only for a culminating real-world action. A first attempt gets a Courage Credit with a +0.5 floor.",
+      note: "The 5 outcomes are Bad, Average, Good, Excellent, Elite. The app scale is Bad −1, Average 0, Good +1, Excellent +2, with Elite +3 only for your Game Days. A first attempt gets a Courage Credit with a +0.5 floor.",
       ask: "Want to score a rep together right now?" },
     { id: "pe3", title: "Balance: high ground for hard days", mins: 4, focus: "Balance", related: ["balance", "breakfast-table"],
       lead: "PursuitPoint 1. Invest before you need it.",
@@ -142,6 +142,20 @@ window.APP = {
       rep: "After your next win, run a 10-minute Review: 3 up, 3 down. Then plan one way to Revel with your people.",
       reflect: "What have you accomplished lately that you skipped right past?",
       note: "OnReloading is Review, Rest, Recover, Revel. Celebrate the win before you reload: 'Well done … AND not done yet.'",
-      ask: "What win have you skipped past lately?" }
+      ask: "What win have you skipped past lately?" },
+    { id: "pe10", title: "DryDock: name your Game Days", mins: 3, focus: "Not Done Yet (ReLoad)", related: ["drydock", "scoring", "game-day"],
+      lead: "Where ascending into Elite is critical.",
+      body: [
+        "DryDock comes first in the Wardroom: \"Pulling the battleship out of the water and finding the flaws.\" An honest inventory. Here it has one more job: <b>naming your Game Days.</b>",
+        "A Game Day is a <b>live</b> or <b>real</b> event in your life … a moment you've been building toward, where ascending into Elite is critical. A talk you'll give. A season opener. A hard conversation that's coming. The thing itself, not the practice for it.",
+        "In this app, <b>only a rep tagged to one of your Game Days can score Elite +3.</b> Everything else tops out at Excellent +2. That's not a consolation prize; it's the work that gets you ready.",
+        "The Elite <i>mindset</i> (Not Done Yet) is for every day. The Elite <i>score</i> is for the moments you named.",
+        "You define them, not us. Only you know where ascending into Elite is critical in your life right now."
+      ],
+      quote: "Elite is for the moments you've been building toward.",
+      rep: "Open the DryDock tab and name your first Game Day. Mark it live or real, and write what you've been building toward.",
+      reflect: "Which live or real event, in the next 90 days, is the one where you can't afford to be merely excellent?",
+      note: "DryDock is where you name your Game Days: the live and real events you've been building toward, where ascending to Elite is critical. Only a rep tagged to one of them can score Elite +3; everything else tops out at Excellent +2.",
+      ask: "What's one live or real event you've been building toward?" }
   ]
 };

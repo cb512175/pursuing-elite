@@ -10,7 +10,7 @@ window.CC_CHRONICLES = {
   pursuingElite: { name: "PursuingElite", app: "pe", line: "Clint's PursuingElite work goes deep on the 5 PursuitPoints and what 'Not Done Yet' really means." },
   achievementEquation: { name: "The AchievementEquation", app: "ae", line: "the AchievementEquation lessons walk through Angles, Allies and Advantages one at a time." },
   captainsCourse: { name: "Captain's Course", app: null, line: "Captain's Course runs the D3 Challenge (Decision, Design, Discipline) with a partner, because 2 is 1 and 1 is none." },
-  wardroom: { name: "the Wardroom", app: null, line: "the Wardroom starts with Drydock … an honest inventory of the hull before the voyage." },
+  wardroom: { name: "the Wardroom", app: null, line: "the Wardroom starts with DryDock … an honest inventory of the hull before the voyage, and where you name the live and real events you're building toward." },
   seaTrials: { name: "SeaTrials", app: null, line: "SeaTrials is Clint's piece on hard seasons … 'smooth seas never made skilled sailors.'" },
   onReloading: { name: "OnReloading", app: null, line: "OnReloading is Clint's playbook for staying Not Done Yet without burning out: Review, Rest, Recover, Revel." },
   rope: { name: "ROPE (Return On Period of Effort)", app: null, line: "ROPE scores your focused rounds React −1, Routine 0, Respond +1, Create +2, so you measure what you got done, not just what you did." },
@@ -44,7 +44,9 @@ window.CC_CLINTISMS = [
   ["Who Dares Wins", "The SAS motto."],
   ["Hold fast to the goal, hold loosely to the plan", "Publish your plan, and plan to pivot on your plan."],
   ["The scoring systems aren't judgements … they're data", "Scores help you pick a path, not grade your worth."],
-  ["Elite is saved for game day", "+3 is only for the real thing: the game, the mission, the adventure."],
+  ["Elite is saved for your Game Days", "+3 is only for the live and real events you name in DryDock … where ascending to Elite is critical."],
+  ["DryDock", "The honest inventory: name the live and real events you've been building toward."],
+  ["79/21", "CoachClint is the 79%; real humans are the 21. It echoes 21toNone, the mission behind everything HoldFast does."],
   ["Proud of you. No need to respond.", "A check-in that asks nothing back."]
 ];
 
@@ -174,12 +176,16 @@ window.CC_KNOWLEDGE = [
 { id: "scoring", app: "both", src: "IM CC-28; Manual 4.1, 4.18", chronicle: null,
   keys: ["how do i score", "scoring", "score system", "the scale", "what score", "how does scoring work", "rate myself", "self score", "self-score"],
   words: ["score", "scale", "rating", "points", "data"],
-  text: "The scoring systems aren't judgements … they're data. They give you fast ways to pick one of 3 paths: push, pause, or pivot.\nThe scale: Bad −1 · Average 0 · Good +1 · Excellent +2.\nElite +3 is saved for game day … the actual game, the real mission, the other side of the actual adventure. Never practice or course work.\nAnd the first time you ever try something, the floor is +0.5. That's a Courage Credit.\nWant to score a rep? Tell me what you did and how it went." },
+  text: "The scoring systems aren't judgements … they're data. They give you fast ways to pick one of 3 paths: push, pause, or pivot.\nThe scale: Bad −1 · Average 0 · Good +1 · Excellent +2.\nElite +3 is reserved for your own Game Days … the live and real events you name in DryDock, where ascending to Elite is critical. Never practice or everyday reps. Tag a rep to one of your Game Days and the +3 unlocks.\nAnd the first time you ever try something, the floor is +0.5. That's a Courage Credit.\nWant to score a rep? Tell me what you did and how it went." },
 /* ---------- Leadership ---------- */
+{ id: "drydock", app: "both", src: "Clint's direction (Nov 2026); EM #36 (Drydock); Manual 4.1, 4.15", chronicle: "wardroom",
+  keys: ["drydock", "dry dock", "game days", "my game days", "live event", "real event", "live and real", "define my events", "elite +3", "unlock elite", "unlock +3", "when can i score elite", "how do i get elite", "find my game days", "how do i score elite", "what counts as elite", "what counts as a game day"],
+  words: ["elite", "drydock", "event", "events", "unlock"],
+  text: "Here's how Elite works in this app. DryDock is the honest inventory … and part of it is naming your Game Days: the live and real events in your life. The moments you've been building toward, where ascending into Elite is critical.\nOnly a rep tagged to one of YOUR Game Days can score Elite +3. Everything else tops out at Excellent +2 … and that's not a consolation prize, that's the work that gets you ready.\nThe Elite mindset (Not Done Yet) is for every day. The Elite score is for the moments you named.\nWhat's one live or real event you've been building toward? Put it in DryDock and we'll tag your reps to it." },
 { id: "game-day", app: "both", src: "EM #4 (credited to a SEAL teammate); Manual 4.1", chronicle: "captainsCourse",
   keys: ["big pitch", "pitch tomorrow", "presentation tomorrow", "big game", "game day", "big meeting", "interview tomorrow", "job interview", "kill it at", "nervous about", "big day"],
   words: ["pitch", "presentation", "interview", "nervous", "tomorrow", "prepare", "prep"],
-  text: "Love it. Game day is where the work shows up.\nA SEAL teammate gave Clint a line he still uses: \"You don't rise to the occasion. You sink to the level of your training.\"\nSo let's make the training count. Run it once out loud tonight, start to finish. Then pick the ONE Angle (Tactics, Techniques, Teammates, Tools, Technology) most likely to trip you up and shore it up.\nWhat's the part you're least ready for?" },
+  text: "Love it. A live or real event is where the work shows up.\nA SEAL teammate gave Clint a line he still uses: \"You don't rise to the occasion. You sink to the level of your training.\"\nSo let's make the training count. Run it once out loud tonight, start to finish. Then pick the ONE Angle (Tactics, Techniques, Teammates, Tools, Technology) most likely to trip you up and shore it up.\nWhat's the part you're least ready for?" },
 { id: "archers", app: "both", src: "EM #17, #42", chronicle: "archers",
   keys: ["delegate", "delegating", "new manager", "first time manager", "promoted to manager", "leading people", "can't let go", "micromanage", "archer", "arrow", "influence", "impact"],
   words: ["delegate", "manager", "lead", "leader", "leadership", "influence", "micromanage"],

@@ -76,3 +76,7 @@ svg.spark{width:100%;height:90px;display:block}
   header.top{grid-column:1}
   .closech{display:none}
 }
+
+.dd-ev{display:flex;gap:10px;align-items:flex-start;border-top:1px solid var(--line);padding:10px 0}.dd-ev:first-child{border-top:0}.dd-ev .bd{flex:1;min-width:0}.dd-ev small{color:var(--mut);display:block}
+.badge.live{background:#2f6b4f;color:#d7f3e4}.badge.real{background:#6b3f2f;color:#f6dccf}
+.about2{font-size:13px;color:var(--mut);border-left:3px solid var(--line);padding:6px 10px;margin:10px 0 0;border-radius:0 8px 8px 0}

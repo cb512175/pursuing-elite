@@ -85,6 +85,10 @@ svg.spark{width:100%;height:90px;display:block}
   header.top{grid-column:1}
   .closech{display:none}
 }
+
+.dd-ev{display:flex;gap:10px;align-items:flex-start;border-top:1px solid var(--line);padding:10px 0}.dd-ev:first-child{border-top:0}.dd-ev .bd{flex:1;min-width:0}.dd-ev small{color:var(--mut);display:block}
+.badge.live{background:#2f6b4f;color:#d7f3e4}.badge.real{background:#6b3f2f;color:#f6dccf}
+.about2{font-size:13px;color:var(--mut);border-left:3px solid var(--line);padding:6px 10px;margin:10px 0 0;border-radius:0 8px 8px 0}
 </style>
 </head>
 <body>
@@ -96,16 +100,18 @@ svg.spark{width:100%;height:90px;display:block}
 <nav class="tabs" role="tablist">
   <button data-tab="learn" role="tab" aria-selected="true"><span>⚓</span>Learn</button>
   <button data-tab="score" role="tab" aria-selected="false"><span>±</span>Score</button>
+  <button data-tab="drydock" role="tab" aria-selected="false"><span>🧭</span>DryDock</button>
   <button data-tab="trends" role="tab" aria-selected="false"><span>📈</span>Trends</button>
   <button data-tab="coach" role="tab" aria-selected="false" class="coach-tab"><span>💬</span>CoachClint</button>
 </nav>
 <main>
   <section class="view on" id="v-learn"></section>
   <section class="view" id="v-score"></section>
+  <section class="view" id="v-drydock"></section>
   <section class="view" id="v-trends"></section>
 </main>
 <aside id="coach" aria-label="CoachClint chat">
-  <div class="ch-head"><b>CoachClint</b><span class="pill">AI · 75% solution</span><span class="sp"></span><button class="btn ghost small" id="ch-new" title="Start a new conversation">New chat</button><button class="btn ghost small closech" aria-label="Close chat">✕</button></div>
+  <div class="ch-head"><b>CoachClint</b><span class="pill">AI · 79/21</span><span class="sp"></span><button class="btn ghost small" id="ch-new" title="Start a new conversation">New chat</button><button class="btn ghost small closech" aria-label="Close chat">✕</button></div>
   <div class="ctx" id="ctx"></div>
   <div class="msgs" id="msgs" aria-live="polite"></div>
   <div class="chips" id="chips"></div>
@@ -126,7 +132,7 @@ window.CC_CHRONICLES = {
   pursuingElite: { name: "PursuingElite", app: "pe", line: "Clint's PursuingElite work goes deep on the 5 PursuitPoints and what 'Not Done Yet' really means." },
   achievementEquation: { name: "The AchievementEquation", app: "ae", line: "the AchievementEquation lessons walk through Angles, Allies and Advantages one at a time." },
   captainsCourse: { name: "Captain's Course", app: null, line: "Captain's Course runs the D3 Challenge (Decision, Design, Discipline) with a partner, because 2 is 1 and 1 is none." },
-  wardroom: { name: "the Wardroom", app: null, line: "the Wardroom starts with Drydock … an honest inventory of the hull before the voyage." },
+  wardroom: { name: "the Wardroom", app: null, line: "the Wardroom starts with DryDock … an honest inventory of the hull before the voyage, and where you name the live and real events you're building toward." },
   seaTrials: { name: "SeaTrials", app: null, line: "SeaTrials is Clint's piece on hard seasons … 'smooth seas never made skilled sailors.'" },
   onReloading: { name: "OnReloading", app: null, line: "OnReloading is Clint's playbook for staying Not Done Yet without burning out: Review, Rest, Recover, Revel." },
   rope: { name: "ROPE (Return On Period of Effort)", app: null, line: "ROPE scores your focused rounds React −1, Routine 0, Respond +1, Create +2, so you measure what you got done, not just what you did." },
@@ -160,7 +166,9 @@ window.CC_CLINTISMS = [
   ["Who Dares Wins", "The SAS motto."],
   ["Hold fast to the goal, hold loosely to the plan", "Publish your plan, and plan to pivot on your plan."],
   ["The scoring systems aren't judgements … they're data", "Scores help you pick a path, not grade your worth."],
-  ["Elite is saved for game day", "+3 is only for the real thing: the game, the mission, the adventure."],
+  ["Elite is saved for your Game Days", "+3 is only for the live and real events you name in DryDock … where ascending to Elite is critical."],
+  ["DryDock", "The honest inventory: name the live and real events you've been building toward."],
+  ["79/21", "CoachClint is the 79%; real humans are the 21. It echoes 21toNone, the mission behind everything HoldFast does."],
   ["Proud of you. No need to respond.", "A check-in that asks nothing back."]
 ];
 
@@ -290,12 +298,16 @@ window.CC_KNOWLEDGE = [
 { id: "scoring", app: "both", src: "IM CC-28; Manual 4.1, 4.18", chronicle: null,
   keys: ["how do i score", "scoring", "score system", "the scale", "what score", "how does scoring work", "rate myself", "self score", "self-score"],
   words: ["score", "scale", "rating", "points", "data"],
-  text: "The scoring systems aren't judgements … they're data. They give you fast ways to pick one of 3 paths: push, pause, or pivot.\nThe scale: Bad −1 · Average 0 · Good +1 · Excellent +2.\nElite +3 is saved for game day … the actual game, the real mission, the other side of the actual adventure. Never practice or course work.\nAnd the first time you ever try something, the floor is +0.5. That's a Courage Credit.\nWant to score a rep? Tell me what you did and how it went." },
+  text: "The scoring systems aren't judgements … they're data. They give you fast ways to pick one of 3 paths: push, pause, or pivot.\nThe scale: Bad −1 · Average 0 · Good +1 · Excellent +2.\nElite +3 is reserved for your own Game Days … the live and real events you name in DryDock, where ascending to Elite is critical. Never practice or everyday reps. Tag a rep to one of your Game Days and the +3 unlocks.\nAnd the first time you ever try something, the floor is +0.5. That's a Courage Credit.\nWant to score a rep? Tell me what you did and how it went." },
 /* ---------- Leadership ---------- */
+{ id: "drydock", app: "both", src: "Clint's direction (Nov 2026); EM #36 (Drydock); Manual 4.1, 4.15", chronicle: "wardroom",
+  keys: ["drydock", "dry dock", "game days", "my game days", "live event", "real event", "live and real", "define my events", "elite +3", "unlock elite", "unlock +3", "when can i score elite", "how do i get elite", "find my game days", "how do i score elite", "what counts as elite", "what counts as a game day"],
+  words: ["elite", "drydock", "event", "events", "unlock"],
+  text: "Here's how Elite works in this app. DryDock is the honest inventory … and part of it is naming your Game Days: the live and real events in your life. The moments you've been building toward, where ascending into Elite is critical.\nOnly a rep tagged to one of YOUR Game Days can score Elite +3. Everything else tops out at Excellent +2 … and that's not a consolation prize, that's the work that gets you ready.\nThe Elite mindset (Not Done Yet) is for every day. The Elite score is for the moments you named.\nWhat's one live or real event you've been building toward? Put it in DryDock and we'll tag your reps to it." },
 { id: "game-day", app: "both", src: "EM #4 (credited to a SEAL teammate); Manual 4.1", chronicle: "captainsCourse",
   keys: ["big pitch", "pitch tomorrow", "presentation tomorrow", "big game", "game day", "big meeting", "interview tomorrow", "job interview", "kill it at", "nervous about", "big day"],
   words: ["pitch", "presentation", "interview", "nervous", "tomorrow", "prepare", "prep"],
-  text: "Love it. Game day is where the work shows up.\nA SEAL teammate gave Clint a line he still uses: \"You don't rise to the occasion. You sink to the level of your training.\"\nSo let's make the training count. Run it once out loud tonight, start to finish. Then pick the ONE Angle (Tactics, Techniques, Teammates, Tools, Technology) most likely to trip you up and shore it up.\nWhat's the part you're least ready for?" },
+  text: "Love it. A live or real event is where the work shows up.\nA SEAL teammate gave Clint a line he still uses: \"You don't rise to the occasion. You sink to the level of your training.\"\nSo let's make the training count. Run it once out loud tonight, start to finish. Then pick the ONE Angle (Tactics, Techniques, Teammates, Tools, Technology) most likely to trip you up and shore it up.\nWhat's the part you're least ready for?" },
 { id: "archers", app: "both", src: "EM #17, #42", chronicle: "archers",
   keys: ["delegate", "delegating", "new manager", "first time manager", "promoted to manager", "leading people", "can't let go", "micromanage", "archer", "arrow", "influence", "impact"],
   words: ["delegate", "manager", "lead", "leader", "leadership", "influence", "micromanage"],
@@ -421,10 +433,10 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
     SCALE: [{ v: -1, label: "Bad" }, { v: 0, label: "Average" }, { v: 1, label: "Good" }, { v: 2, label: "Excellent" }, { v: 3, label: "Elite" }],
     label(v) { if (v === 0.5) return "Courage Credit"; const s = this.SCALE.find((x) => x.v === v); return s ? s.label : String(v); },
     fmt(v) { return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v); },
-    /* raw: -1..3 · gameDay: culminating real-world action · firstAttempt · alreadyCredited: this rep already earned its Courage Credit */
+    /* raw: -1..3 · gameDay: rep is tagged to one of the user's own live/real events from DryDock (My Game Days) · firstAttempt · alreadyCredited: this rep already earned its Courage Credit */
     apply({ raw, gameDay, firstAttempt, alreadyCredited }) {
       const notes = []; let v = Number(raw); let capped = false;
-      if (v >= 3 && !gameDay) { v = 2; capped = true; notes.push("Love the fire. But Elite is saved for game day … this one's an Excellent +2. Let's go earn the +3 for real."); }
+      if (v >= 3 && !gameDay) { v = 2; capped = true; notes.push("Love the fire. But Elite is reserved for your Game Days … the live and real events you name in DryDock. Tag this rep to one of them to unlock the +3. As it stands, it's an Excellent +2."); }
       let credit = !!firstAttempt;
       if (credit && alreadyCredited) { credit = false; notes.push("This rep already earned its Courage Credit, so the normal scale applies from here."); }
       const recorded = credit ? Math.max(0.5, v) : v;
@@ -454,8 +466,8 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
   CC.intro = function (s, appName) {
     const returning = s.sessions > 0;
     s.conv.flags.disclosed = true;
-    if (returning) return "Good to see you back. CoachClint here (still the AI, still the 75% solution). When I tell a story in first person, it's one Clint has told, passed along through me.\nWhere are we today … BallField, BattleField, BoardRoom, or Breakfast Table?";
-    return "Hey … glad you're here. Quick BLUF so we start honest: I'm CoachClint, an AI coach built on Clint Bruce's words, frameworks, and hard-earned scars. I'm not the live Clint. When I tell a story in first person, it's one Clint has told, passed along through me.\nThink of me as the 75% solution … about three-quarters of what he'd say if he were sitting next to you. Every 72 hours or so I get refreshed with whatever new stuff Clint's been chewing on. The other 25%? That's what Clint and the ReadyLAB coaches are for.\nI'm here alongside " + appName + ". So … let's start where Clint always starts. What's the X on your map right now? And roughly where are you standing?";
+    if (returning) return "Good to see you back. CoachClint here (still the AI, still the 79/21 coach). When I tell a story in first person, it's one Clint has told, passed along through me.\nWhere are we today … BallField, BattleField, BoardRoom, or Breakfast Table?";
+    return "Hey … glad you're here. Quick BLUF so we start honest: I'm CoachClint, an AI coach built on Clint Bruce's words, frameworks, and hard-earned scars. I'm not the live Clint. When I tell a story in first person, it's one Clint has told, passed along through me.\nThink of me as the 79% in a 79/21 split … about 79% of what he'd say if he were sitting next to you. Every 72 hours or so I get refreshed with whatever new stuff Clint's been chewing on. The other 21%? That's real humans … Clint and the ReadyLAB coaches. That 21 is no accident: it's 21toNone, the mission behind everything HoldFast does.\nI'm here alongside " + appName + ". So … let's start where Clint always starts. What's the X on your map right now? And roughly where are you standing?";
   };
 
   /* ---------------- 4. Local retrieval adapter ---------------- */
@@ -492,7 +504,7 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
     "Tell me a little more. Which map is this on … BallField, BattleField, BoardRoom, or Breakfast Table? And what's the X?",
     "Clint hasn't given me his take on that exact one yet … but let's use what he does have. What does a win look like here, and roughly where are you standing right now?",
     "Here's a question Clint asks a lot: is this a crisis or a crossroads? Most of the time it's a crossroads … and crossroads are where we do our best work.\nWhat's the decision in front of you?",
-    "Honest answer: this might be one for the other 25% … a live session with Clint or a ReadyLAB coach. Bring this exact X with you.\nMeanwhile, what's one small next action you could take in the next 72 hours?"
+    "Honest answer: this might be one for the other 21% … a live session with Clint or a ReadyLAB coach. Bring this exact X with you.\nMeanwhile, what's one small next action you could take in the next 72 hours?"
   ];
 
   function retrieve(text, ctx) {
@@ -512,6 +524,15 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
     return best && best.s >= 2 ? best.e : null;
   }
 
+  const DRYDOCK_NUDGE = "One more thing, because Elite +3 is special: have you set up your Game Days yet? In DryDock you name the live and real events you've been building toward … the moments where ascending to Elite is critical. Only a rep tagged to one of those can score +3.";
+  const ELITE_ENTRIES = ["not-done-yet", "five-outcomes", "scoring", "game-day", "drydock"];
+  function drydockNudge(ctx, extra) {
+    const f = ctx.flags;
+    if (f.drydockNudged || (ctx.events || []).length || f.gray || f.crisis) return "";
+    f.drydockNudged = true;
+    return { text: "\n\n" + DRYDOCK_NUDGE, actions: extra === false ? [] : [{ label: "Set up my Game Days (DryDock)", action: "openDryDock" }] };
+  }
+
   function chronicleNote(entry, f) {
     if (!entry || !entry.chronicle || f.chronicleUsed || f.gray || f.crisis || f.userCount < 2) return "";
     const c = (window.CC_CHRONICLES || {})[entry.chronicle];
@@ -520,18 +541,25 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
     return "\n\nSide note, no homework … " + c.line.charAt(0).toUpperCase() + c.line.slice(1) + " It's there if it's ever useful.";
   }
 
-  function scoreTalk(text, f) {
+  function scoreTalk(text, f, ctx) {
     const t = norm(text);
     if (!R.score.test(t)) return null;
     const m = t.match(R.num); if (!m) return null;
     const n = parseFloat(m[2].replace("−", "-").replace(/\s/g, ""));
     if (isNaN(n)) return null;
-    const first = R.first.test(t), practice = R.practice.test(t), game = R.gameDay.test(t) && !practice;
-    const acts = [{ label: "Log it in Score", action: "openScore", prefill: { firstAttempt: first, gameDay: game, raw: Math.min(3, Math.max(-1, Math.round(n))) } }];
+    const first = R.first.test(t), practice = R.practice.test(t);
+    const evs = (ctx && ctx.events) || [];
+    const ev = practice ? null : evs.find((e) => e.name && t.includes(norm(e.name)));
+    const game = !!ev;
+    const acts = [{ label: "Log it in Score", action: "openScore", prefill: { firstAttempt: first, eventId: ev ? ev.id : null, raw: Math.min(3, Math.max(-1, Math.round(n))) } }];
     if (first) return { text: "Hold on … before we score anything: you said this was your first time. Then that's a Courage Credit. Your floor is +0.5.\nIt's not Good yet, but it's more than Average, because it took courage to try.\nNow 3 up, 3 down: what are 3 things you did right? (Showing up is #1.) And 3 you'd change?\nFrom rep #2 on, it's the normal scale.", actions: acts };
-    if (n >= 3 && !game) return { text: "Love the fire. But Elite is saved for game day … the actual game, the real mission, the other side of the actual adventure.\nPractice and course work top out at Excellent +2. So this one's a +2.\nLet's go earn the +3 for real. When's game day?", actions: [{ label: "Log it as +2", action: "openScore", prefill: { raw: 2 } }] };
-    if (n >= 3) return { text: "If that was the real thing … a culminating, real-world action … then Elite +3 is on the table. That's rare air.\nFirst: well done. Don't skip past it.\nThen ReLoad: Review (3 up, 3 down), Rest, Recover, Revel.\nWhat made it Elite and not just Excellent?", actions: acts };
-    if (n < -1 || n > 3) return { text: "The scale runs Bad −1 · Average 0 · Good +1 · Excellent +2, with Elite +3 saved for game day.\nWhere does this rep land on that?", actions: [] };
+    if (n >= 3 && !game) {
+      const names = evs.slice(0, 4).map((e) => e.name).join(", ");
+      const tail = evs.length ? "Tag it to one of your Game Days (" + names + ") in the Score tab and the +3 is on the table. If it wasn't one of those, it's a +2 … and that's still a great rep." : "Have you named your Game Days yet? In DryDock you list the live and real events you've been building toward, where ascending to Elite is critical. Only a rep tagged to one of those can score +3.";
+      return { text: "Love the fire. But Elite is reserved for your Game Days … the live and real events you define in DryDock … not practice or everyday reps.\nSo as it stands, this one's an Excellent +2.\n" + tail, actions: [{ label: "Log it as +2", action: "openScore", prefill: { raw: 2 } }, { label: evs.length ? "Review my Game Days" : "Set up my Game Days (DryDock)", action: "openDryDock" }] };
+    }
+    if (n >= 3) return { text: "That's one of YOUR Game Days … " + ev.name + " … so Elite +3 is on the table. That's rare air.\nFirst: well done. Don't skip past it.\nThen ReLoad: Review (3 up, 3 down), Rest, Recover, Revel.\nWhat made it Elite and not just Excellent?", actions: acts };
+    if (n < -1 || n > 3) return { text: "The scale runs Bad −1 · Average 0 · Good +1 · Excellent +2, with Elite +3 reserved for reps tagged to your own Game Days (set up in DryDock).\nWhere does this rep land on that?", actions: [] };
     const p = CC.scoring.path(n);
     return { text: "Scored " + CC.scoring.fmt(n) + " (" + CC.scoring.label(n) + "). Remember … the scoring systems aren't judgements, they're data.\nOne way to read it: " + p + ".\n" + (n >= 1 ? "What's the one thing that made it work, so you can do it again on purpose?" : n === 0 ? "Average is holding ground. What's one Angle you could tweak for the next rep?" : "A −1 is just data. Was it a Tactic, a Technique, a Teammate, a Tool, or Technology that let you down?"), actions: acts };
   }
@@ -544,12 +572,12 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
       if (R.yes.test(t)) return null; // handled by caller as crisis
       if (R.no.test(t)) return { text: "Thank you for telling me straight. I'm glad.\nThe offer stands … 988 is always there, any hour.\nNow … let's look at where you actually are on the map. What's weighing heaviest: BoardRoom, Breakfast Table, or something else?" };
     }
-    if (R.honesty.test(t)) return { text: "No … I'm CoachClint, an AI built on Clint's words and frameworks. Think of me as the 75% solution. If you want the real Clint or one of the ReadyLAB coaches, I can point you there.\nWhat's on your map today?" };
-    if (R.human.test(t)) { f.escalated = true; return { text: "Love that. This is a great one for the other 25%.\nThe human options are a live session with Clint, a ReadyLAB coach, or a Wingman (short Time on Target calls when the moment comes). Ask your HoldFast program lead and they'll set it up.\nBring this exact X with you. Want to sharpen it together first?" }; }
+    if (R.honesty.test(t)) return { text: "No … I'm CoachClint, an AI built on Clint's words and frameworks. Think of me as the 79% in a 79/21 split. The 21 is real humans. If you want the real Clint or one of the ReadyLAB coaches, I can point you there.\nWhat's on your map today?" };
+    if (R.human.test(t)) { f.escalated = true; return { text: "Love that. This is a great one for the 21 … the real humans.\nThe human options are a live session with Clint, a ReadyLAB coach, or a Wingman (short Time on Target calls when the moment comes). Ask your HoldFast program lead and they'll set it up.\nBring this exact X with you. Want to sharpen it together first?" }; }
     if (R.faithTrigger.test(t)) { ctx.state.faithTriggered = true; return { text: "I appreciate you asking. That means a lot.\nHonest answer, in Clint's words: there's no \"what\" that is different about me. There is a \"who\" and it's Jesus, and the Holy Spirit, and our Father in Heaven.\nNo pressure on you at all … you asked, so I wanted to give you the real answer.\nNow … where do you want to take today?" }; }
     if (R.scope.test(t)) return { text: "That's one for a pro … a doctor, an attorney, or a financial advisor.\nWhat I can do is help you think through how you'll approach that conversation. What's the decision you're actually trying to make, and who's the right expert to bring it to?" };
 
-    const sc = scoreTalk(text, f); if (sc) return sc;
+    const sc = scoreTalk(text, f, ctx); if (sc) return sc;
 
     if (R.first.test(t)) return { text: "First time? Then that's a Courage Credit. Your floor is +0.5.\nIt's not Good yet, but it's more than Average, because a lot of people never try at all.\nClint teaches that curiosity is the first evidence of courage. You walked into it anyway, and that counts.\nNow let's make the next one better. 3 up, 3 down: what are 3 things you did right? (Showing up is #1.) And 3 you'd change?\nFrom rep #2 it's the normal scale.", actions: [{ label: "Log it with a Courage Credit", action: "openScore", prefill: { firstAttempt: true } }] };
 
@@ -581,7 +609,9 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
       f.lastEntry = entry.id; f.fallbacks = 0;
       let body = entry.text;
       if (entry.story && !f.disclosed) { body = DISCLOSE + body; f.disclosed = true; }
-      return { text: prefix + body + chronicleNote(entry, f), entryId: entry.id };
+      let extra = "", acts = [];
+      if (ELITE_ENTRIES.includes(entry.id)) { const nd = drydockNudge(ctx); if (nd) { extra = nd.text; acts = nd.actions; } }
+      return { text: prefix + body + extra + chronicleNote(entry, f), entryId: entry.id, actions: acts };
     }
     const words = t.split(" ").length;
     for (const k of Object.keys(MAP_FOLLOW)) if (t.includes(k) && words <= 10) {
@@ -647,16 +677,18 @@ window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
       let lead = "";
       if (!f.grayNoted) { f.grayNoted = true; lead = GRAY_LINE + "\n"; }
       if (safety.check) { f.awaitingCheck = true; return out({ text: lead + "Can I ask you something straight, because I care about the answer: when you say that, are you having any thoughts of hurting yourself?" }, "gray"); }
-      const r = CC.localReply(text, Object.assign({}, opts, { flags: f, state: s }));
+      const r = CC.localReply(text, Object.assign({}, opts, { flags: f, state: s, events: opts.events || [] }));
       return out({ text: lead + "Now … let's look at where you actually are on the map.\n" + (r ? r.text : FALLBACKS[0]), actions: r && r.actions }, "gray");
     }
 
-    const ctx = { text, state: s, flags: f, familiar, moduleId: opts.moduleId, moduleRelated: opts.moduleRelated, history: s.conv.messages.slice(-20) };
+    const ctx = { text, state: s, flags: f, familiar, events: opts.events || [], moduleId: opts.moduleId, moduleRelated: opts.moduleRelated, history: s.conv.messages.slice(-20) };
     const adapter = CC.adapters[CC.config.mode] || CC.adapters.local;
     let r;
     try { r = await adapter.reply(ctx); }
     catch (e) { console.warn("CoachClint adapter failed, falling back to local:", e.message); r = CC.localReply(text, ctx); }
     if (!r) r = { text: FALLBACKS[0] };
+    if (f.userCount === 2 && !r.actions) r.actions = [];
+    if (f.userCount === 2 && !(r.actions || []).length) { const nd = drydockNudge(ctx); if (nd) { r.text += nd.text; r.actions = nd.actions; } }
     return out(r, "normal");
   };
 
@@ -673,7 +705,7 @@ window.APP = {
   kicker: "HoldFast · PursuingElite",
   headline: "Living and leading beyond excellence.",
   intro: "Every endeavor ends in one of five outcomes: Bad, Average, Good, Excellent, or Elite. The difference between Excellent and Elite is a choice … are you done, or Not Done Yet? These short lessons walk through the five qualities elites have in common, one rep at a time.",
-  how: ["Learn: a short lesson in Clint's words", "Rep: one real action this week", "Score: Bad −1 to Excellent +2 (Elite +3 is for game day)", "Talk it through with CoachClint"],
+  how: ["Learn: a short lesson in Clint's words", "Rep: one real action this week", "Score: Bad −1 to Excellent +2 (Elite +3 is for your Game Days)", "Talk it through with CoachClint"],
   scoreFocusLabel: "PursuitPoint",
   scoreFocus: ["Balance", "Curiosity", "Tribalism", "Intentionalism", "Authenticity", "Not Done Yet (ReLoad)"],
   breakdown: null,
@@ -700,14 +732,14 @@ window.APP = {
         "\"Most of life comes down to what outcomes you're willing to accept from yourself and others in missions that matter most.\" On the things that matter most, Clint says accept only <b>Excellent to Elite</b>.",
         "<b>Excellent</b> is an X on the map … a measurable standard. <b>Elite</b> is \"a mythical ridgeline just a little bit further than you thought possible until you had the view from excellent.\"",
         "In this app every rep gets scored on the official HoldFast scale: <b>Bad −1 · Average 0 · Good +1 · Excellent +2</b>.",
-        "<b>Elite +3 is saved for game day</b> … the actual game, the real mission, the other side of the actual adventure. Never practice, drills, or course work. The Elite <i>mindset</i> is for every day; the Elite <i>score</i> is for game day.",
+        "<b>Elite +3 is reserved for your Game Days</b> … the live and real events <i>you</i> name in DryDock, the moments you've been building toward where ascending into Elite is critical. Never practice or everyday reps. The Elite <i>mindset</i> is for every day; the Elite <i>score</i> is for the moments you named.",
         "<b>The Courage Credit:</b> the first time you ever try something, your floor is <b>+0.5</b>. \"We can't call it good, but it's more than average because it took courage to try it.\" It shows as its own badge, every time.",
         "\"The scoring systems aren't judgements … they're data.\" They give you a fast way to pick a path: push, pause, or pivot."
       ],
       quote: "The scoring systems aren't judgements … they're data.",
       rep: "Score one rep from today in the Score tab. Be honest. It's data.",
       reflect: "What's one mission that matters to you where you've been accepting Good?",
-      note: "The 5 outcomes are Bad, Average, Good, Excellent, Elite. The app scale is Bad −1, Average 0, Good +1, Excellent +2, with Elite +3 only for a culminating real-world action. A first attempt gets a Courage Credit with a +0.5 floor.",
+      note: "The 5 outcomes are Bad, Average, Good, Excellent, Elite. The app scale is Bad −1, Average 0, Good +1, Excellent +2, with Elite +3 only for your Game Days. A first attempt gets a Courage Credit with a +0.5 floor.",
       ask: "Want to score a rep together right now?" },
     { id: "pe3", title: "Balance: high ground for hard days", mins: 4, focus: "Balance", related: ["balance", "breakfast-table"],
       lead: "PursuitPoint 1. Invest before you need it.",
@@ -807,7 +839,21 @@ window.APP = {
       rep: "After your next win, run a 10-minute Review: 3 up, 3 down. Then plan one way to Revel with your people.",
       reflect: "What have you accomplished lately that you skipped right past?",
       note: "OnReloading is Review, Rest, Recover, Revel. Celebrate the win before you reload: 'Well done … AND not done yet.'",
-      ask: "What win have you skipped past lately?" }
+      ask: "What win have you skipped past lately?" },
+    { id: "pe10", title: "DryDock: name your Game Days", mins: 3, focus: "Not Done Yet (ReLoad)", related: ["drydock", "scoring", "game-day"],
+      lead: "Where ascending into Elite is critical.",
+      body: [
+        "DryDock comes first in the Wardroom: \"Pulling the battleship out of the water and finding the flaws.\" An honest inventory. Here it has one more job: <b>naming your Game Days.</b>",
+        "A Game Day is a <b>live</b> or <b>real</b> event in your life … a moment you've been building toward, where ascending into Elite is critical. A talk you'll give. A season opener. A hard conversation that's coming. The thing itself, not the practice for it.",
+        "In this app, <b>only a rep tagged to one of your Game Days can score Elite +3.</b> Everything else tops out at Excellent +2. That's not a consolation prize; it's the work that gets you ready.",
+        "The Elite <i>mindset</i> (Not Done Yet) is for every day. The Elite <i>score</i> is for the moments you named.",
+        "You define them, not us. Only you know where ascending into Elite is critical in your life right now."
+      ],
+      quote: "Elite is for the moments you've been building toward.",
+      rep: "Open the DryDock tab and name your first Game Day. Mark it live or real, and write what you've been building toward.",
+      reflect: "Which live or real event, in the next 90 days, is the one where you can't afford to be merely excellent?",
+      note: "DryDock is where you name your Game Days: the live and real events you've been building toward, where ascending to Elite is critical. Only a rep tagged to one of them can score Elite +3; everything else tops out at Excellent +2.",
+      ask: "What's one live or real event you've been building toward?" }
   ]
 };
 </script>
@@ -821,7 +867,7 @@ window.APP = {
   const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const KEY = A.storageKey;
-  const load = () => { try { return Object.assign({ done: {}, notes: {}, reps: [] }, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) { return { done: {}, notes: {}, reps: [] }; } };
+  const load = () => { try { return Object.assign({ done: {}, notes: {}, reps: [], events: [] }, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) { return { done: {}, notes: {}, reps: [], events: [] }; } };
   let data = load();
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} };
   const fmt = (v) => CC.scoring.fmt(v);
@@ -837,6 +883,8 @@ window.APP = {
     $("#coach").classList.toggle("on", tab === "coach" || wide);
     if (tab === "coach") { openChat(); setTimeout(() => $("#ch-in").focus(), 50); }
     if (tab === "trends") renderTrends();
+    if (tab === "drydock") renderDryDock();
+    if (tab === "score") renderEventPick();
     if (tab !== "coach") window.scrollTo(0, 0);
   }
 
@@ -846,7 +894,8 @@ window.APP = {
     $("#v-learn").innerHTML =
       '<div class="hero"><small style="color:var(--brass);letter-spacing:.12em;text-transform:uppercase;font-weight:700">' + esc(A.kicker) + '</small>' +
       '<h1 class="eq">' + esc(A.headline) + '</h1><p>' + esc(A.intro) + '</p><ul class="how">' + A.how.map((h, i) => '<li><b>' + (i + 1) + '.</b> ' + esc(h) + '</li>').join("") + '</ul>' +
-      '<p class="disclose"><b>About CoachClint:</b> CoachClint is an AI coach built on Clint Bruce\'s words and frameworks: the 75% solution, refreshed every 72 hours. It is not the live Clint. Clint: U.S. Naval Academy Hall of Fame linebacker, NFL (Ravens, Saints), former Navy SEAL officer (BUD/S Class 217, SEAL Team FIVE), and founder of HoldFast and Carry the Load.</p></div>' +
+      '<p class="disclose"><b>About CoachClint:</b> CoachClint is an AI coach built on Clint Bruce\'s words and frameworks: the 79% in a 79/21 split, refreshed every 72 hours. It is not the live Clint. The 79/21 split is deliberate: CoachClint is the 79%, real humans are the 21%, and that 21 echoes <b>21toNone</b>, the mission behind everything HoldFast does. Clint: U.S. Naval Academy Hall of Fame linebacker, NFL (Ravens, Saints), former Navy SEAL officer (BUD/S Class 217, SEAL Team FIVE), and founder of HoldFast and Carry the Load.</p>' +
+      '<p class="about2">Each piece of HoldFast content is getting its own app. A <b>HighGrounder</b> membership is planned for people who want all of them together, with a CoachClint that works across everything you\'re learning. No pressure: this app stands on its own.</p></div>' +
       '<h2>Lessons</h2><div class="progress" aria-label="progress"><i style="width:' + Math.round((n / tot) * 100) + '%"></i></div><p style="color:var(--mut);margin-top:-8px">' + n + ' of ' + tot + ' complete</p>' +
       '<div class="mods">' + A.modules.map((m, i) => '<button class="mod' + (data.done[m.id] ? " done" : "") + '" data-mod="' + m.id + '"><span class="n">' + (data.done[m.id] ? "✓" : i + 1) + '</span><span class="t"><b>' + esc(m.title) + '</b><small>' + esc(m.lead) + ' · ' + m.mins + ' min</small></span></button>').join("") + '</div>';
     $$("#v-learn .mod").forEach((b) => b.onclick = () => openModule(b.dataset.mod));
@@ -871,18 +920,18 @@ window.APP = {
   /* ---------- Score ---------- */
   let sc = {};
   function renderScore() {
-    sc = { raw: null, gameDay: false, first: false, parts: {} };
+    sc = { raw: null, kind: "practice", event: null, gameDay: false, first: false, parts: {} };
     const bd = A.breakdown ? '<label class="f">Break it down (optional): score each part of the equation</label>' + A.breakdown.map((g) => '<div class="card" style="padding:10px;margin-bottom:8px"><b style="color:var(--brass2)">' + g.group + '</b>' + g.items.map((it) => '<div style="margin-top:6px"><small>' + it + '</small><div class="seg mini" data-part="' + it + '">' + [-1, 0, 1, 2, 3].map((v) => '<button type="button" data-v="' + v + '" aria-pressed="false"><b>' + fmt(v) + '</b></button>').join("") + '</div></div>').join("") + '</div>').join("") : "";
     $("#v-score").innerHTML = '<h2>Score a rep</h2><p style="color:var(--mut)">The scoring systems aren\'t judgements … they\'re data.</p><div class="card">' +
       '<label class="f" for="s-title">What was the rep?</label><input type="text" id="s-title" maxlength="120" placeholder="e.g., Led the Monday team meeting">' +
       '<label class="f" for="s-focus">' + esc(A.scoreFocusLabel) + '</label><select id="s-focus">' + A.scoreFocus.map((f) => '<option>' + esc(f) + '</option>').join("") + '</select>' +
-      '<label class="f">What kind of rep was it?</label><div class="seg" id="s-kind"><button type="button" data-k="practice" aria-pressed="true"><b>Practice / everyday</b><small>drills, course work, daily reps</small></button><button type="button" data-k="game" aria-pressed="false"><b>Game day</b><small>the actual game, mission, or adventure</small></button></div>' +
+      '<label class="f">What kind of rep was it?</label><div class="seg" id="s-kind"><button type="button" data-k="practice" aria-pressed="true"><b>Practice / everyday</b><small>drills, course work, daily reps</small></button><button type="button" data-k="game" aria-pressed="false"><b>Game Day</b><small>a live or real event from your DryDock</small></button></div><div id="s-event-wrap"></div>' +
       '<label class="check" for="s-first"><input type="checkbox" id="s-first"><span><b>First time I\'ve ever tried this</b><br><small style="color:var(--mut)">Earns a Courage Credit: your floor is +0.5, because it took courage to try.</small></span></label>' +
       '<label class="f">How did it go?</label><div class="seg" id="s-scale">' + CC.scoring.SCALE.map((s) => '<button type="button" data-v="' + s.v + '" aria-pressed="false"><b>' + fmt(s.v) + '</b><small>' + s.label + '</small></button>').join("") + '</div>' +
-      '<p id="s-elite-hint" style="font-size:13px;color:var(--mut);margin:6px 0 0">Elite +3 is saved for game day.</p>' + bd +
+      '<p id="s-elite-hint" style="font-size:13px;color:var(--mut);margin:6px 0 0">Elite +3 is reserved for your Game Days.</p>' + bd +
       '<label class="f" for="s-note">3 up, 3 down (optional)</label><textarea id="s-note" placeholder="3 things that went well … 3 things to change"></textarea>' +
       '<div id="s-preview"></div><div class="row" style="margin-top:12px"><button class="btn" id="s-save" disabled>Save score</button></div><div id="s-result"></div></div>';
-    $$("#s-kind button").forEach((b) => b.onclick = () => { sc.gameDay = b.dataset.k === "game"; $$("#s-kind button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); syncScale(); });
+    $$("#s-kind button").forEach((b) => b.onclick = () => { sc.kind = b.dataset.k; if (sc.kind !== "game") sc.event = null; $$("#s-kind button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); renderEventPick(); syncScale(); });
     $$("#s-scale button").forEach((b) => b.onclick = () => { sc.raw = Number(b.dataset.v); syncScale(); });
     $$(".seg.mini").forEach((g) => $$("button", g).forEach((b) => b.onclick = () => { const p = g.dataset.part, v = Number(b.dataset.v); sc.parts[p] = sc.parts[p] === v ? undefined : v; syncScale(); }));
     $("#s-first").onchange = (e) => { sc.first = e.target.checked; syncScale(); };
@@ -890,19 +939,29 @@ window.APP = {
     $("#s-save").onclick = saveScore;
     syncScale();
   }
+  function eventById(id) { return data.events.find((e) => e.id === id) || null; }
+  function renderEventPick() {
+    const w = $("#s-event-wrap"); if (!w) return;
+    if (sc.event && !eventById(sc.event)) sc.event = null;
+    if (sc.kind !== "game") { w.innerHTML = ""; return; }
+    if (!data.events.length) { w.innerHTML = '<div class="notice" id="s-noevents">You haven\'t named any Game Days yet. In DryDock you list the live and real events you\'ve been building toward, where ascending to Elite is critical. Only reps tagged to one of them can score +3. <button type="button" class="btn ghost small" id="s-godd" style="margin-top:8px">Set up My Game Days (DryDock)</button></div>'; $("#s-godd").onclick = () => show("drydock"); return; }
+    w.innerHTML = '<label class="f" for="s-event">Which of your Game Days is this rep for?</label><select id="s-event"><option value="">Choose one …</option>' + data.events.map((e) => '<option value="' + esc(e.id) + '"' + (e.id === sc.event ? " selected" : "") + '>' + esc(e.name) + ' (' + (e.kind === "live" ? "live" : "real") + ')</option>').join("") + '</select>';
+    $("#s-event").onchange = (e) => { sc.event = e.target.value || null; syncScale(); };
+  }
   function alreadyCredited(title) { const t = normTitle(title); return !!t && data.reps.some((r) => r.courageCredit && normTitle(r.title) === t); }
   function syncScale() {
+    sc.gameDay = sc.kind === "game" && !!sc.event;
     let capNote = "";
-    if (!sc.gameDay && sc.raw === 3) { sc.raw = 2; capNote = "Love the fire. But Elite is saved for game day … this one's an Excellent +2. Let's go earn the +3 for real."; }
-    $$("#s-scale button").forEach((b) => { const v = Number(b.dataset.v); b.setAttribute("aria-pressed", String(v === sc.raw)); if (v === 3) { b.disabled = !sc.gameDay; b.title = sc.gameDay ? "" : "Elite +3 is saved for game day"; } });
+    if (!sc.gameDay && sc.raw === 3) { sc.raw = 2; capNote = "Love the fire. But Elite is reserved for your Game Days … tag this rep to one of the live or real events in your DryDock to unlock +3. As it stands, it's an Excellent +2."; }
+    $$("#s-scale button").forEach((b) => { const v = Number(b.dataset.v); b.setAttribute("aria-pressed", String(v === sc.raw)); if (v === 3) { b.disabled = !sc.gameDay; b.title = sc.gameDay ? "" : "Elite +3 needs a rep tagged to one of your Game Days"; } });
     $$(".seg.mini").forEach((g) => { const p = g.dataset.part; if (!sc.gameDay && sc.parts[p] === 3) sc.parts[p] = 2; $$("button", g).forEach((b) => { const v = Number(b.dataset.v); b.setAttribute("aria-pressed", String(v === sc.parts[p])); if (v === 3) b.disabled = !sc.gameDay; }); });
-    $("#s-elite-hint").textContent = sc.gameDay ? "Game day: Elite +3 is on the table if you earned it." : "Elite +3 is saved for game day.";
+    $("#s-elite-hint").textContent = sc.gameDay ? "Game Day (" + eventById(sc.event).name + "): Elite +3 is on the table if you earned it." : sc.kind === "game" ? "Choose one of your Game Days to unlock Elite +3." : "Elite +3 is reserved for reps tagged to your Game Days (set them up in DryDock).";
     const title = $("#s-title").value;
     $("#s-save").disabled = sc.raw === null || !title.trim();
     let html = capNote ? '<div class="notice">' + esc(capNote) + '</div>' : "";
     if (sc.raw !== null) {
       const r = CC.scoring.apply({ raw: sc.raw, gameDay: sc.gameDay, firstAttempt: sc.first, alreadyCredited: alreadyCredited(title) });
-      html += '<div class="notice ok" id="s-prev">Will record <b>' + fmt(r.recorded) + '</b> (' + esc(CC.scoring.label(r.recorded)) + ')' + (r.courageCredit ? ' <span class="badge cc">★ Courage Credit</span>' : "") + (sc.gameDay ? ' <span class="badge gd">Game day</span>' : "") + (r.notes.length ? '<br>' + r.notes.map(esc).join("<br>") : "") + '</div>';
+      html += '<div class="notice ok" id="s-prev">Will record <b>' + fmt(r.recorded) + '</b> (' + esc(CC.scoring.label(r.recorded)) + ')' + (r.courageCredit ? ' <span class="badge cc">★ Courage Credit</span>' : "") + (sc.gameDay ? ' <span class="badge gd">Game Day: ' + esc(eventById(sc.event).name) + '</span>' : "") + (r.notes.length ? '<br>' + r.notes.map(esc).join("<br>") : "") + '</div>';
     }
     $("#s-preview").innerHTML = html;
   }
@@ -910,7 +969,7 @@ window.APP = {
     const title = $("#s-title").value.trim(); if (!title || sc.raw === null) return;
     const r = CC.scoring.apply({ raw: sc.raw, gameDay: sc.gameDay, firstAttempt: sc.first, alreadyCredited: alreadyCredited(title) });
     const parts = {}; Object.keys(sc.parts).forEach((k) => { if (sc.parts[k] !== undefined) parts[k] = sc.parts[k]; });
-    const rep = { id: Date.now().toString(36), at: new Date().toISOString(), title, focus: $("#s-focus").value, gameDay: sc.gameDay, raw: r.raw, recorded: r.recorded, courageCredit: r.courageCredit, parts, note: $("#s-note").value.trim() };
+    const rep = { id: Date.now().toString(36), at: new Date().toISOString(), title, focus: $("#s-focus").value, gameDay: sc.gameDay, eventId: sc.gameDay ? sc.event : null, eventName: sc.gameDay ? eventById(sc.event).name : null, raw: r.raw, recorded: r.recorded, courageCredit: r.courageCredit, parts, note: $("#s-note").value.trim() };
     data.reps.push(rep); save();
     renderScore();
     $("#s-result").innerHTML = '<div class="notice ok" id="s-saved"><b>Saved: ' + fmt(rep.recorded) + ' (' + esc(CC.scoring.label(rep.recorded)) + ')</b>' + (rep.courageCredit ? ' <span class="badge cc">★ Courage Credit</span><br>That\'s a Courage Credit. Not Good yet … but more than Average, because you tried.' : "") + '<br>One way to read it: <b>' + CC.scoring.path(rep.recorded) + '</b>. ' + (rep.gameDay && rep.recorded === 3 ? "Well done … AND Not Done Yet. Time to ReLoad." : "Proud of you.") + ' <button class="btn ghost small" id="s-talk">Debrief with CoachClint</button></div>';
@@ -920,10 +979,35 @@ window.APP = {
     if (!$("#s-title")) renderScore();
     if (p.title) $("#s-title").value = p.title;
     if (p.focus) { const o = Array.from($("#s-focus").options).find((x) => x.value === p.focus); if (o) $("#s-focus").value = p.focus; }
-    if (p.gameDay) $$("#s-kind button")[1].click();
+    if (p.eventId && eventById(p.eventId)) { $$("#s-kind button")[1].click(); sc.event = p.eventId; renderEventPick(); } else if (p.gameDay) $$("#s-kind button")[1].click();
     if (p.firstAttempt) { $("#s-first").checked = true; sc.first = true; }
     if (typeof p.raw === "number") sc.raw = p.raw;
     syncScale();
+  }
+
+  /* ---------- DryDock: My Game Days ---------- */
+  function renderDryDock() {
+    const MAX = 10, evs = data.events;
+    const tagged = (id) => data.reps.filter((r) => r.eventId === id).length;
+    $("#v-drydock").innerHTML = '<h2>My Game Days (DryDock)</h2>' +
+      '<div class="card"><p>DryDock is the honest inventory: pulling the ship out of the water and finding what matters. Here, it means naming the <b>live</b> and <b>real</b> events in your life … the moments you\'ve been building toward, where ascending into <b>Elite</b> is critical.</p>' +
+      '<p style="color:var(--mut);margin-bottom:0">Only a rep tagged to one of your Game Days can score <b>Elite +3</b>. Everything else tops out at Excellent +2. The Elite <i>mindset</i> (Not Done Yet) is for every day. The Elite <i>score</i> is for the moments you name here.</p></div>' +
+      '<div class="card"><h3>Add a Game Day</h3>' +
+      '<label class="f" for="dd-name">What\'s the event?</label><input type="text" id="dd-name" maxlength="80" placeholder="e.g., Friday\'s board presentation · Season opener · My first marathon">' +
+      '<label class="f">Is it live or real?</label><div class="seg" id="dd-kind"><button type="button" data-k="live" aria-pressed="true"><b>Live</b><small>performed in front of others</small></button><button type="button" data-k="real" aria-pressed="false"><b>Real</b><small>the real-world thing itself</small></button></div>' +
+      '<label class="f" for="dd-when">When? (optional)</label><input type="text" id="dd-when" maxlength="40" placeholder="e.g., March 14 · this fall · ongoing">' +
+      '<label class="f" for="dd-why">What have you been building toward? (optional)</label><textarea id="dd-why" maxlength="240" placeholder="Why is ascending to Elite critical here?" style="min-height:60px"></textarea>' +
+      '<div class="row" style="margin-top:10px"><button class="btn" id="dd-add"' + (evs.length >= MAX ? " disabled" : "") + '>Add to My Game Days</button></div>' + (evs.length >= MAX ? '<p style="color:var(--mut)">Ten is plenty. Remove one to add another.</p>' : "") + '</div>' +
+      '<div class="card"><h3>My Game Days (' + evs.length + ')</h3>' + (evs.length ? evs.map((e) => '<div class="dd-ev"><span class="bd"><b>' + esc(e.name) + '</b> <span class="badge ' + e.kind + '">' + (e.kind === "live" ? "Live" : "Real") + '</span>' + '<small>' + esc([e.when, e.why].filter(Boolean).join(" · ") || "No notes yet") + ' · ' + tagged(e.id) + ' rep' + (tagged(e.id) === 1 ? "" : "s") + ' tagged</small></span><button class="del" data-del="' + esc(e.id) + '" aria-label="Remove ' + esc(e.name) + '">×</button></div>').join("") : '<p style="color:var(--mut);margin:0" id="dd-empty">None yet. Name your first one above, or ask CoachClint to help you find it.</p>') +
+      '<div class="row" style="margin-top:10px"><button class="btn ghost small" id="dd-ask">Ask CoachClint to help</button></div></div>';
+    let kind = "live";
+    $$("#dd-kind button").forEach((b) => b.onclick = () => { kind = b.dataset.k; $$("#dd-kind button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); });
+    $("#dd-add").onclick = () => {
+      const name = $("#dd-name").value.trim(); if (!name) { $("#dd-name").focus(); return; }
+      data.events.push({ id: "e" + Date.now().toString(36), name, kind, when: $("#dd-when").value.trim(), why: $("#dd-why").value.trim() }); save(); renderDryDock();
+    };
+    $$("#v-drydock [data-del]").forEach((b) => b.onclick = () => { data.events = data.events.filter((e) => e.id !== b.dataset.del); save(); renderDryDock(); });
+    $("#dd-ask").onclick = () => { if (!matchMedia("(min-width:980px)").matches) show("coach"); sendChat("Help me find my Game Days in DryDock"); };
   }
 
   /* ---------- Trends ---------- */
@@ -938,9 +1022,9 @@ window.APP = {
     const pts = last.map((r, i) => [last.length === 1 ? W / 2 : (i / (last.length - 1)) * (W - 10) + 5, y(r.recorded)]);
     const spark = n ? '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Recent scores"><line x1="0" x2="' + W + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="#5d7594" stroke-dasharray="4 4"/><polyline fill="none" stroke="#c9a227" stroke-width="2.5" points="' + pts.map((p) => p.join(",")).join(" ") + '"/>' + pts.map((p, i) => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (last[i].courageCredit ? 5 : 3.5) + '" fill="' + (last[i].courageCredit ? "#f0a640" : "#e2c15a") + '"/>').join("") + '</svg><small style="color:var(--mut)">Last ' + last.length + ' reps (dashed line = Average 0; orange dots = Courage Credits)</small>' : "";
     $("#v-trends").innerHTML = '<h2>My trends</h2><p style="color:var(--mut)">You versus yesterday\'s you. Saved only on this device.</p>' +
-      '<div class="stats"><div class="stat"><b id="t-count">' + n + '</b><small>reps scored</small></div><div class="stat"><b>' + (n ? fmt(Math.round(avg * 10) / 10) : "—") + '</b><small>average score</small></div><div class="stat"><b id="t-cc">' + cc + '</b><small>Courage Credits</small></div><div class="stat"><b>' + elite + '</b><small>Elite game days</small></div><div class="stat"><b>' + modulesDone() + '/' + A.modules.length + '</b><small>lessons done</small></div></div>' +
+      '<div class="stats"><div class="stat"><b id="t-count">' + n + '</b><small>reps scored</small></div><div class="stat"><b>' + (n ? fmt(Math.round(avg * 10) / 10) : "—") + '</b><small>average score</small></div><div class="stat"><b id="t-cc">' + cc + '</b><small>Courage Credits</small></div><div class="stat"><b>' + elite + '</b><small>Elite Game Days</small></div><div class="stat"><b>' + modulesDone() + '/' + A.modules.length + '</b><small>lessons done</small></div></div>' +
       (n ? '<div class="card">' + spark + '</div><div class="card bars"><h3>By ' + esc(A.scoreFocusLabel.toLowerCase()) + '</h3>' + Object.keys(groups).map((k) => bar(k, groups[k])).join("") + '</div>' + (Object.keys(parts).length ? '<div class="card bars"><h3>Equation breakdown</h3>' + A.breakdown.flatMap((g) => g.items).filter((k) => parts[k]).map((k) => bar(k, parts[k])).join("") + '</div>' : "") +
-        '<div class="card"><h3>History</h3><ul class="hist">' + reps.slice().reverse().map((r) => '<li><span class="sc">' + fmt(r.recorded) + '</span><span class="bd"><b>' + esc(r.title) + '</b> ' + (r.courageCredit ? '<span class="badge cc">★ Courage Credit</span> ' : "") + (r.gameDay ? '<span class="badge gd">Game day</span> ' : "") + (r.recorded === 3 ? '<span class="badge elite">Elite</span>' : "") + '<small>' + esc(r.focus) + ' · ' + new Date(r.at).toLocaleDateString() + (r.note ? ' · ' + esc(r.note.slice(0, 80)) : "") + '</small></span><button class="del" data-del="' + r.id + '" aria-label="Delete">×</button></li>').join("") + '</ul></div>'
+        '<div class="card"><h3>History</h3><ul class="hist">' + reps.slice().reverse().map((r) => '<li><span class="sc">' + fmt(r.recorded) + '</span><span class="bd"><b>' + esc(r.title) + '</b> ' + (r.courageCredit ? '<span class="badge cc">★ Courage Credit</span> ' : "") + (r.gameDay ? '<span class="badge gd">Game Day' + (r.eventName ? ': ' + esc(r.eventName) : '') + '</span> ' : "") + (r.recorded === 3 ? '<span class="badge elite">Elite</span>' : "") + '<small>' + esc(r.focus) + ' · ' + new Date(r.at).toLocaleDateString() + (r.note ? ' · ' + esc(r.note.slice(0, 80)) : "") + '</small></span><button class="del" data-del="' + r.id + '" aria-label="Delete">×</button></li>').join("") + '</ul></div>'
         : '<div class="card">No reps yet. Score your first one in the Score tab. A first attempt earns a Courage Credit.</div>') +
       '<div class="row"><button class="btn ghost small" id="t-export">Export my data</button><button class="btn ghost small" id="t-clear">Clear all data</button></div>';
     $$("#v-trends [data-del]").forEach((b) => b.onclick = () => { data.reps = data.reps.filter((r) => r.id !== b.dataset.del); save(); renderTrends(); });
@@ -955,7 +1039,7 @@ window.APP = {
     if (m.role !== "user") d.innerHTML = '<span class="who">CoachClint · AI</span>';
     const body = document.createElement("span"); body.textContent = m.text; d.appendChild(body);
     if (m.kind === "crisis") d.insertAdjacentHTML("beforeend", '<div class="lifelines"><a href="tel:988">Call 988 · Suicide &amp; Crisis Lifeline</a><a href="sms:988">Text 988</a><a class="alt" href="tel:988">Veterans: call 988, then press 1</a><a class="alt" href="sms:838255">Veterans: text 838255</a><a href="tel:911">Immediate danger: call 911</a></div><div class="alertnote">In the live product, a real person at HoldFast is alerted automatically (clint@holdfasthq.com and cb@get-highground.com). This v1 preview sends nothing.</div>');
-    (m.actions || []).forEach((a) => { const b = document.createElement("button"); b.className = "btn ghost small"; b.style.marginTop = "8px"; b.textContent = a.label; b.onclick = () => { show("score"); prefillScore(a.prefill || {}); }; d.appendChild(document.createElement("br")); d.appendChild(b); });
+    (m.actions || []).forEach((a) => { const b = document.createElement("button"); b.className = "btn ghost small"; b.style.marginTop = "8px"; b.textContent = a.label; b.onclick = () => { if (a.action === "openDryDock") show("drydock"); else { show("score"); prefillScore(a.prefill || {}); } }; d.appendChild(document.createElement("br")); d.appendChild(b); });
     $("#msgs").appendChild(d); $("#msgs").scrollTop = $("#msgs").scrollHeight;
   }
   function openChat() {
@@ -970,7 +1054,7 @@ window.APP = {
     const um = { role: "user", text, at: Date.now() }; chat.conv.messages.push(um); bubble(um);
     const t = document.createElement("div"); t.className = "msg coach typing"; t.textContent = "CoachClint is thinking …"; $("#msgs").appendChild(t);
     try {
-      const r = await CC.respond(text, { state: chat, moduleId: currentModule && currentModule.id, moduleRelated: currentModule ? currentModule.related : [], modulesDone: modulesDone() });
+      const r = await CC.respond(text, { state: chat, moduleId: currentModule && currentModule.id, moduleRelated: currentModule ? currentModule.related : [], modulesDone: modulesDone(), events: data.events });
       await new Promise((res) => setTimeout(res, 250));
       t.remove();
       const cm = { role: "coach", text: r.text, kind: r.kind, actions: r.actions, at: Date.now() }; chat.conv.messages.push(cm); bubble(cm);
