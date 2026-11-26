@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1b2e">
+<meta name="description" content="{{DESC}}">
+<title>{{TITLE}} · HoldFast</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1b2e'/%3E%3Cg fill='none' stroke='%23c9a227' stroke-width='5' stroke-linecap='round'%3E%3Ccircle cx='32' cy='13' r='5'/%3E%3Cpath d='M32 18v34M20 28h24M12 38c2 10 11 15 20 15s18-5 20-15'/%3E%3C/g%3E%3C/svg%3E">
+<style>{{CSS}}</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <svg class="anchor" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#c9a227" stroke-width="5" stroke-linecap="round"><circle cx="32" cy="13" r="5"/><path d="M32 18v34M20 28h24M12 38c2 10 11 15 20 15s18-5 20-15"/></g></svg>
+  <div class="brand"><small>HoldFast</small><b id="app-name">{{TITLE}}</b></div>
+</header>
+<nav class="tabs" role="tablist">
+  <button data-tab="learn" role="tab" aria-selected="true"><span>⚓</span>Learn</button>
+  <button data-tab="score" role="tab" aria-selected="false"><span>±</span>Score</button>
+  <button data-tab="trends" role="tab" aria-selected="false"><span>📈</span>Trends</button>
+  <button data-tab="coach" role="tab" aria-selected="false" class="coach-tab"><span>💬</span>CoachClint</button>
+</nav>
+<main>
+  <section class="view on" id="v-learn"></section>
+  <section class="view" id="v-score"></section>
+  <section class="view" id="v-trends"></section>
+</main>
+<aside id="coach" aria-label="CoachClint chat">
+  <div class="ch-head"><b>CoachClint</b><span class="pill">AI · 75% solution</span><span class="sp"></span><button class="btn ghost small" id="ch-new" title="Start a new conversation">New chat</button><button class="btn ghost small closech" aria-label="Close chat">✕</button></div>
+  <div class="ctx" id="ctx"></div>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form class="ch-form" id="ch-form" autocomplete="off"><input id="ch-in" aria-label="Message CoachClint" placeholder="Talk to CoachClint …" maxlength="800"><button class="btn" type="submit">Send</button></form>
+  <div class="ch-foot">CoachClint is an AI coach built on Clint Bruce's words: not Clint himself, and not a therapist. In a crisis, call or text <a href="tel:988">988</a> (veterans press 1) or call <a href="tel:911">911</a>. Chats stay on this device.</div>
+</aside>
+</div>
+<script>window.COACHCLINT_CONFIG = window.COACHCLINT_CONFIG || { mode: "local" }; /* ← adapter seam: { mode: "remote", endpoint: "https://…" } */</script>
+<script>{{KNOWLEDGE}}</script>
+<script>{{ENGINE}}</script>
+<script>{{CONTENT}}</script>
+<script>{{UI}}</script>
+</body>
+</html>

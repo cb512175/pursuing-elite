@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1b2e">
+<meta name="description" content="PursuingElite by HoldFast: lessons, self-scoring, trends and CoachClint, the AI coach built on Clint Bruce's words.">
+<title>PursuingElite · HoldFast</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1b2e'/%3E%3Cg fill='none' stroke='%23c9a227' stroke-width='5' stroke-linecap='round'%3E%3Ccircle cx='32' cy='13' r='5'/%3E%3Cpath d='M32 18v34M20 28h24M12 38c2 10 11 15 20 15s18-5 20-15'/%3E%3C/g%3E%3C/svg%3E">
+<style>:root{--navy:#0b1b2e;--navy2:#12263f;--card:#172e4a;--line:#2a4566;--brass:#c9a227;--brass2:#e2c15a;--ink:#f4f1e8;--mut:#a9b7c9;--good:#4fb37a;--bad:#d9675b;--cc:#f0a640;--r:14px}
+*{box-sizing:border-box}html,body{margin:0}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--navy);color:var(--ink);line-height:1.5;-webkit-text-size-adjust:100%}
+a{color:var(--brass2)}button,input,select,textarea{font:inherit;color:inherit}
+.app{display:grid;grid-template-columns:1fr;min-height:100vh;align-content:start}
+header.top{position:sticky;top:0;z-index:20;background:rgba(11,27,46,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.brand{display:flex;flex-direction:column;line-height:1.1}.brand small{color:var(--brass);letter-spacing:.14em;text-transform:uppercase;font-size:11px;font-weight:700}.brand b{font-size:19px;letter-spacing:.01em}
+.anchor{width:30px;height:30px;flex:0 0 30px}
+main{padding:16px 16px 96px;max-width:860px;width:100%;margin:0 auto}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:30;display:flex;background:var(--navy2);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{flex:1;background:none;border:0;padding:10px 4px 12px;color:var(--mut);font-size:12px;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:56px}
+nav.tabs button span{font-size:18px;line-height:1}nav.tabs button[aria-selected=true]{color:var(--brass2)}
+section.view{display:none}section.view.on{display:block}
+h1,h2,h3{line-height:1.2;margin:0 0 8px}h1{font-size:26px}h2{font-size:21px}h3{font-size:17px}
+.hero{background:linear-gradient(160deg,var(--navy2),#0e2238);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.hero .eq{color:var(--brass2);font-weight:700}.hero p{color:#dfe6ef}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:12px 0 0;padding:0;list-style:none}.how li{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px}
+.disclose{font-size:13px;color:var(--mut);border-left:3px solid var(--brass);padding:6px 10px;margin:12px 0 0;background:rgba(201,162,39,.07);border-radius:0 8px 8px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.mods{display:grid;gap:10px}
+.mod{display:flex;gap:12px;align-items:center;text-align:left;width:100%;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;cursor:pointer}
+.mod:hover{border-color:var(--brass)}.mod .n{flex:0 0 34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--navy);border:1px solid var(--brass);color:var(--brass2);font-weight:700}
+.mod.done .n{background:var(--brass);color:var(--navy)}.mod .t{flex:1}.mod .t b{display:block}.mod .t small{color:var(--mut)}
+.progress{height:8px;background:var(--navy);border-radius:6px;overflow:hidden;border:1px solid var(--line);margin:6px 0 14px}.progress i{display:block;height:100%;background:var(--brass)}
+.lesson p{margin:0 0 12px}.lesson .lead{color:var(--brass2);font-weight:600}
+blockquote{margin:14px 0;padding:12px 14px;border-left:4px solid var(--brass);background:rgba(201,162,39,.08);border-radius:0 10px 10px 0;font-size:18px;font-weight:600}
+.box{border:1px dashed var(--line);border-radius:12px;padding:12px;margin:12px 0}.box h3{color:var(--brass2);font-size:14px;text-transform:uppercase;letter-spacing:.08em}
+textarea,input[type=text],select{width:100%;background:var(--navy);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--ink)}
+textarea{min-height:80px;resize:vertical}
+.btn{max-width:100%;text-align:center;white-space:normal;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--brass);color:var(--navy);border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer;min-height:44px}
+.btn.ghost{background:transparent;color:var(--brass2);border:1px solid var(--brass)}.btn.small{min-height:34px;padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.row>*{flex:0 1 auto;min-width:0}
+.back{background:none;border:0;color:var(--brass2);cursor:pointer;padding:6px 0;font-weight:600}
+label.f{display:block;font-size:13px;color:var(--mut);margin:12px 0 4px;font-weight:600}
+.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{flex:1 1 80px;background:var(--navy);border:1px solid var(--line);border-radius:10px;padding:8px 6px;cursor:pointer;min-height:52px;display:flex;flex-direction:column;align-items:center;line-height:1.15}
+.seg button b{font-size:17px}.seg button small{font-size:11px;color:var(--mut)}
+.seg button[aria-pressed=true]{background:var(--brass);color:var(--navy);border-color:var(--brass)}.seg button[aria-pressed=true] small{color:var(--navy)}
+.seg.mini button{min-height:38px;flex:1 1 44px;padding:4px}.seg.mini button b{font-size:14px}
+.check{display:flex;gap:10px;align-items:flex-start;background:var(--navy);border:1px solid var(--line);border-radius:10px;padding:10px;cursor:pointer;margin-top:8px}.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--cc)}
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 9px;font-size:12px;font-weight:700;white-space:nowrap}
+.badge.cc{background:var(--cc);color:#2b1a00}.badge.elite{background:var(--brass2);color:var(--navy)}.badge.gd{background:#24456b;color:#cfe0f5}
+.notice{border-radius:10px;padding:10px 12px;margin-top:10px;font-size:14px;background:rgba(240,166,64,.12);border:1px solid rgba(240,166,64,.5)}
+.notice.ok{background:rgba(79,179,122,.12);border-color:rgba(79,179,122,.5)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px}.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}.stat b{display:block;font-size:24px;color:var(--brass2)}.stat small{color:var(--mut)}
+.bars .bar{display:grid;grid-template-columns:130px 1fr 44px;gap:8px;align-items:center;margin:6px 0;font-size:14px}.bars .track{height:12px;background:var(--navy);border-radius:6px;position:relative;border:1px solid var(--line)}.bars .track i{position:absolute;top:0;bottom:0;background:var(--brass);border-radius:6px}.bars .track .zero{position:absolute;left:25%;top:-3px;bottom:-3px;width:1px;background:var(--mut)}
+.hist{list-style:none;margin:0;padding:0}.hist li{border-top:1px solid var(--line);padding:10px 0;display:flex;gap:10px;align-items:flex-start}.hist .sc{flex:0 0 52px;font-weight:800;font-size:18px;color:var(--brass2)}.hist .bd{flex:1;min-width:0}.hist .bd small{color:var(--mut);display:block}
+.del{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px;padding:4px 8px}
+svg.spark{width:100%;height:90px;display:block}
+/* Coach panel */
+#coach{display:none;flex-direction:column;background:var(--navy2);position:fixed;left:0;right:0;bottom:0;top:var(--hh,62px);z-index:15;padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+#coach.on{display:flex}
+.ch-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line)}.ch-head b{font-size:17px}.pill{font-size:11px;font-weight:700;border:1px solid var(--brass);color:var(--brass2);border-radius:999px;padding:1px 8px}
+.ch-head .sp{flex:1}
+.msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:10px 12px;border-radius:14px;white-space:pre-wrap;word-wrap:break-word;font-size:15px}
+.msg.coach{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:var(--brass);color:var(--navy);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.crisis{background:#3a1d1d;border:2px solid #e7887d}.msg.gray{border-color:#8fa7c4}
+.msg .who{display:block;font-size:11px;font-weight:700;color:var(--brass2);margin-bottom:2px;letter-spacing:.06em;text-transform:uppercase}
+.lifelines{display:grid;gap:6px;margin-top:8px}.lifelines a{display:block;text-align:center;background:#e7887d;color:#2a0d0a;font-weight:800;border-radius:10px;padding:10px;text-decoration:none}
+.lifelines a.alt{background:#f4f1e8}
+.alertnote{font-size:12px;color:#f3d2cd;margin-top:8px;border-top:1px solid #7a3c36;padding-top:6px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:6px 14px}.chips button{flex:0 0 auto;background:var(--navy);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;color:var(--ink);font-size:13px;white-space:nowrap}
+.ch-form{display:flex;gap:8px;padding:8px 14px}.ch-form input{flex:1;background:var(--navy);border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--ink);min-width:0;font-size:16px}
+.ch-foot{font-size:11px;color:var(--mut);padding:0 14px 10px}
+.typing{opacity:.7;font-style:italic}
+.ctx{font-size:12px;color:var(--mut);padding:4px 14px 0}
+@media (min-width:980px){
+  .app{grid-template-columns:minmax(0,1fr) 400px;grid-template-rows:auto auto 1fr}
+  main{padding-bottom:40px}
+  #coach{display:flex;position:sticky;top:0;height:100vh;inset:auto;top:0;padding:0;border-left:1px solid var(--line);grid-column:2;grid-row:1/span 3}
+  nav.tabs{position:static;grid-column:1;border:0;background:transparent;justify-content:center;gap:6px;padding:8px 16px 0}
+  nav.tabs button{flex:0 0 auto;flex-direction:row;min-height:40px;padding:8px 14px;border-radius:10px;font-size:14px}
+  nav.tabs button[aria-selected=true]{background:var(--card)}
+  nav.tabs .coach-tab{display:none}
+  header.top{grid-column:1}
+  .closech{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <svg class="anchor" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#c9a227" stroke-width="5" stroke-linecap="round"><circle cx="32" cy="13" r="5"/><path d="M32 18v34M20 28h24M12 38c2 10 11 15 20 15s18-5 20-15"/></g></svg>
+  <div class="brand"><small>HoldFast</small><b id="app-name">PursuingElite</b></div>
+</header>
+<nav class="tabs" role="tablist">
+  <button data-tab="learn" role="tab" aria-selected="true"><span>⚓</span>Learn</button>
+  <button data-tab="score" role="tab" aria-selected="false"><span>±</span>Score</button>
+  <button data-tab="trends" role="tab" aria-selected="false"><span>📈</span>Trends</button>
+  <button data-tab="coach" role="tab" aria-selected="false" class="coach-tab"><span>💬</span>CoachClint</button>
+</nav>
+<main>
+  <section class="view on" id="v-learn"></section>
+  <section class="view" id="v-score"></section>
+  <section class="view" id="v-trends"></section>
+</main>
+<aside id="coach" aria-label="CoachClint chat">
+  <div class="ch-head"><b>CoachClint</b><span class="pill">AI · 75% solution</span><span class="sp"></span><button class="btn ghost small" id="ch-new" title="Start a new conversation">New chat</button><button class="btn ghost small closech" aria-label="Close chat">✕</button></div>
+  <div class="ctx" id="ctx"></div>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="chips" id="chips"></div>
+  <form class="ch-form" id="ch-form" autocomplete="off"><input id="ch-in" aria-label="Message CoachClint" placeholder="Talk to CoachClint …" maxlength="800"><button class="btn" type="submit">Send</button></form>
+  <div class="ch-foot">CoachClint is an AI coach built on Clint Bruce's words: not Clint himself, and not a therapist. In a crisis, call or text <a href="tel:988">988</a> (veterans press 1) or call <a href="tel:911">911</a>. Chats stay on this device.</div>
+</aside>
+</div>
+<script>window.COACHCLINT_CONFIG = window.COACHCLINT_CONFIG || { mode: "local" }; /* ← adapter seam: { mode: "remote", endpoint: "https://…" } */</script>
+<script>/* CoachClint knowledge bundle v1 (curated, anonymized).
+   Source: CoachClint Personality & Operating Manual v1.3 + Clint's HoldFast content.
+   Every reply below is Clint's own wording or a close adaptation of it, with the source
+   noted in `src`. No third-party names, no family texts, no contact details.
+   Format of an entry:
+     id, keys (phrases that strongly signal this topic), words (supporting words),
+     app ('pe' | 'ae' | 'both'), story (true = first-person Clint story),
+     chronicle (optional key into CC_CHRONICLES: a related HoldFast piece), src, text. */
+window.CC_CHRONICLES = {
+  pursuingElite: { name: "PursuingElite", app: "pe", line: "Clint's PursuingElite work goes deep on the 5 PursuitPoints and what 'Not Done Yet' really means." },
+  achievementEquation: { name: "The AchievementEquation", app: "ae", line: "the AchievementEquation lessons walk through Angles, Allies and Advantages one at a time." },
+  captainsCourse: { name: "Captain's Course", app: null, line: "Captain's Course runs the D3 Challenge (Decision, Design, Discipline) with a partner, because 2 is 1 and 1 is none." },
+  wardroom: { name: "the Wardroom", app: null, line: "the Wardroom starts with Drydock … an honest inventory of the hull before the voyage." },
+  seaTrials: { name: "SeaTrials", app: null, line: "SeaTrials is Clint's piece on hard seasons … 'smooth seas never made skilled sailors.'" },
+  onReloading: { name: "OnReloading", app: null, line: "OnReloading is Clint's playbook for staying Not Done Yet without burning out: Review, Rest, Recover, Revel." },
+  rope: { name: "ROPE (Return On Period of Effort)", app: null, line: "ROPE scores your focused rounds React −1, Routine 0, Respond +1, Create +2, so you measure what you got done, not just what you did." },
+  archers: { name: "Archers & Arrows", app: null, line: "Archers & Arrows is about moving from impact to influence: Pick, Pull, Pause, Release & Reload." },
+  mountains: { name: "the Four Mountains", app: null, line: "the Four Mountains piece (Easy, Easier, Hard, Hard-for-Hard's-Sake) is Clint's go-to for 'which path do I take?'" },
+  maps: { name: "Maps that Matter", app: null, line: "Maps that Matter is the BallField, BattleField, BoardRoom and Breakfast Table … and why the Breakfast Table is THE map." },
+  wingman: { name: "Project Wingman", app: null, line: "Project Wingman pairs leaders with a proven veteran for short Time on Target calls when the moment comes." },
+  achievingAverage: { name: "The Achieving Average", app: null, line: "The Achieving Average is Clint's story of how a 5th-string nobody got to be part of mighty things." }
+};
+
+window.CC_CLINTISMS = [
+  ["Not Done Yet", "Elites get to the X, rest, recover, revel … and then choose to reload rather than relax."],
+  ["You vs. yesterday's you", "The only fair competition."],
+  ["Find out, or get found out", "Curiosity's motto."],
+  ["Curiosity is the first evidence of courage", "The teaching behind the Courage Credit."],
+  ["Building high ground for hard days", "Balance: faith, family, friends, fitness and focus, invested in before you need them."],
+  ["Preach from your pain", "Share your scars so others miss the harm you hit."],
+  ["It's better to be a manual than a movie", "Authenticity: teach what you learned, don't just perform it."],
+  ["Teams row. Tribes flow.", "Tribes move at the speed of trust."],
+  ["The strands make the Team. The strain makes the Tribe.", "Adversity reveals what you really have."],
+  ["Stewards, not sources", "Our Advantages are entrusted to us."],
+  ["Aligned, but NOT alike", "Allies share the conviction, not the background."],
+  ["2 is 1. 1 is none.", "Never go alone."],
+  ["Indecision is a decision", "Every day you wait, you're choosing … just not on purpose."],
+  ["Wrong is workable. Lost is terrifying.", "If you have a map, the worst you'll ever be is wrong."],
+  ["A lion is always a lion", "Figure out your pride and your prey on the map you're on now."],
+  ["If it's easy, it's an ambush", "Beware the easy path."],
+  ["\"I couldn't\" beats \"I can't\"", "One means we didn't try and the other means we did."],
+  ["There's virtue in the valor of effort", "Why Clint smiles and listens when someone says 'I tried but I couldn't.'"],
+  ["20 seconds of insane courage", "From the movie We Bought a Zoo. Sometimes that's all it takes."],
+  ["Who Dares Wins", "The SAS motto."],
+  ["Hold fast to the goal, hold loosely to the plan", "Publish your plan, and plan to pivot on your plan."],
+  ["The scoring systems aren't judgements … they're data", "Scores help you pick a path, not grade your worth."],
+  ["Elite is saved for game day", "+3 is only for the real thing: the game, the mission, the adventure."],
+  ["Proud of you. No need to respond.", "A check-in that asks nothing back."]
+];
+
+window.CC_KNOWLEDGE = [
+/* ---------- Maps / lost / transition ---------- */
+{ id: "lost", app: "both", src: "IM CC-03, CC-24; EM #12", chronicle: "maps",
+  keys: ["feel lost", "i'm lost", "im lost", "so lost", "don't know what i'm doing", "dont know what im doing", "no idea what i'm doing", "no direction", "don't know where i'm going", "what am i doing with my life", "adrift"],
+  words: ["lost", "direction", "purpose", "confused", "stuck", "drifting"],
+  text: "I hear you. And I want to push back on one word, gently … you're NOT lost. On ANY map.\nClint uses 3 things to know he's not lost:\n(1) I know where I'm trying to go … I've got an X.\n(2) I know generally where I am. Doesn't matter how far from the X.\n(3) I remind myself I'm Not Done Yet. If I've got enough O2 to say I'm lost, I've got enough to wander a little closer.\nNot being there yet does NOT mean you're not on the way.\nSo … if you had to sketch an X right now, even a fuzzy one, what would it be? And which map is it on?" },
+{ id: "lost-vs-wrong", app: "both", src: "EM #8; Captain's Course Core24", chronicle: "maps",
+  keys: ["make the wrong choice", "afraid of being wrong", "what if i'm wrong", "what if im wrong", "wrong decision", "scared to choose wrong"],
+  words: ["wrong", "mistake", "fail", "choice", "map"],
+  text: "Here's one Clint leans on: if we don't have a map, we're lost. If we have a map, the worst we'll ever be is wrong.\nWrong is workable. Lost is terrifying.\nA map has 5 things: 4 borders (your Always and your Never) and an X you think is right.\nSo you don't need to be certain. You need a map.\nWhat are your Always and Never on this one?" },
+{ id: "transition", app: "both", src: "IM CC-04, CC-05; MAP M12, M14", story: true, chronicle: "maps",
+  keys: ["got out", "getting out of the military", "transition", "transitioning", "left the military", "veteran", "separated from", "after the army", "after the navy", "after the marines", "after football", "done playing", "retired from playing", "civilian"],
+  words: ["military", "service", "athlete", "boardroom", "career", "nobody", "backwards"],
+  text: "Man … that's real terrain. When I got out, the first few years on the BoardRoom Map were the first time I ever really felt lonely or lost.\nHere's what I tell every operator and every athlete now: the BoardRoom Map is a new map, but you are NOT a new pro.\nAnd a lion is always a lion … we just gotta figure out your pride and your prey on this map.\nThe BoardRoom also moves slower. I joke that the private sector only makes bourbon and wine, and we're used to making beer.\nSo let's get specific: who are 3 people you'd want to Chase … doing what you want to do, the way you want to do it?" },
+{ id: "breakfast-table", app: "both", src: "IM CC-01, CC-02", chronicle: "maps",
+  keys: ["my family", "my wife", "my husband", "my kids", "my spouse", "home life", "breakfast table", "at home", "marriage", "not home enough", "missing time with"],
+  words: ["family", "home", "kids", "wife", "husband", "spouse", "marriage", "children", "parent"],
+  text: "Clint would say it plain: your Breakfast Table map is the most important map.\nOther maps influence it and impact it, no question. But as long as your Breakfast Table map is good (not perfect … because no one on your Breakfast Table Map is named Jesus) you're winning the right fight.\nThe test is simple: is home getting the best of you, or the leftovers?\nWhat's one thing this week that would give the people at your table a better version of you?" },
+{ id: "maps", app: "both", src: "MAP M8; IM CC-08", chronicle: "maps",
+  keys: ["four maps", "the maps", "ballfield", "battlefield", "boardroom", "which map", "what map"],
+  words: ["map", "maps", "ballfield", "battlefield", "boardroom"],
+  text: "Life happens on maps. And a map is a map … we just have to learn the lexicon and the legend.\nBallField: performing at a high level, mentally and physically.\nBattleField: protecting yourself and those entrusted to you.\nBoardRoom: providing for those entrusted to you.\nBreakfast Table: purposely powering a family that loves you and matters to others. That's THE map.\nWhich one is this on for you? And roughly where are you standing?" },
+{ id: "job-loss", app: "both", src: "IM CC-01; Manual 6.2", chronicle: "seaTrials",
+  keys: ["laid off", "got fired", "lost my job", "was let go", "job loss", "unemployed", "out of work", "business failed", "company folded", "went under"],
+  words: ["fired", "layoff", "job", "business", "failed", "career"],
+  text: "That's a hard hit. I'm not going to brush it off.\nAnd … it's on the BoardRoom Map. An important map for sure. But not THE most important map.\nThis feels like a crisis, but it's a crossroads, and crossroads are where we do our best work.\nYou are NOT lost. You know a lot about where you are, even if the X moved.\nTwo questions: how's your Breakfast Table holding up? And who's one Veteran Ally … someone who's been through this exact terrain … you could have coffee with this week?" },
+/* ---------- Mountains / decisions ---------- */
+{ id: "indecision", app: "both", src: "IM CC-20; Manual 9.4", chronicle: "mountains",
+  keys: ["can't decide", "cant decide", "two offers", "go back and forth", "back and forth", "on the fence", "should i take", "which should i", "torn between", "big decision", "undecided"],
+  words: ["decide", "decision", "offer", "options", "choose", "choice", "torn"],
+  text: "I'll say it plain: indecision is a decision. Every day you wait, you're choosing … just not on purpose.\nWhen young operators asked which way to move when the shooting starts, the answer was: just move. Some ways are better than others, but staying still is a bad call unless you're behind solid cover.\nLet's run it through the mountains: which option is your Hard Mountain, where you'd grow? Is one an Easier Mountain that'd give margin to the people at your Breakfast Table? Is one Hard-for-Hard's-Sake, picked to prove something?\nGive me your gut answer in one line, and then let's pick a date to decide." },
+{ id: "mountains", app: "both", src: "IM CC-19, CC-40", story: true, chronicle: "mountains",
+  keys: ["easier mountain", "hard mountain", "four mountains", "mountains", "settling", "taking it easy", "hard for hard's sake", "prove something", "prove myself"],
+  words: ["mountain", "settle", "easy", "harder", "promotion", "startup", "season"],
+  text: "Clint sees four mountains. Easy Mountain has no fruit and no fight … it's the one they want you on. Easier Mountain is real challenge within your gifts and scars, and it gives you margin to let others risk and grow. Your Easier Mountain is someone else's Hard one.\nHard Mountain has formidable opposition and real growth. And Hard-for-Hard's-Sake is 'showing everyone how far and hard I can go' instead of 'seeing how far and hard I can go.' That last one promises only torment.\nWhen I've had to choose, I came to believe it'd be selfish to dodge Easier Mountain if it was the next one the Lord wanted me to climb.\nSo … what season is your family in right now? That usually breaks the tie." },
+{ id: "easy-ambush", app: "both", src: "ATT 5Rs", chronicle: "mountains",
+  keys: ["too easy", "seems easy", "shortcut", "easy way", "easy path"],
+  words: ["easy", "shortcut", "comfortable", "comfort"],
+  text: "Quick Clint-ism: if it's easy, it's an ambush.\nEase and comfort are sneaky. They don't look like enemies.\nThat doesn't mean every hard thing is right … Hard-for-Hard's-Sake is its own trap. It means look twice at the path with no resistance on it.\nWhat would you have to give up on the easy path that you'd regret in a year?" },
+/* ---------- PursuingElite ---------- */
+{ id: "not-done-yet", app: "both", src: "ATT Book_Pursuing_Elite_2021; IM CC-14, CC-25", story: true, chronicle: "pursuingElite",
+  keys: ["not done yet", "undone", "excellent vs elite", "excellent and elite", "difference between excellent", "what is elite", "pursuing elite", "pursuingelite", "restless"],
+  words: ["elite", "excellent", "restless", "next", "reload", "plateau"],
+  text: "A few weeks after 9/11, after a flawless op, I told my platoon chief the boys were excellent and we ought to do something for them.\nHe squared up and said: \"Sir, the reward for excellence is no punishment. We're not here to be excellent. We're here to be elite. We're not done yet.\"\nI was scared of that guy. And I got it.\nThe difference between excellent and elite is … are you done, or Not Done Yet? It's choosing to stay restless where others rest. And it's always you versus yesterday's you.\nWhere in your life are you resting when you'd rather be reloading?" },
+{ id: "five-outcomes", app: "both", src: "IM CC-25; ATT HF_2021_Content_Snapshot", chronicle: "pursuingElite",
+  keys: ["five outcomes", "5 outcomes", "bad average good", "standard", "standards", "what outcomes"],
+  words: ["outcome", "outcomes", "standard", "accept", "mediocre"],
+  text: "There are 5 outcomes to any endeavor: Bad, Average, Good, Excellent, Elite.\nMost of life comes down to what outcomes you're willing to accept from yourself and others in the missions that matter most.\nOn the things that matter most, Clint says accept only Excellent to Elite.\nExcellent is an X on the map … a measurable standard. Elite is a ridgeline just a little further than you thought possible, until you had the view from Excellent.\nWhat's one mission where you've been accepting Good?" },
+{ id: "balance", app: "both", src: "ATT Book_Pursuing_Elite ch.3; EM #1, #26", chronicle: "pursuingElite",
+  keys: ["balance", "killing me", "burnout", "burned out", "burnt out", "work life", "work-life", "workaholic", "high ground for hard days", "too much work"],
+  words: ["balance", "burnout", "overwhelmed", "exhausted", "health", "fitness", "friends", "faith"],
+  text: "Balance is the first PursuitPoint for a reason. It's building high ground for hard days … because hard days WILL come.\nFaith, family, friends, fitness, focus … invested in before you need them.\nThe trap is pouring all 10,000 reps into one slice of life. Then on the day you get fired or lose the championship, there's nothing to fall back on.\nIt's being good at more than what you're known for. Dangerous, not reckless.\nWhich one of those five is getting the fewest reps from you right now?" },
+{ id: "curiosity", app: "both", src: "EM #5; IM CC-21, CC-38", chronicle: "pursuingElite",
+  keys: ["curiosity", "curious", "ask questions", "afraid to ask", "raise my hand", "find out or get found out", "complacency", "learn more"],
+  words: ["curious", "question", "questions", "learn", "ask", "complacent"],
+  text: "Find out, or get found out.\nCuriosity is 5 things: Criteria, Courage, Creator, Catalyst, Complacency Killer.\nThe courage part is the big one. Fear is why people don't ask questions … afraid of the answer, or the work that comes with it, or what others will think. All we have to do is not raise our hand and no one will know we don't know.\nThat's why Clint says the first evidence of courage is when someone raises their hand. Questions are courage reps.\nWhat's the question you've been avoiding asking?" },
+{ id: "tribalism", app: "both", src: "EM #1, #23; IM CC-22", chronicle: "pursuingElite",
+  keys: ["tribe", "tribalism", "tribal", "my team", "team culture", "culture", "gaggle", "same direction", "rowing"],
+  words: ["team", "tribe", "culture", "trust", "group", "together"],
+  text: "Clint sorts gatherings by WHY people are together:\nGaggle … problems (united by misery). Group … preferences. Team … purpose. Tribe … conviction.\nWe must be a Team to become a Tribe. The strands make the Team. The strain is what makes us a Tribe.\nTeams row. But Tribes flow. And Tribes move at the speed of trust.\nSo be honest … what is your crew right now, and what's the shared purpose they'd actually fight for?" },
+{ id: "team-conflict", app: "both", src: "EM #4, #7; Manual 9.3", chronicle: "archers",
+  keys: ["can't stand each other", "conflict on my team", "team conflict", "won't get along", "dont get along", "don't get along", "poisoning the team", "toxic", "people won't buy in", "won't buy in", "no buy-in", "get everyone on board"],
+  words: ["conflict", "fight", "toxic", "drama", "buy-in", "resist", "attitude"],
+  text: "That's a heavy one. The weight of leadership is real, and you're carrying it.\nHere's the truth Clint learned: you can't make anyone row the same direction. I couldn't carry someone through Hell Week. BUT … you can help them make the decision.\nPull with Purpose, Performance, Passion, Process.\nWhat's the shared purpose both sides would actually fight for? If you can name that, we've got something to build on.\n(If it turns into an HR or legal matter, that's one for your HR team or counsel, not me.)" },
+{ id: "intentionalism", app: "both", src: "EM #1, #8; ATT Book_Pursuing_Elite", chronicle: "pursuingElite",
+  keys: ["why am i doing", "my why", "highwhy", "high why", "bigwhy", "big why", "purpose", "intentional", "intentionalism", "mission statement", "legacy"],
+  words: ["why", "purpose", "legacy", "meaning", "mission", "intent"],
+  text: "Intentionalism is knowing why we're doing what we're doing.\nYour HighWhy is what you want folks to say about you when you're gone. Your BigWhy is why you use your time, talent, and treasure the way you do.\nThe X on your map is where those two meet.\nTry Clint's template: \"I will ____ so that I can ____.\"\nFill in those two blanks for me?" },
+{ id: "authenticity", app: "both", src: "EM #1, #14, #19; ATT The-Achievement-Equation", chronicle: "pursuingElite",
+  keys: ["authentic", "authenticity", "scars", "ashamed", "shame", "embarrassed about my past", "my mistakes", "imposter", "fake it", "pretend"],
+  words: ["shame", "mistake", "mistakes", "past", "honest", "vulnerable", "scar"],
+  text: "Authenticity is preaching from our pain and sharing our scars.\nMistakes are time lost. Letting someone repeat yours doubles down on irrecoverable time.\nClint puts it this way: \"Shame is the shovel Satan uses to bury us. Authenticity slaps the shovel from his hands.\"\nAnd … it's better to be a manual than a movie.\nWho's one person who could miss the harm you hit, if you shared that scar with them?" },
+/* ---------- ReLoad / wins ---------- */
+{ id: "reload", app: "both", src: "IM CC-13, CC-32; Manual 9.7", story: true, chronicle: "onReloading",
+  keys: ["big win", "we won", "closed the deal", "best quarter", "crushed it", "hit my goal", "promotion", "got promoted", "nailed it", "celebrate", "reload", "what's next", "whats next"],
+  words: ["win", "won", "success", "celebrate", "achievement", "goal", "closed", "exhausted"],
+  text: "First … well done. Seriously. Don't you dare skip past that.\nI learned the hard way that I'd been villainizing achievements … trading the risk of complacency for the risk of burnout. So before the next one, ReLoad:\nReview: an AAR with all hands. 3 up, 3 down.\nRest: let the human machine rest and restore.\nRecover: do what refuels you … body, brain, mind, soul.\nRevel: celebrate as a Tribe. Recover is how we recharge alone; revelry is how we recharge together.\nWell done … AND Not Done Yet. What's one way you'll Revel this week?" },
+{ id: "week-two-dip", app: "both", src: "IM CC-12", chronicle: "captainsCourse",
+  keys: ["lost motivation", "losing motivation", "the shine wore off", "new job is hard", "falling off", "fell off", "slump", "dip", "can't stay consistent", "inconsistent"],
+  words: ["motivation", "consistent", "habit", "quit", "routine", "dip", "slump"],
+  text: "Totally normal. Right around week 2 or 3 the shine of the new thing starts wearing off a little.\nIt doesn't mean it's not awesome. It just means you start seeing it for what it is.\nJust like the first 2 weeks on the BallField … it's the fatigue of adding, then it's the joy of results.\nSo let's shrink the next rep. What's the smallest version of this you could do tomorrow and still count it?" },
+{ id: "busy", app: "both", src: "EM #9, #28; ATT The-ROPE-System", chronicle: "rope",
+  keys: ["so busy", "too busy", "nothing gets done", "nothing's getting done", "reacting all day", "firefighting", "putting out fires", "productivity", "no time", "time management"],
+  words: ["busy", "time", "productive", "productivity", "calendar", "meetings", "distracted"],
+  text: "Busy isn't the same as productive. Clint measures what he got done, not just what he did.\nHis tool is ROPE … Return On Period of Effort. Focused rounds of 17 to 43 minutes, each scored by what you did MOST:\nReact −1 · Routine 0 · Respond +1 · Create +2.\nIf you spend all your time reacting, there's no real mastery. Routine is holding ground … wildly better than −1.\nHow many truly focused rounds did you get yesterday?" },
+/* ---------- AchievementEquation ---------- */
+{ id: "equation", app: "both", src: "IM CC-28; ATT The-Achievement-Equation; Captain's Course Core24", story: true, chronicle: "achievementEquation",
+  keys: ["achievement equation", "achievementequation", "3x5 card", "angles allies advantages", "the equation", "fifth string", "5th string", "not talented", "not talented enough", "not as talented", "less talented", "talent isn't enough"],
+  words: ["equation", "talent", "talented", "gifted", "card", "fullback"],
+  text: "I loved football WAY sooner than football loved me. In 8th grade I was the 5th-string fullback … on a team with only 3 other fullbacks. My coach told me to stop wasting his time and mine.\nSo I wrote an equation on a 3x5 card so I wouldn't get destroyed at practice:\nAngles + Allies + Advantages = Achievements.\nTalent is real. But it became one third of the equation, not the whole story.\nWhich of the three are you leaning on hardest right now … and which one have you been ignoring?" },
+{ id: "angles", app: "both", src: "IM CC-28; EM #12; Captain's Course Core24", chronicle: "achievementEquation",
+  keys: ["angles", "5 angles", "five angles", "tactics", "techniques", "tools", "technology", "my craft", "get better at"],
+  words: ["tactic", "technique", "tool", "craft", "skill", "process", "system"],
+  text: "Angles are the 5 elements you control completely: Tactics, Techniques, Teammates, Tools, Technology.\nTeammates means you as a teammate, AND the few to your left and right.\nClint's line: know and improve your craft. Constantly. Ruthlessly and relentlessly reduce internal and external sources of friction.\nAngles are planning inputs before the mission and measuring lenses after it. Plan → execute → review → improve.\nWhich Angle is creating the most friction for you right now?" },
+{ id: "allies", app: "both", src: "EM #12; ATT The-Achievement-Equation; IM CC-42", chronicle: "achievementEquation",
+  keys: ["allies", "ally", "mentor", "mentors", "doing this alone", "on my own", "no support", "who to listen to", "network", "networking", "accountability partner"],
+  words: ["alone", "help", "support", "mentor", "people", "friends", "network", "lonely"],
+  text: "Allies: find good people to do hard things with. Be for them what you need them to be for you … be the first to the hurt and try to stay there the longest.\nThey're aligned, but NOT alike. Shared conviction, diverse strengths.\nAnd Clint's favorite part: Allies help you know when NOT to listen to yourself about yourself, and WHO to listen to instead. \"I wouldn't let anyone talk to me the way I talk to me sometimes.\"\nWho's one person who tells you the truth with the mission of making you better?" },
+{ id: "five-allies", app: "both", src: "ATT The-Achievement-Equation; Captain's Course Core24", chronicle: "achievementEquation",
+  keys: ["types of allies", "five types", "5 types", "fellow travelers", "the veterans", "the prevented", "the redeemed", "champions", "pics", "passionate irrational"],
+  words: ["traveler", "veteran", "prevented", "redeemed", "champion"],
+  text: "There are 5 kinds of Allies to Have … and to Be:\n(1) Fellow Travelers … going with you.\n(2) The Veterans … they've been to your X.\n(3) The Prevented … they wanted to go but couldn't, because of circumstance. You carry part of them with you.\n(4) The Redeemed … they could have gone but wouldn't, because of their own choices. Now they preach from their pain.\n(5) The Champions … PICs, Passionate Irrational Champions who believe in you more than you do.\nWhich of the five is missing from your crew right now? And which one could you BE for someone this week?" },
+{ id: "advantages", app: "both", src: "IM CC-15; Captain's Course Core24", chronicle: "achievementEquation",
+  keys: ["advantages", "advantage", "treasure", "resources", "money to", "not enough time", "stewardship", "steward", "my gifts", "gifts"],
+  words: ["talent", "treasure", "money", "resources", "gift", "gifted", "steward"],
+  text: "Advantages are Talent and Treasure. NOT time.\nTime is measured absolutely but experienced and used relatively. Talent lets you do things faster. Treasure lets you hand things off or bring in help.\nAnd here's the reframe: you're a steward of your Advantages, not their source. The question is never \"Do I have enough?\" It's \"Am I stewarding what I have well enough?\"\nWhat's one Advantage you've got that you haven't been stewarding?" },
+{ id: "advantage-adversity", app: "both", src: "IM CC-15 (library)", chronicle: "achievementEquation",
+  keys: ["plan fell apart", "lost my best", "lost a key", "equipment failed", "didn't go to plan", "didnt go to plan", "setback", "things fell apart", "it broke"],
+  words: ["setback", "adversity", "failed", "broke", "lost", "plan"],
+  text: "When an Advantage meets adversity, one of three things happens:\n(1) It's affirmed … it gets proven.\n(2) A new Advantage is revealed … necessity is the mother of discovery.\n(3) It's overcome, BUT if you look left and right, you'll often find a teammate who had the advantage or found one.\nThen you recalibrate. Or you drift.\nOf those three, which one just happened to you?" },
+{ id: "achieving-average", app: "both", src: "EM #1, #26; MAP M4", chronicle: "achievingAverage",
+  keys: ["achieving average", "average guy", "i'm average", "im average", "not special", "not smart enough", "not good enough", "everyone is better", "everyone's better", "humble", "humility"],
+  words: ["average", "ordinary", "smart", "humble", "confidence", "doubt"],
+  text: "Clint calls himself an Achieving Average … someone not terribly gifted who's managed to be part of some mighty achievements by finding Angles, Allies, and Advantages.\n\"The mountain makes all men and women average if we're aiming high enough.\"\nAnd a reframe: genuine humility is thinking about yourself less, not thinking less of yourself.\nThe process is D3: Decision, Design, Discipline. It's how a 5th-string nobody became a SEAL.\nWhat's the Decision you'd make if you believed the equation works for you too?" },
+{ id: "d3", app: "both", src: "MAP M4; Captain's Course Core24", chronicle: "captainsCourse",
+  keys: ["d3", "make a plan", "next step", "next steps", "action plan", "where do i start", "how do i start", "get started"],
+  words: ["plan", "start", "step", "action", "goal", "begin"],
+  text: "Let's make it real with a D3:\nDecision … what are you deciding, in one sentence?\nDesign … what's v1 of the plan? (v1, not perfect.)\nDiscipline … what will you do, when, and how will you measure it?\nThen publish it: tell someone so they can hold you to it. Hold fast to the goal, hold loosely to the plan.\nStart with the Decision. What is it?" },
+/* ---------- Courage / scoring ---------- */
+{ id: "courage-story", app: "both", src: "POST (016)", story: true, chronicle: null,
+  keys: ["courage credit", "i couldn't", "i couldnt", "trying", "the trying", "who dares wins", "20 seconds", "insane courage", "we bought a zoo", "afraid to try", "scared to try"],
+  words: ["courage", "brave", "try", "trying", "dare", "scared", "afraid", "fear"],
+  text: "BraveBruceBeauty#3 and I were talking the other day about words. Phrases, really. I was telling her to banish \"I can't\" from her lexicon. Yet I had no problem with \"I couldn't.\"\nBecause one means we didn't try and the other means we did. And that's the point of most everything … the trying.\nThere's virtue in the valor of effort. And my girls know the We Bought a Zoo line by heart: \"Sometimes all you need is 20 seconds of insane courage.\"\nThat's why first attempts earn a Courage Credit here … +0.5 at minimum, because it took courage to try.\nWhat's the thing you'd try if you only needed 20 seconds of brave?" },
+{ id: "scoring", app: "both", src: "IM CC-28; Manual 4.1, 4.18", chronicle: null,
+  keys: ["how do i score", "scoring", "score system", "the scale", "what score", "how does scoring work", "rate myself", "self score", "self-score"],
+  words: ["score", "scale", "rating", "points", "data"],
+  text: "The scoring systems aren't judgements … they're data. They give you fast ways to pick one of 3 paths: push, pause, or pivot.\nThe scale: Bad −1 · Average 0 · Good +1 · Excellent +2.\nElite +3 is saved for game day … the actual game, the real mission, the other side of the actual adventure. Never practice or course work.\nAnd the first time you ever try something, the floor is +0.5. That's a Courage Credit.\nWant to score a rep? Tell me what you did and how it went." },
+/* ---------- Leadership ---------- */
+{ id: "game-day", app: "both", src: "EM #4 (credited to a SEAL teammate); Manual 4.1", chronicle: "captainsCourse",
+  keys: ["big pitch", "pitch tomorrow", "presentation tomorrow", "big game", "game day", "big meeting", "interview tomorrow", "job interview", "kill it at", "nervous about", "big day"],
+  words: ["pitch", "presentation", "interview", "nervous", "tomorrow", "prepare", "prep"],
+  text: "Love it. Game day is where the work shows up.\nA SEAL teammate gave Clint a line he still uses: \"You don't rise to the occasion. You sink to the level of your training.\"\nSo let's make the training count. Run it once out loud tonight, start to finish. Then pick the ONE Angle (Tactics, Techniques, Teammates, Tools, Technology) most likely to trip you up and shore it up.\nWhat's the part you're least ready for?" },
+{ id: "archers", app: "both", src: "EM #17, #42", chronicle: "archers",
+  keys: ["delegate", "delegating", "new manager", "first time manager", "promoted to manager", "leading people", "can't let go", "micromanage", "archer", "arrow", "influence", "impact"],
+  words: ["delegate", "manager", "lead", "leader", "leadership", "influence", "micromanage"],
+  text: "Clint credits his Bride with this one: an arrow makes a difference where it hits. An archer makes a difference wherever they aim.\nWhen you're promoted away from the work you love, you have to move from impact to influence.\nThe Archer's process: Pick (Talent), Pull (Train), Pause (Task), Release & Reload (Trust).\nResist the urge to load talented arrows with more just because they can do more. If you did it right, you don't have to follow your shot.\nWho on your team is ready to be released?" },
+{ id: "weight", app: "both", src: "MAP M1", chronicle: "captainsCourse",
+  keys: ["weight of leadership", "lonely at the top", "carry the weight", "responsibility", "hard to lead", "leadership is hard"],
+  words: ["weight", "responsible", "responsibility", "pressure", "burden"],
+  text: "Clint's definition: leadership is a verb. It's being looked to in a particular moment, by those you care for, to make a decision or perform an action based on your unique gifts and abilities.\nThat's a weight. Know who carried it before you, carry it well, and hand it off well.\nAnd remember … 2 is 1, 1 is none. You weren't built to carry it alone.\nWho's helping you carry it right now?" },
+{ id: "hard-season", app: "both", src: "ATT SeaTrials; ML_DFW talking points", chronicle: "seaTrials",
+  keys: ["hard season", "rough season", "tough time", "everything is going wrong", "why me", "storm", "struggling", "rough patch", "hard time"],
+  words: ["hard", "struggle", "struggling", "tough", "rough", "storm", "season", "adversity"],
+  text: "Smooth seas never made skilled sailors.\nThe folks who make it through Hell Week remember why they started, think about others first, just swim as far as they can see, and find humor in hard circumstances.\nAnd one of the things Clint teaches his girls: we're not victims … we're just at sea.\nThis feels heavy, and it's also a crossroads.\nWhat's as far as you can see right now? Let's just swim to there." },
+{ id: "doubt", app: "both", src: "EM #15; IM CC-42", chronicle: "achievingAverage",
+  keys: ["hard on myself", "beating myself up", "self doubt", "self-doubt", "doubt myself", "i'm not enough", "im not enough", "failure", "i failed", "i'm a failure"],
+  words: ["doubt", "failure", "failed", "myself", "critic", "worthless"],
+  text: "Doubt is fuel. AND … I wouldn't let anyone talk to me the way I talk to me sometimes.\nThat's why we need Allies: to know when NOT to listen to ourselves about ourselves, and WHO to listen to instead.\nThe scoreboard isn't a verdict on you. It's data on a rep.\nIf your best friend had just done exactly what you did, what would you tell them?" },
+{ id: "prove-it", app: "both", src: "IM CC-10", chronicle: null,
+  keys: ["i'm good", "im good", "doing good", "doing fine", "i'm fine", "im fine", "all good", "doing well", "not bad"],
+  words: ["fine", "good", "okay", "ok"],
+  text: "Good. Prove it.\nTell me one recent cool thing that happened on the BallField, BattleField, BoardRoom, or Breakfast Table map.\nThe brain craves little nods that we're stacking wins along the way. That's data too." },
+{ id: "new-year", app: "both", src: "EM #8, #25", chronicle: null,
+  keys: ["resolution", "resolutions", "new year", "goals for next year", "too many goals", "cut back", "overcommitted"],
+  words: ["resolution", "goals", "commitments", "overcommitted", "cut"],
+  text: "Clint's twist: New Year's Reductions, not resolutions.\nInstead of adding more, cut what's in the way. Ruthlessly and relentlessly reduce the friction.\nWhat's one thing you could take OFF your plate this month that would make room for what matters most?" },
+{ id: "ready-enough", app: "both", src: "EM #24", chronicle: null,
+  keys: ["not ready", "when i'm ready", "waiting until", "need more time to prepare", "perfect time", "100% sure", "overthinking", "analysis paralysis"],
+  words: ["ready", "prepare", "perfect", "certain", "sure", "overthink"],
+  text: "100% confidence and certainty is not a thing. Clint's standard is \"ready enough.\" We'll figure the rest out once we get there.\nA v1 that's out in the world beats a v10 that's in your head.\nWhat would \"ready enough\" look like for this, by the end of this week?" },
+{ id: "chase-pace-pull", app: "both", src: "EM #20, #22; MAP M5", chronicle: "wingman",
+  keys: ["role model", "who should i learn from", "find a mentor", "chase", "pace", "pull", "someone to mentor"],
+  words: ["role", "model", "mentor", "learn", "follow"],
+  text: "Chase, Pace, Pull.\nChase the right people to the right places. Keep pace with the right kind of people. And always pull someone behind you.\nOn the BattleField those were assigned to us. On the BoardRoom Map, we have to assemble them ourselves.\nAnd chase people, not a person … learn one specific quality from whoever does it best.\nWho's one person you Chase, one you Pace with, and one you Pull?" }
+];
+
+/* Short lesson summaries the coach uses when asked about the current module. Filled by each app. */
+window.CC_MODULE_NOTES = window.CC_MODULE_NOTES || {};
+</script>
+<script>/* CoachClint engine v1.0 — runs fully in the browser.
+ *
+ *   user message ──► Safety layer (always local, always first)
+ *                      │  true crisis  → warm 988 / 911 / Veterans Crisis Line handoff
+ *                      │                 + CoachClint.alertHuman() (v1: recorded locally, NOT sent)
+ *                      │  gray zone    → name support once, gentle check, keep coaching
+ *                      ▼
+ *                    Adapter.reply(ctx)   ◄── THE SEAM
+ *                      • "local"  = retrieval coach over the embedded knowledge bundle (default in v1)
+ *                      • "remote" = POST to your AI endpoint (system prompt lives server-side)
+ *                      ▼
+ *                    Guardrails (familiar-term guard) ──► UI
+ *
+ * To plug in a live AI later, set before this script loads:
+ *   window.COACHCLINT_CONFIG = { mode: "remote", endpoint: "https://your-api/coachclint/chat" }
+ * or register your own adapter:  CoachClint.registerAdapter("myai", { name, reply: async ctx => ({ text }) })
+ * See README.md → "Plugging in a live AI".
+ */
+(function () {
+  "use strict";
+  const CC = {};
+  CC.version = "1.0.0";
+  CC.config = Object.assign({ mode: "local", endpoint: null, appId: "pe", appName: "CoachClint", storageKey: "holdfast-coachclint-v1", timeoutMs: 20000 }, window.COACHCLINT_CONFIG || {});
+
+  /* The two human-alert recipients from the manual (v1.2). v1 never sends anything. */
+  CC.ALERT_RECIPIENTS = ["clint@holdfasthq.com", "cb@get-highground.com"];
+
+  /* ---------------- helpers ---------------- */
+  const norm = (s) => (s || "").toLowerCase().replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim();
+  const tokens = (s) => new Set(norm(s).replace(/[^a-z0-9' ]/g, " ").split(" ").filter(Boolean));
+  const pick = (arr, n) => arr[Math.abs(n) % arr.length];
+
+  /* ---------------- 1. Safety layer (manual Section 6) ---------------- */
+  // Narrow, explicit signals only. When in doubt between crisis and gray zone, the gray zone asks the gentle check question.
+  const CRISIS_RULES = [
+    { type: "self-harm", re: /\b(kill(ing)? ?my ?self|end(ing)? my (own )?life|end it all|take my (own )?life|suicid\w*|want(ed)? to die|wanna die|don'?t want to (live|be alive|wake up)|better off dead|won'?t be (here|around) (much longer|tomorrow|anymore|next week)|hurt(ing)? myself|cut(ting)? myself|harm(ing)? myself|how i'?d do it|how i would do it|no reason to live|not worth living|saying (my )?goodbyes?)\b/i },
+    { type: "self-harm", re: /life insurance[^.]{0,80}(better off|family)|(better off|family)[^.]{0,80}life insurance/i },
+    { type: "harm-others", re: /\b(going to|gonna|want to|wanna|plan(ning)? to|i'?ll|i will|about to) (kill|hurt|shoot|stab|beat up|attack) (him|her|them|someone|somebody|people|my \w+)\b(?! feelings)/i },
+    { type: "harm-others", re: /\b(kill|shoot|stab) (him|her|them|someone|somebody|people)\b/i },
+    { type: "danger-abuse", re: /\b((he|she|they|my (husband|wife|boyfriend|girlfriend|partner|dad|father|mom|mother|stepdad|stepmom|boss)) (hits|hit|beats|beat|chokes|choked|is hurting|threatened to kill|is threatening to kill|keeps hurting) me|(being|getting) (abused|beaten)|not safe (at home|right now|here)|i'?m not safe|i am not safe|afraid for my life|(i'?m|i am|we'?re|we are) in (immediate )?danger|(child|kid|my son|my daughter) is (in danger|being hurt|being abused))\b/i },
+    { type: "medical", re: /\b(chest pains?|having a heart attack|heart attack right now|can'?t breathe|cannot breathe|having a stroke|stroke symptoms|face is drooping|took (too many|a bunch of|all my|all the) pills|overdos(ed|ing|e)|bleeding (badly|a lot|heavily)|won'?t stop bleeding|unconscious|not breathing|having a seizure)\b/i },
+    { type: "legal", re: /\b(being arrested|getting arrested|just (got )?arrested|i'?ve been arrested|i got arrested|(police|cops) are (here|at my door|outside)|being detained|i'?m detained|i am detained|in custody right now)\b/i }
+  ];
+  const GRAY_RE = /\b(what'?s (even )?the point|whats the point|no point (anymore|in anything|in trying|to any of this)|hopeless|can'?t go on|cant go on|haven'?t slept|have not slept|can'?t sleep|cant sleep|not sleeping|drinking (more|too much|a lot)|everyone (would be|is|'?d be) better off|better off without me|nobody would (miss|care)|no one would (miss|care)|so alone|all alone|completely alone|isolated|can'?t keep doing this|give up on everything|feel numb|so numb)\b/i;
+  const GRAY_CHECK_RE = /(point|better off|miss|care|go on|give up|numb|hopeless|keep doing this)/i;
+
+  CC.classifySafety = function (text) {
+    const t = norm(text);
+    for (const r of CRISIS_RULES) if (r.re.test(t)) return { level: "crisis", type: r.type };
+    if (GRAY_RE.test(t)) return { level: "gray", check: GRAY_CHECK_RE.test(t) };
+    return { level: "none" };
+  };
+
+  /* Human alert hook. In the live product this calls the HoldFast backend, which emails BOTH recipients.
+     v1 records the event on this device only and sends NOTHING. */
+  CC.alertHuman = function (info) {
+    const rec = { at: new Date().toISOString(), type: info.type, app: CC.config.appId, recipients: CC.ALERT_RECIPIENTS.slice(), sent: false, note: "v1 preview: not sent. The live product notifies both recipients automatically." };
+    try {
+      const k = CC.config.storageKey + "-alerts";
+      const list = JSON.parse(localStorage.getItem(k) || "[]"); list.push(rec); localStorage.setItem(k, JSON.stringify(list.slice(-20)));
+    } catch (e) { /* storage unavailable */ }
+    window.dispatchEvent(new CustomEvent("coachclint:crisis-alert", { detail: rec }));
+    if (typeof CC.onCrisisAlert === "function") { try { CC.onCrisisAlert(rec); } catch (e) {} }
+    return rec;
+  };
+
+  CC.crisisText = function () {
+    return [
+      "I'm really glad you told me. That took courage, and I'm not going anywhere.",
+      "Right now I want you to have a real human with you. Please call or text 988. If you've served, call 988 and press 1 (or text 838255). If you're in danger right now, call 911.",
+      "Who's one person you trust … your spouse, a buddy, a teammate … who can be with you or on the phone in the next few minutes?",
+      "Are you safe right now?",
+      "In the full CoachClint, someone on the HoldFast team would also be notified right now so a real person could check on you. This preview can't send that alert, so please reach out to 988 or someone you trust directly.",
+      "I'm right here. Tell me when you've reached someone."
+    ].join("\n");
+  };
+  const CRISIS_FOLLOW = [
+    "I'm still right here with you.\nPlease call or text 988 now. Veterans and service members: 988, then press 1, or text 838255. If you're in danger, call 911.\nWho's one person you trust who can be with you or on the phone in the next few minutes?\nAre you safe right now?",
+    "I hear you. You don't have to figure anything else out right now.\nThe one thing that matters is getting a real human with you: call or text 988 (veterans press 1), or 911 if you're in danger.\nCan you put some distance between you and anything you could use to hurt yourself while we talk?"
+  ];
+  const SAFE_NOW_RE = /\b(i'?m safe|im safe|i am safe|called|texted|reached|talking to (them|someone|988|my)|on the phone with|(they'?re|she'?s|he'?s|someone is|somebody is) (here|with me)|with me now|i'?m okay now|im ok now|i'?m with)\b/i;
+  const GRAY_LINE = "I want to say this once, because I'd rather say it and not need it … if it ever gets heavier than this, call or text 988 (veterans, press 1). No shame in it. That's an Ally, not a weakness.";
+
+  /* ---------------- 2. Scoring rules (manual 4.1, 4.18) ---------------- */
+  CC.scoring = {
+    SCALE: [{ v: -1, label: "Bad" }, { v: 0, label: "Average" }, { v: 1, label: "Good" }, { v: 2, label: "Excellent" }, { v: 3, label: "Elite" }],
+    label(v) { if (v === 0.5) return "Courage Credit"; const s = this.SCALE.find((x) => x.v === v); return s ? s.label : String(v); },
+    fmt(v) { return (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v); },
+    /* raw: -1..3 · gameDay: culminating real-world action · firstAttempt · alreadyCredited: this rep already earned its Courage Credit */
+    apply({ raw, gameDay, firstAttempt, alreadyCredited }) {
+      const notes = []; let v = Number(raw); let capped = false;
+      if (v >= 3 && !gameDay) { v = 2; capped = true; notes.push("Love the fire. But Elite is saved for game day … this one's an Excellent +2. Let's go earn the +3 for real."); }
+      let credit = !!firstAttempt;
+      if (credit && alreadyCredited) { credit = false; notes.push("This rep already earned its Courage Credit, so the normal scale applies from here."); }
+      const recorded = credit ? Math.max(0.5, v) : v;
+      if (credit) notes.unshift(recorded === 0.5 ? "That's a Courage Credit. Not Good yet … but more than Average, because you tried." : "That's a Courage Credit, AND you scored above the floor. The courage counts on its own.");
+      return { raw: Number(raw), recorded, courageCredit: credit, capped, notes };
+    },
+    path(v) { return v >= 1 ? "Push" : v >= 0 ? "Pause & adjust" : "Pivot"; }
+  };
+
+  /* ---------------- 3. State ---------------- */
+  const NEW_SESSION_MS = 4 * 60 * 60 * 1000;
+  function blankConv() { return { id: Date.now().toString(36), startedAt: Date.now(), messages: [], flags: { disclosed: false, chronicleUsed: false, reframeUsed: false, grayNoted: false, gray: false, crisis: false, crisisAlerted: false, awaitingCheck: false, awaitingReframe: false, faithMatched: false, escalated: false, fallbacks: 0, lastEntry: null, userCount: 0 } }; }
+  CC.loadState = function () {
+    let s = null; try { s = JSON.parse(localStorage.getItem(CC.config.storageKey + "-chat") || "null"); } catch (e) {}
+    if (!s) s = { sessions: 0, userMsgs: 0, lastAt: 0, faithTriggered: false, conv: blankConv() };
+    if (s.lastAt && Date.now() - s.lastAt > NEW_SESSION_MS) s.conv = blankConv();
+    return s;
+  };
+  CC.saveState = function (s) { try { localStorage.setItem(CC.config.storageKey + "-chat", JSON.stringify(s)); } catch (e) {} };
+  CC.newConversation = function (s) { s.conv = blankConv(); CC.saveState(s); return s; };
+
+  /* "Brother" and similar terms are earned through usage (manual Section 3). Tunable. */
+  CC.FAMILIARITY = { sessions: 10, userMsgs: 20, modules: 2 };
+  CC.isFamiliar = function (s, modulesDone) { return s.sessions >= CC.FAMILIARITY.sessions && s.userMsgs >= CC.FAMILIARITY.userMsgs && (modulesDone || 0) >= CC.FAMILIARITY.modules; };
+  function guardFamiliar(text, ok) { return ok ? text : text.replace(/\b(brother|bro|stud|my man|my dude)\b/gi, "my friend"); }
+
+  CC.intro = function (s, appName) {
+    const returning = s.sessions > 0;
+    s.conv.flags.disclosed = true;
+    if (returning) return "Good to see you back. CoachClint here (still the AI, still the 75% solution). When I tell a story in first person, it's one Clint has told, passed along through me.\nWhere are we today … BallField, BattleField, BoardRoom, or Breakfast Table?";
+    return "Hey … glad you're here. Quick BLUF so we start honest: I'm CoachClint, an AI coach built on Clint Bruce's words, frameworks, and hard-earned scars. I'm not the live Clint. When I tell a story in first person, it's one Clint has told, passed along through me.\nThink of me as the 75% solution … about three-quarters of what he'd say if he were sitting next to you. Every 72 hours or so I get refreshed with whatever new stuff Clint's been chewing on. The other 25%? That's what Clint and the ReadyLAB coaches are for.\nI'm here alongside " + appName + ". So … let's start where Clint always starts. What's the X on your map right now? And roughly where are you standing?";
+  };
+
+  /* ---------------- 4. Local retrieval adapter ---------------- */
+  const DISCLOSE = "Quick note so we're straight with each other … when I tell a story in first person, it's one Clint has told. I'm CoachClint, the AI, passing it along.\n";
+  const R = {
+    honesty: /\b(is this|are you|am i talking to) (really |actually )?(clint|a (real )?(person|human)|human|a bot|an? ai|real)\b|\breal clint\b|\bare you real\b/i,
+    human: /\b(talk|speak|meet|chat) (to|with) (the real |a real |an actual )?(clint|human|person|coach)\b|\breal (person|human|coach)\b|\bhuman coach\b|\bbook (a )?session\b/i,
+    faithTrigger: /\bwhat'?s (so )?different about (you|clint|him)\b|\bwhat makes (you|clint|him) different\b|\bwhere does (your|his|clint'?s) (peace|strength|hope|steadiness|calm|confidence|joy) come from\b|\bhow do(es)? (you|clint|he) (stay (so )?(grounded|steady|calm)|keep going)\b/i,
+    faithUser: /\b(pray|prayer|praying|god|jesus|church|scripture|bible|my faith)\b/i,
+    scope: /\b(should i (invest|buy|sell|sign|sue)|stocks?|crypto|my taxes|tax (advice|question)|lawsuit|sue (him|her|them|my)|need a lawyer|legal advice|medication|dosage|prescri\w+|diagnos\w+)\b/i,
+    first: /\b(first time|first attempt|first try|first ever|never (done|tried) (this|that|it) before|my first (ever )?(\w+ )?(talk|call|pitch|presentation|meeting|conversation|race|game|time|attempt|try))\b/i,
+    cant: /\bi (can'?t|cannot|can not) ([^.!?,;]{2,60})/i,
+    cantSkip: /^(make it|come|attend|be there|join|wait|thank|believe|stop|help it|sleep|breathe|go on|decide|tell|remember|find|say|hear|see)\b|today|tonight|tomorrow|monday|tuesday|wednesday|thursday|friday|saturday|sunday|this week|next week|meeting|\bcall\b/i,
+    realLimit: /afford|sick|\bill\b|injur|disab|pain|cancer|diagnos|doctor|grief|griev|died|death|funeral|legal|court|visa|pregnan|anxiety|panic|depress|medical|health|wheelchair|chemo|surgery|money|allowed/i,
+    notTried: /\b(haven'?t tried|have not tried|never tried|not tried|haven'?t yet|never done it|haven'?t done it|i haven'?t)\b/i,
+    tried: /\b(i tried|tried and|did try|have tried|couldn'?t|i couldn'?t|tried it|tried before|gave it a shot)\b/i,
+    moduleQ: /\b(this (lesson|module|one|page)|explain this|what does this mean|help me (with|understand) this|summar(y|ize)|tl;?dr|key point)\b/i,
+    greet: /^(hi|hey|hello|yo|howdy|good (morning|afternoon|evening)|sup|what'?s up)\b[\s!.,]*\w{0,12}[\s!.]*$/i,
+    thanks: /^(thanks|thank you|thx|appreciate (it|you)|that helps|that helped)/i,
+    yes: /^(yes|yeah|yep|yup|sometimes|maybe|i have|kind of|kinda|a little|i guess|sort of)\b/i,
+    no: /^(no|nope|nah|not really|never|no i'?m not|not at all)\b/i,
+    score: /\b(scor\w*|rate[ds]?|rating|grade[ds]?|call it|give (it|myself|me))\b/i,
+    num: /(^|[^\d])([+\-−]?\s?[0-3](\.5)?)(?!\d)/,
+    practice: /\b(practice|practiced|drill|rehears\w*|role.?play|simulat\w*|module|lesson|course|homework|scrimmage|mock|dry run|workbook)\b/i,
+    gameDay: /\b(game|the game|mission|real thing|for real|live|actual|launch|race|match|championship|deployment|adventure)\b/i
+  };
+  const MAP_FOLLOW = {
+    boardroom: "BoardRoom Map. An important map for sure … but not THE most important map.\nWhat's the X there, in one line? And quick Breakfast Table check: how's home handling this season?",
+    ballfield: "BallField … performing at a high level, mentally and physically. It's also the map of taking care of yourself: morally, mentally, spiritually, and physically.\nWhat's the X, and how far off does it feel right now?",
+    battlefield: "BattleField … protecting yourself and those entrusted to you. In Wingman terms, it's the most urgent and challenging stuff on any map.\nWhat's the most urgent thing on it right now?",
+    "breakfast table": null
+  };
+  const FALLBACKS = [
+    "Tell me a little more. Which map is this on … BallField, BattleField, BoardRoom, or Breakfast Table? And what's the X?",
+    "Clint hasn't given me his take on that exact one yet … but let's use what he does have. What does a win look like here, and roughly where are you standing right now?",
+    "Here's a question Clint asks a lot: is this a crisis or a crossroads? Most of the time it's a crossroads … and crossroads are where we do our best work.\nWhat's the decision in front of you?",
+    "Honest answer: this might be one for the other 25% … a live session with Clint or a ReadyLAB coach. Bring this exact X with you.\nMeanwhile, what's one small next action you could take in the next 72 hours?"
+  ];
+
+  function retrieve(text, ctx) {
+    const t = norm(text), toks = tokens(text), app = CC.config.appId;
+    const related = (ctx.moduleRelated || []);
+    let best = null, second = null;
+    for (const e of (window.CC_KNOWLEDGE || [])) {
+      if (e.app !== "both" && e.app !== app) continue;
+      let s = 0;
+      for (const k of e.keys) if (t.includes(k)) s += 3 + k.split(" ").length;
+      for (const w of e.words) { if (toks.has(w) || toks.has(w + "s")) s += 1; else if (w.length >= 5) { for (const tk of toks) if (tk.startsWith(w)) { s += 0.75; break; } } }
+      if (s > 0 && related.includes(e.id)) s += 0.5;
+      const item = { e, s };
+      if (!best || s > best.s) { second = best; best = item; } else if (!second || s > second.s) second = item;
+    }
+    if (best && best.e.id === ctx.flags.lastEntry && second && second.s >= 2) best = second;
+    return best && best.s >= 2 ? best.e : null;
+  }
+
+  function chronicleNote(entry, f) {
+    if (!entry || !entry.chronicle || f.chronicleUsed || f.gray || f.crisis || f.userCount < 2) return "";
+    const c = (window.CC_CHRONICLES || {})[entry.chronicle];
+    if (!c || c.app === CC.config.appId) return "";
+    f.chronicleUsed = true;
+    return "\n\nSide note, no homework … " + c.line.charAt(0).toUpperCase() + c.line.slice(1) + " It's there if it's ever useful.";
+  }
+
+  function scoreTalk(text, f) {
+    const t = norm(text);
+    if (!R.score.test(t)) return null;
+    const m = t.match(R.num); if (!m) return null;
+    const n = parseFloat(m[2].replace("−", "-").replace(/\s/g, ""));
+    if (isNaN(n)) return null;
+    const first = R.first.test(t), practice = R.practice.test(t), game = R.gameDay.test(t) && !practice;
+    const acts = [{ label: "Log it in Score", action: "openScore", prefill: { firstAttempt: first, gameDay: game, raw: Math.min(3, Math.max(-1, Math.round(n))) } }];
+    if (first) return { text: "Hold on … before we score anything: you said this was your first time. Then that's a Courage Credit. Your floor is +0.5.\nIt's not Good yet, but it's more than Average, because it took courage to try.\nNow 3 up, 3 down: what are 3 things you did right? (Showing up is #1.) And 3 you'd change?\nFrom rep #2 on, it's the normal scale.", actions: acts };
+    if (n >= 3 && !game) return { text: "Love the fire. But Elite is saved for game day … the actual game, the real mission, the other side of the actual adventure.\nPractice and course work top out at Excellent +2. So this one's a +2.\nLet's go earn the +3 for real. When's game day?", actions: [{ label: "Log it as +2", action: "openScore", prefill: { raw: 2 } }] };
+    if (n >= 3) return { text: "If that was the real thing … a culminating, real-world action … then Elite +3 is on the table. That's rare air.\nFirst: well done. Don't skip past it.\nThen ReLoad: Review (3 up, 3 down), Rest, Recover, Revel.\nWhat made it Elite and not just Excellent?", actions: acts };
+    if (n < -1 || n > 3) return { text: "The scale runs Bad −1 · Average 0 · Good +1 · Excellent +2, with Elite +3 saved for game day.\nWhere does this rep land on that?", actions: [] };
+    const p = CC.scoring.path(n);
+    return { text: "Scored " + CC.scoring.fmt(n) + " (" + CC.scoring.label(n) + "). Remember … the scoring systems aren't judgements, they're data.\nOne way to read it: " + p + ".\n" + (n >= 1 ? "What's the one thing that made it work, so you can do it again on purpose?" : n === 0 ? "Average is holding ground. What's one Angle you could tweak for the next rep?" : "A −1 is just data. Was it a Tactic, a Technique, a Teammate, a Tool, or Technology that let you down?"), actions: acts };
+  }
+
+  CC.localReply = function (text, ctx) {
+    const f = ctx.flags, t = norm(text);
+
+    if (f.awaitingCheck) {
+      f.awaitingCheck = false;
+      if (R.yes.test(t)) return null; // handled by caller as crisis
+      if (R.no.test(t)) return { text: "Thank you for telling me straight. I'm glad.\nThe offer stands … 988 is always there, any hour.\nNow … let's look at where you actually are on the map. What's weighing heaviest: BoardRoom, Breakfast Table, or something else?" };
+    }
+    if (R.honesty.test(t)) return { text: "No … I'm CoachClint, an AI built on Clint's words and frameworks. Think of me as the 75% solution. If you want the real Clint or one of the ReadyLAB coaches, I can point you there.\nWhat's on your map today?" };
+    if (R.human.test(t)) { f.escalated = true; return { text: "Love that. This is a great one for the other 25%.\nThe human options are a live session with Clint, a ReadyLAB coach, or a Wingman (short Time on Target calls when the moment comes). Ask your HoldFast program lead and they'll set it up.\nBring this exact X with you. Want to sharpen it together first?" }; }
+    if (R.faithTrigger.test(t)) { ctx.state.faithTriggered = true; return { text: "I appreciate you asking. That means a lot.\nHonest answer, in Clint's words: there's no \"what\" that is different about me. There is a \"who\" and it's Jesus, and the Holy Spirit, and our Father in Heaven.\nNo pressure on you at all … you asked, so I wanted to give you the real answer.\nNow … where do you want to take today?" }; }
+    if (R.scope.test(t)) return { text: "That's one for a pro … a doctor, an attorney, or a financial advisor.\nWhat I can do is help you think through how you'll approach that conversation. What's the decision you're actually trying to make, and who's the right expert to bring it to?" };
+
+    const sc = scoreTalk(text, f); if (sc) return sc;
+
+    if (R.first.test(t)) return { text: "First time? Then that's a Courage Credit. Your floor is +0.5.\nIt's not Good yet, but it's more than Average, because a lot of people never try at all.\nClint teaches that curiosity is the first evidence of courage. You walked into it anyway, and that counts.\nNow let's make the next one better. 3 up, 3 down: what are 3 things you did right? (Showing up is #1.) And 3 you'd change?\nFrom rep #2 it's the normal scale.", actions: [{ label: "Log it with a Courage Credit", action: "openScore", prefill: { firstAttempt: true } }] };
+
+    if (f.awaitingReframe) {
+      if (R.notTried.test(t)) { f.awaitingReframe = false; return { text: "Then it's \"I haven't tried (yet).\" That's not a verdict, that's a starting line.\nMy girls know a line from We Bought a Zoo by heart: \"Sometimes all you need is 20 seconds of insane courage.\" You don't need 20 minutes of great. You need 20 seconds of brave.\nLet's shrink it: what's the smallest first rep you could do this week? Whatever happens, a first try earns a Courage Credit … +0.5 at minimum.", actions: [{ label: "Plan the first rep", action: "openScore", prefill: { firstAttempt: true } }] }; }
+      if (R.tried.test(t)) { f.awaitingReframe = false; return { text: "Then it's \"I couldn't (yet).\" And I smile when I hear that, because there's virtue in the valor of effort.\nLet's debrief it, 3 up and 3 down. What are 3 things you did right? (Showing up counts as #1.) And 3 you'd change?\nThen we set rep #2." }; }
+      f.awaitingReframe = false;
+    }
+
+    const cm = text.match(R.cant);
+    if (cm && !f.reframeUsed && !f.gray && !f.crisis && !R.cantSkip.test(norm(cm[2])) && !R.realLimit.test(t)) {
+      f.reframeUsed = true; f.awaitingReframe = true;
+      const thing = cm[2].trim().replace(/\s+(anymore|any more|at all)$/i, "");
+      return { text: "Can I offer a swap before you write that one off? I'm a big believer in banishing \"I can't\" from your lexicon.\nSo … \"I can't " + thing + ".\" Is it \"I couldn't (yet)\" … you tried and it went sideways … or \"I haven't tried (yet)\"?\nBecause one means you didn't try and the other means you did. And that's the point of most everything … the trying.\nWhich one is it?" };
+    }
+
+    if (ctx.moduleId && R.moduleQ.test(t) && window.CC_MODULE_NOTES[ctx.moduleId]) {
+      const mn = window.CC_MODULE_NOTES[ctx.moduleId];
+      return { text: mn.text + "\n" + mn.ask };
+    }
+    if (R.greet.test(t)) return { text: pick(["Hey. Good to have you.\nWhere are we today … BallField, BattleField, BoardRoom, or Breakfast Table?", "Hey there. What's the X on your map today? And roughly where are you standing?"], f.userCount) };
+    if (R.thanks.test(t)) return { text: "Proud of you. No need to respond.\nI'll be here when you want to go again. Hold Fast." };
+
+    let prefix = "";
+    if (R.faithUser.test(t) && !f.faithMatched) { f.faithMatched = true; prefix = "Love that you brought that up. Galatians 6:9 is one Clint comes back to a lot.\n"; }
+
+    const entry = retrieve(text, ctx);
+    if (entry) {
+      f.lastEntry = entry.id; f.fallbacks = 0;
+      let body = entry.text;
+      if (entry.story && !f.disclosed) { body = DISCLOSE + body; f.disclosed = true; }
+      return { text: prefix + body + chronicleNote(entry, f), entryId: entry.id };
+    }
+    const words = t.split(" ").length;
+    for (const k of Object.keys(MAP_FOLLOW)) if (t.includes(k) && words <= 10) {
+      if (!MAP_FOLLOW[k]) break;
+      return { text: prefix + MAP_FOLLOW[k] };
+    }
+    const fb = FALLBACKS[Math.min(f.fallbacks, FALLBACKS.length - 1)]; f.fallbacks++;
+    return { text: prefix + fb };
+  };
+
+  CC.adapters = {
+    local: { name: "local-retrieval", async reply(ctx) { return CC.localReply(ctx.text, ctx); } },
+    /* Remote AI adapter. Expects your server to hold the system prompt (docs/coachclint-system-prompt.md)
+       and the model key. Request/response contract is documented in README.md. */
+    remote: {
+      name: "remote-ai",
+      async reply(ctx) {
+        if (!CC.config.endpoint) throw new Error("No endpoint configured");
+        const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), CC.config.timeoutMs);
+        try {
+          const res = await fetch(CC.config.endpoint, {
+            method: "POST", headers: { "Content-Type": "application/json" }, signal: ctl.signal,
+            body: JSON.stringify({
+              app: CC.config.appId, module: ctx.moduleId || null,
+              messages: ctx.history.map((m) => ({ role: m.role === "coach" ? "assistant" : "user", content: m.text })),
+              user: { sessions: ctx.state.sessions, userMessages: ctx.state.userMsgs, familiar: ctx.familiar, faithTriggered: !!ctx.state.faithTriggered },
+              flags: { disclosed: ctx.flags.disclosed, chronicleUsed: ctx.flags.chronicleUsed, reframeUsed: ctx.flags.reframeUsed, gray: ctx.flags.gray }
+            })
+          });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const j = await res.json();
+          if (j.flags) Object.assign(ctx.flags, j.flags);
+          return { text: j.reply, actions: j.actions || [] };
+        } finally { clearTimeout(to); }
+      }
+    }
+  };
+  CC.registerAdapter = function (key, impl) { CC.adapters[key] = impl; };
+
+  /* ---------------- 5. Main entry point ---------------- */
+  CC.respond = async function (text, opts) {
+    opts = opts || {};
+    const s = opts.state, f = s.conv.flags;
+    f.userCount++; s.userMsgs++; s.lastAt = Date.now();
+    if (f.userCount === 3) s.sessions++; // a "session" = a conversation with 3+ user messages
+    const familiar = CC.isFamiliar(s, opts.modulesDone);
+    const out = (r, kind) => ({ text: guardFamiliar(r.text, familiar && kind === "normal" && !f.gray), kind, actions: r.actions || [], entryId: r.entryId || null });
+
+    // Safety first — always local, regardless of adapter.
+    const safety = CC.classifySafety(text);
+    const yesToCheck = f.awaitingCheck && R.yes.test(norm(text));
+    if (safety.level === "crisis" || yesToCheck) {
+      f.awaitingCheck = false; const firstHit = !f.crisis; f.crisis = true; f.gray = true;
+      if (!f.crisisAlerted) { f.crisisAlerted = true; CC.alertHuman({ type: safety.type || "self-harm (answered yes to safety check)" }); }
+      return out({ text: firstHit ? CC.crisisText() : CRISIS_FOLLOW[f.userCount % 2] }, "crisis");
+    }
+    if (f.crisis) {
+      if (SAFE_NOW_RE.test(norm(text))) { f.crisis = false; return out({ text: "I'm really proud of you for reaching out. That took courage.\nStay with them. When you're ready, I'd be proud to keep walking this with you. I'm right here." }, "gray"); }
+      return out({ text: CRISIS_FOLLOW[f.userCount % 2] }, "crisis");
+    }
+    if (safety.level === "gray") {
+      f.gray = true;
+      let lead = "";
+      if (!f.grayNoted) { f.grayNoted = true; lead = GRAY_LINE + "\n"; }
+      if (safety.check) { f.awaitingCheck = true; return out({ text: lead + "Can I ask you something straight, because I care about the answer: when you say that, are you having any thoughts of hurting yourself?" }, "gray"); }
+      const r = CC.localReply(text, Object.assign({}, opts, { flags: f, state: s }));
+      return out({ text: lead + "Now … let's look at where you actually are on the map.\n" + (r ? r.text : FALLBACKS[0]), actions: r && r.actions }, "gray");
+    }
+
+    const ctx = { text, state: s, flags: f, familiar, moduleId: opts.moduleId, moduleRelated: opts.moduleRelated, history: s.conv.messages.slice(-20) };
+    const adapter = CC.adapters[CC.config.mode] || CC.adapters.local;
+    let r;
+    try { r = await adapter.reply(ctx); }
+    catch (e) { console.warn("CoachClint adapter failed, falling back to local:", e.message); r = CC.localReply(text, ctx); }
+    if (!r) r = { text: FALLBACKS[0] };
+    return out(r, "normal");
+  };
+
+  window.CoachClint = CC;
+})();
+</script>
+<script>/* PursuingElite v1 content. Compiled from Clint Bruce's HoldFast material:
+   Pursuing Elite (2021 book proposal), PursuingElite course decks, Clint's teaching texts and emails,
+   and the CoachClint manual v1.3. Draft lessons for Clint's review. */
+window.APP = {
+  id: "pe",
+  name: "PursuingElite",
+  storageKey: "holdfast-pursuingelite-v1",
+  kicker: "HoldFast · PursuingElite",
+  headline: "Living and leading beyond excellence.",
+  intro: "Every endeavor ends in one of five outcomes: Bad, Average, Good, Excellent, or Elite. The difference between Excellent and Elite is a choice … are you done, or Not Done Yet? These short lessons walk through the five qualities elites have in common, one rep at a time.",
+  how: ["Learn: a short lesson in Clint's words", "Rep: one real action this week", "Score: Bad −1 to Excellent +2 (Elite +3 is for game day)", "Talk it through with CoachClint"],
+  scoreFocusLabel: "PursuitPoint",
+  scoreFocus: ["Balance", "Curiosity", "Tribalism", "Intentionalism", "Authenticity", "Not Done Yet (ReLoad)"],
+  breakdown: null,
+  chips: ["I feel lost", "I can't do public speaking", "First time leading the meeting today", "We just had a big win", "What's the difference between excellent and elite?"],
+  modules: [
+    { id: "pe1", title: "Not Done Yet", mins: 4, focus: "Not Done Yet (ReLoad)", related: ["not-done-yet", "five-outcomes"],
+      lead: "The night a platoon chief redefined excellent.",
+      body: [
+        "A few weeks after 9/11, on one of Clint's first missions as a SEAL officer, his platoon took down a non-compliant freighter running dark. It was flawless. \"Like watching water roll downhill.\"",
+        "Clint turned to his platoon chief: \"Chief, the boys were excellent. We ought to do something for them.\"",
+        "The chief squared up, irritated: <b>\"Sir, the reward for excellence is no punishment. We're not here to be excellent. We're here to be elite. We're not done yet.\"</b>",
+        "Clint's two thoughts: \"I am so scared of this guy.\" And: \"I get it.\" He hasn't stopped getting it.",
+        "The difference between being excellent and elite is <b>consciously deciding to continue</b>. To stay restless where others rest. Not to marginalize what you've done … but to be a steward of your time, talent, and treasure.",
+        "And it's never about anyone else. <b>It's you versus yesterday's you.</b> That makes elite yours alone and eliminates comparison."
+      ],
+      quote: "The difference between excellent and elite is … are you done, or Not Done Yet?",
+      rep: "Pick ONE area where you've been resting at Excellent. Write down what \"Not Done Yet\" would look like there this week.",
+      reflect: "Where in your life are you resting when you'd rather be reloading?",
+      note: "This lesson is the origin of PursuingElite: the platoon chief's line, \"We're not here to be excellent. We're here to be elite. We're not done yet.\" Elite is choosing to stay restless where others rest, and it's always you versus yesterday's you.",
+      ask: "Where are you resting at Excellent right now?" },
+    { id: "pe2", title: "The 5 Outcomes (and how we score)", mins: 3, focus: "Not Done Yet (ReLoad)", related: ["five-outcomes", "scoring"],
+      lead: "Bad, Average, Good, Excellent, Elite … and why scores are data, not judgements.",
+      body: [
+        "\"Most of life comes down to what outcomes you're willing to accept from yourself and others in missions that matter most.\" On the things that matter most, Clint says accept only <b>Excellent to Elite</b>.",
+        "<b>Excellent</b> is an X on the map … a measurable standard. <b>Elite</b> is \"a mythical ridgeline just a little bit further than you thought possible until you had the view from excellent.\"",
+        "In this app every rep gets scored on the official HoldFast scale: <b>Bad −1 · Average 0 · Good +1 · Excellent +2</b>.",
+        "<b>Elite +3 is saved for game day</b> … the actual game, the real mission, the other side of the actual adventure. Never practice, drills, or course work. The Elite <i>mindset</i> is for every day; the Elite <i>score</i> is for game day.",
+        "<b>The Courage Credit:</b> the first time you ever try something, your floor is <b>+0.5</b>. \"We can't call it good, but it's more than average because it took courage to try it.\" It shows as its own badge, every time.",
+        "\"The scoring systems aren't judgements … they're data.\" They give you a fast way to pick a path: push, pause, or pivot."
+      ],
+      quote: "The scoring systems aren't judgements … they're data.",
+      rep: "Score one rep from today in the Score tab. Be honest. It's data.",
+      reflect: "What's one mission that matters to you where you've been accepting Good?",
+      note: "The 5 outcomes are Bad, Average, Good, Excellent, Elite. The app scale is Bad −1, Average 0, Good +1, Excellent +2, with Elite +3 only for a culminating real-world action. A first attempt gets a Courage Credit with a +0.5 floor.",
+      ask: "Want to score a rep together right now?" },
+    { id: "pe3", title: "Balance: high ground for hard days", mins: 4, focus: "Balance", related: ["balance", "breakfast-table"],
+      lead: "PursuitPoint 1. Invest before you need it.",
+      body: [
+        "Picture standing at the pinnacle of a long-sought success … and the one person you'd want there is nowhere to be found. The triumph rings hollow.",
+        "That's why balance is the first PursuitPoint. <b>Balance is building high ground for hard days</b>, because hard days will come: getting fired, losing the championship, a serious illness. On that day you need family, community, friends, or faith to fall back on.",
+        "Elite performers put in their 10,000 hours or reps. The trap is pouring all 10,000 into one narrow slice … your passion or your profession. Clint asked himself: had he done 10,000 things to become a good daddy to his three daughters? To make his Bride happy? \"Probably not.\" A course change was in order.",
+        "The five places to invest: <b>faith, family, friends, fitness, and focus</b>. Balance is being good at more than what you're known for. <b>Dangerous, not reckless.</b>",
+        "And remember the map that matters most: \"Your Breakfast Table map is the most important map.\""
+      ],
+      quote: "Balance gives you this cushion. It's the secret to longevity.",
+      rep: "Choose the one of the five (faith, family, friends, fitness, focus) getting the fewest reps. Put one rep on the calendar this week.",
+      reflect: "If your hardest day came tomorrow, what high ground would be there for you?",
+      note: "Balance is building high ground for hard days: faith, family, friends, fitness and focus, invested in before you need them, so your 10,000 reps aren't all in one slice of life.",
+      ask: "Which of the five is getting the fewest reps from you?" },
+    { id: "pe4", title: "Curiosity: find out, or get found out", mins: 4, focus: "Curiosity", related: ["curiosity", "courage-story"],
+      lead: "PursuitPoint 2. Questions are courage reps.",
+      body: [
+        "\"If you make a habit of being curious, you distinguish yourself from average people. The most successful people I know are also the most curious.\"",
+        "Curiosity is 5 things: <b>Criteria</b> (it determines our compatibility … when someone isn't curious, they're saying \"I'm done\" or \"I already know everything\"), <b>Courage</b>, <b>Creator</b>, <b>Catalyst</b>, and <b>Complacency Killer</b>.",
+        "The courage part matters most. Fear is the reason people don't ask questions: afraid of the answer, of the work that comes with it, of admitting we don't know. All we have to do is not raise our hand, and no one will know we don't know.",
+        "<b>\"Curiosity is the first evidence of courage.\"</b> That's why the first time you try something earns a Courage Credit in this app.",
+        "Our untapped potential is only revealed when we ask more questions, stop being satisfied with our level of knowledge, and shed the ego that says we know it all."
+      ],
+      quote: "Find out, or get found out.",
+      rep: "Ask the question you've been avoiding. In a meeting, with a teammate, or at home. One question.",
+      reflect: "What question are you afraid to ask … and what are you afraid the answer might be?",
+      note: "Curiosity is Criteria, Courage, Creator, Catalyst, and Complacency Killer. Its motto is 'Find out, or get found out,' and Clint teaches that curiosity is the first evidence of courage.",
+      ask: "What's the question you've been avoiding?" },
+    { id: "pe5", title: "Tribalism: more than ourselves", mins: 4, focus: "Tribalism", related: ["tribalism", "team-conflict", "allies"],
+      lead: "PursuitPoint 3. Tribes beat teams every day.",
+      body: [
+        "\"I'm an average guy who has been blessed to be a small part of mighty moments, teams, and units. That's not by luck or mistake.\" Tribalism is <b>knowing we need something more than ourselves to do something bigger than ourselves.</b>",
+        "Clint sorts gatherings by why people are together: a <b>Gaggle</b> (problems … united by misery), a <b>Group</b> (preferences), a <b>Team</b> (purpose), and a <b>Tribe</b> (conviction).",
+        "\"An opinion can be argued with, but a conviction is best shot\" (T.E. Lawrence). Adversity reveals which one you have.",
+        "Don't knock the Team: \"The Team is the beginning of the magic. It is where all great stories begin.\" <b>We must be a Team to become a Tribe. The strands make the Team. The strain is what makes us a Tribe.</b>",
+        "In a tribe, hierarchy doesn't matter much. The baton gets passed to whoever the moment needs. <b>Teams row. Tribes flow.</b> And tribes move at the speed of trust."
+      ],
+      quote: "The strands make the Team. The strain is what makes us a Tribe.",
+      rep: "Name your crew honestly: Gaggle, Group, Team, or Tribe? Then name the one conviction you'd want them to share, and say it out loud to them.",
+      reflect: "What strain has your team been through together … and did it make you more of a Tribe, or less?",
+      note: "Tribalism sorts gatherings into Gaggles (problems), Groups (preferences), Teams (purpose) and Tribes (conviction). The strands make the Team; the strain makes the Tribe.",
+      ask: "Is your crew a Gaggle, Group, Team, or Tribe right now?" },
+    { id: "pe6", title: "Intentionalism: HighWhy and BigWhy", mins: 3, focus: "Intentionalism", related: ["intentionalism", "lost-vs-wrong", "lost"],
+      lead: "PursuitPoint 4. Know why you're doing what you're doing.",
+      body: [
+        "Great people, parents, athletes, and entrepreneurs move with purpose, knowing where they want to venture.",
+        "Your <b>HighWhy</b> is what you want folks to say about you when you're gone. Your <b>BigWhy</b> is why you use your time, treasure, and talent the way you use it.",
+        "The <b>X</b> on your map is the nexus of your HighWhy and your BigWhy. A map has 5 things: 4 borders (your Always and your Never … moral, mental, physical, spiritual) and an X you think is right.",
+        "\"If we don't have a map, we're lost. If we have a map, the worst we'll ever be is wrong.\" <b>Wrong is workable. Lost is terrifying.</b>",
+        "Clint's template: <b>\"I will ____ so that I can ____.\"</b> Then publish your plan, and plan to pivot on your plan. Hold fast to the goal, hold loosely to the plan."
+      ],
+      quote: "Wrong is workable. Lost is terrifying.",
+      rep: "Write your sentence: \"I will ____ so that I can ____.\" Tell one person.",
+      reflect: "What do you want folks to say about you when you're gone?",
+      note: "Intentionalism means knowing why. HighWhy is what you want said about you when you're gone; BigWhy is why you use your time, talent and treasure as you do. Template: 'I will ____ so that I can ____.'",
+      ask: "Want to fill in 'I will ____ so that I can ____' together?" },
+    { id: "pe7", title: "Authenticity: share your scars", mins: 3, focus: "Authenticity", related: ["authenticity", "doubt"],
+      lead: "PursuitPoint 5. Preach from your pain.",
+      body: [
+        "Elites always learn from their mistakes … and they make sure others can too. <b>Authenticity is preaching from our pain and sharing our scars.</b>",
+        "Mistakes are time lost. Letting someone repeat yours \"double-down[s] on irrecoverable time.\"",
+        "\"Can I share a quick scar with you?\" is one of Clint's favorite openers. The goal is for others to get the skill without the scar.",
+        "\"Shame is the shovel Satan uses to bury us. Authenticity slaps the shovel from his hands.\"",
+        "And: <b>\"It's better to be a manual than a movie.\"</b> Don't just perform the win. Teach what it cost you."
+      ],
+      quote: "It's better to be a manual than a movie.",
+      rep: "Share one scar with someone who's walking a road you've already walked.",
+      reflect: "What's a scar you've been hiding that could help someone miss the harm you hit?",
+      note: "Authenticity is preaching from our pain and sharing our scars, so others get the skill without the scar. 'It's better to be a manual than a movie.'",
+      ask: "Who could miss the harm you hit if you shared that scar?" },
+    { id: "pe8", title: "\"I can't\" vs. \"I couldn't\"", mins: 3, focus: "Curiosity", related: ["courage-story", "scoring"],
+      lead: "The story behind the Courage Credit.",
+      body: [
+        "From Clint's post, \"Just thinkin' out loud …\": \"BraveBruceBeauty#3 and I were talking the other day about words. Phrases, really. I was telling her to banish 'I can't' from her lexicon. Yet I had no problem with 'I couldn't.' Because one means we didn't try and the other means we did. <b>And that's the point of most everything … the trying.</b>\"",
+        "\"When someone says 'I tried but I couldn't …' I smile more often than I don't. And I always listen. Because <b>there's virtue in the valor of effort.</b> There are lessons to be learned. And, many times, scars to be shared.\"",
+        "\"I love being in the company of those who dared … The ones who dared once almost always keep doing so.\"",
+        "All three BraveBruceBeauties know the <i>We Bought a Zoo</i> scene by heart: \"Sometimes all you need is <b>20 seconds of insane courage</b>.\"",
+        "A great friend who served years in the legendary SAS taught Clint the motto that \"says much with just a few words\": <b>Who Dares Wins.</b>",
+        "\"There's plenty of things in my life I couldn't do … But I've said 'I couldn't …' a thousand more times than I've said 'I can't.'\" The Courage Credit is \"I couldn't\" made measurable."
+      ],
+      quote: "One means we didn't try and the other means we did.",
+      rep: "Take one \"I can't\" you've said lately. Is it \"I couldn't (yet)\" or \"I haven't tried (yet)\"? If it's the second, schedule 20 seconds of insane courage.",
+      reflect: "Where have you said \"I can't\" when the truth is \"I haven't tried yet\"?",
+      note: "Clint banishes 'I can't' but has no problem with 'I couldn't': one means we didn't try and the other means we did. That's the Courage Credit: a first attempt never scores below +0.5.",
+      ask: "Is there an 'I can't' you'd like to swap?" },
+    { id: "pe9", title: "Well done … AND Not Done Yet", mins: 3, focus: "Not Done Yet (ReLoad)", related: ["reload", "not-done-yet", "week-two-dip"],
+      lead: "How to stay Not Done Yet without burning out.",
+      body: [
+        "Clint's guardrail on his own teaching: \"The point of PursuingElite and being 'not done yet' is NOT to overlook all that's been done along the way. We have to acknowledge all we've done … to celebrate it.\"",
+        "He realized he'd been \"villainizing achievements … trading the risk of complacency for the risk of burnout.\" So he wrote <b>OnReloading</b>: <b>Review</b> (an AAR with all hands, 3 up and 3 down), <b>Rest</b>, <b>Recover</b> (body, brain, mind, soul), and <b>Revel</b>.",
+        "\"Recover allows us to individually recharge. Revelry is how we collectively recharge.\"",
+        "\"The brain craves and needs little nods that we're stacking wins along the way. It's data that allows it to manage performance energy better.\"",
+        "So right before you tell yourself \"job's not done yet,\" tell yourself \"well done.\""
+      ],
+      quote: "Well done … AND not done yet.",
+      rep: "After your next win, run a 10-minute Review: 3 up, 3 down. Then plan one way to Revel with your people.",
+      reflect: "What have you accomplished lately that you skipped right past?",
+      note: "OnReloading is Review, Rest, Recover, Revel. Celebrate the win before you reload: 'Well done … AND not done yet.'",
+      ask: "What win have you skipped past lately?" }
+  ]
+};
+</script>
+<script>/* Shared app shell: Learn · Score · Trends · CoachClint. Data stays in this browser (localStorage). */
+(function () {
+  "use strict";
+  const A = window.APP, CC = window.CoachClint;
+  CC.config.appId = A.id; CC.config.appName = A.name; CC.config.storageKey = A.storageKey;
+  A.modules.forEach((m) => { window.CC_MODULE_NOTES[m.id] = { text: m.note, ask: m.ask }; });
+
+  const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const KEY = A.storageKey;
+  const load = () => { try { return Object.assign({ done: {}, notes: {}, reps: [] }, JSON.parse(localStorage.getItem(KEY) || "{}")); } catch (e) { return { done: {}, notes: {}, reps: [] }; } };
+  let data = load();
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} };
+  const fmt = (v) => CC.scoring.fmt(v);
+  const normTitle = (s) => (s || "").toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, " ").trim();
+  const modulesDone = () => Object.keys(data.done).filter((k) => data.done[k]).length;
+  let currentModule = null;
+
+  /* ---------- tabs ---------- */
+  function show(tab) {
+    $$("nav.tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === tab)));
+    $$("section.view").forEach((v) => v.classList.toggle("on", v.id === "v-" + tab));
+    const wide = matchMedia("(min-width:980px)").matches;
+    $("#coach").classList.toggle("on", tab === "coach" || wide);
+    if (tab === "coach") { openChat(); setTimeout(() => $("#ch-in").focus(), 50); }
+    if (tab === "trends") renderTrends();
+    if (tab !== "coach") window.scrollTo(0, 0);
+  }
+
+  /* ---------- Learn ---------- */
+  function renderLearn() {
+    const n = modulesDone(), tot = A.modules.length;
+    $("#v-learn").innerHTML =
+      '<div class="hero"><small style="color:var(--brass);letter-spacing:.12em;text-transform:uppercase;font-weight:700">' + esc(A.kicker) + '</small>' +
+      '<h1 class="eq">' + esc(A.headline) + '</h1><p>' + esc(A.intro) + '</p><ul class="how">' + A.how.map((h, i) => '<li><b>' + (i + 1) + '.</b> ' + esc(h) + '</li>').join("") + '</ul>' +
+      '<p class="disclose"><b>About CoachClint:</b> CoachClint is an AI coach built on Clint Bruce\'s words and frameworks: the 75% solution, refreshed every 72 hours. It is not the live Clint. Clint: U.S. Naval Academy Hall of Fame linebacker, NFL (Ravens, Saints), former Navy SEAL officer (BUD/S Class 217, SEAL Team FIVE), and founder of HoldFast and Carry the Load.</p></div>' +
+      '<h2>Lessons</h2><div class="progress" aria-label="progress"><i style="width:' + Math.round((n / tot) * 100) + '%"></i></div><p style="color:var(--mut);margin-top:-8px">' + n + ' of ' + tot + ' complete</p>' +
+      '<div class="mods">' + A.modules.map((m, i) => '<button class="mod' + (data.done[m.id] ? " done" : "") + '" data-mod="' + m.id + '"><span class="n">' + (data.done[m.id] ? "✓" : i + 1) + '</span><span class="t"><b>' + esc(m.title) + '</b><small>' + esc(m.lead) + ' · ' + m.mins + ' min</small></span></button>').join("") + '</div>';
+    $$("#v-learn .mod").forEach((b) => b.onclick = () => openModule(b.dataset.mod));
+  }
+  function openModule(id) {
+    const m = A.modules.find((x) => x.id === id); if (!m) return; currentModule = m;
+    const i = A.modules.indexOf(m), next = A.modules[i + 1];
+    $("#v-learn").innerHTML = '<button class="back" id="m-back">← All lessons</button><article class="lesson card"><small style="color:var(--mut)">Lesson ' + (i + 1) + ' of ' + A.modules.length + ' · ' + m.mins + ' min</small><h2>' + esc(m.title) + '</h2><p class="lead">' + esc(m.lead) + '</p>' +
+      m.body.map((p) => '<p>' + p + '</p>').join("") + '<blockquote>“' + esc(m.quote) + '”</blockquote>' +
+      '<div class="box"><h3>Your rep this week</h3><p>' + esc(m.rep) + '</p><button class="btn ghost small" id="m-score">Score this rep</button></div>' +
+      '<div class="box"><h3>Reflect</h3><p>' + esc(m.reflect) + '</p><textarea id="m-note" placeholder="Just for you. Saved on this device.">' + esc(data.notes[m.id] || "") + '</textarea></div>' +
+      '<div class="row"><button class="btn" id="m-done">' + (data.done[m.id] ? "✓ Completed" : "Mark complete") + '</button><button class="btn ghost" id="m-ask">Ask CoachClint about this</button>' + (next ? '<button class="btn ghost" id="m-next">Next: ' + esc(next.title) + ' →</button>' : "") + '</div></article>';
+    $("#m-back").onclick = () => { currentModule = null; renderLearn(); setCtx(); };
+    $("#m-note").oninput = (e) => { data.notes[m.id] = e.target.value; save(); };
+    $("#m-done").onclick = () => { data.done[m.id] = true; save(); $("#m-done").textContent = "✓ Completed"; };
+    $("#m-score").onclick = () => { show("score"); prefillScore({ title: m.rep.split(".")[0].slice(0, 80), focus: m.focus }); };
+    $("#m-ask").onclick = () => { setCtx(); if (!matchMedia("(min-width:980px)").matches) show("coach"); sendChat("Help me with this lesson: " + m.title); };
+    if (next) $("#m-next").onclick = () => openModule(next.id);
+    setCtx(); window.scrollTo(0, 0);
+  }
+
+  /* ---------- Score ---------- */
+  let sc = {};
+  function renderScore() {
+    sc = { raw: null, gameDay: false, first: false, parts: {} };
+    const bd = A.breakdown ? '<label class="f">Break it down (optional): score each part of the equation</label>' + A.breakdown.map((g) => '<div class="card" style="padding:10px;margin-bottom:8px"><b style="color:var(--brass2)">' + g.group + '</b>' + g.items.map((it) => '<div style="margin-top:6px"><small>' + it + '</small><div class="seg mini" data-part="' + it + '">' + [-1, 0, 1, 2, 3].map((v) => '<button type="button" data-v="' + v + '" aria-pressed="false"><b>' + fmt(v) + '</b></button>').join("") + '</div></div>').join("") + '</div>').join("") : "";
+    $("#v-score").innerHTML = '<h2>Score a rep</h2><p style="color:var(--mut)">The scoring systems aren\'t judgements … they\'re data.</p><div class="card">' +
+      '<label class="f" for="s-title">What was the rep?</label><input type="text" id="s-title" maxlength="120" placeholder="e.g., Led the Monday team meeting">' +
+      '<label class="f" for="s-focus">' + esc(A.scoreFocusLabel) + '</label><select id="s-focus">' + A.scoreFocus.map((f) => '<option>' + esc(f) + '</option>').join("") + '</select>' +
+      '<label class="f">What kind of rep was it?</label><div class="seg" id="s-kind"><button type="button" data-k="practice" aria-pressed="true"><b>Practice / everyday</b><small>drills, course work, daily reps</small></button><button type="button" data-k="game" aria-pressed="false"><b>Game day</b><small>the actual game, mission, or adventure</small></button></div>' +
+      '<label class="check" for="s-first"><input type="checkbox" id="s-first"><span><b>First time I\'ve ever tried this</b><br><small style="color:var(--mut)">Earns a Courage Credit: your floor is +0.5, because it took courage to try.</small></span></label>' +
+      '<label class="f">How did it go?</label><div class="seg" id="s-scale">' + CC.scoring.SCALE.map((s) => '<button type="button" data-v="' + s.v + '" aria-pressed="false"><b>' + fmt(s.v) + '</b><small>' + s.label + '</small></button>').join("") + '</div>' +
+      '<p id="s-elite-hint" style="font-size:13px;color:var(--mut);margin:6px 0 0">Elite +3 is saved for game day.</p>' + bd +
+      '<label class="f" for="s-note">3 up, 3 down (optional)</label><textarea id="s-note" placeholder="3 things that went well … 3 things to change"></textarea>' +
+      '<div id="s-preview"></div><div class="row" style="margin-top:12px"><button class="btn" id="s-save" disabled>Save score</button></div><div id="s-result"></div></div>';
+    $$("#s-kind button").forEach((b) => b.onclick = () => { sc.gameDay = b.dataset.k === "game"; $$("#s-kind button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); syncScale(); });
+    $$("#s-scale button").forEach((b) => b.onclick = () => { sc.raw = Number(b.dataset.v); syncScale(); });
+    $$(".seg.mini").forEach((g) => $$("button", g).forEach((b) => b.onclick = () => { const p = g.dataset.part, v = Number(b.dataset.v); sc.parts[p] = sc.parts[p] === v ? undefined : v; syncScale(); }));
+    $("#s-first").onchange = (e) => { sc.first = e.target.checked; syncScale(); };
+    $("#s-title").oninput = syncScale;
+    $("#s-save").onclick = saveScore;
+    syncScale();
+  }
+  function alreadyCredited(title) { const t = normTitle(title); return !!t && data.reps.some((r) => r.courageCredit && normTitle(r.title) === t); }
+  function syncScale() {
+    let capNote = "";
+    if (!sc.gameDay && sc.raw === 3) { sc.raw = 2; capNote = "Love the fire. But Elite is saved for game day … this one's an Excellent +2. Let's go earn the +3 for real."; }
+    $$("#s-scale button").forEach((b) => { const v = Number(b.dataset.v); b.setAttribute("aria-pressed", String(v === sc.raw)); if (v === 3) { b.disabled = !sc.gameDay; b.title = sc.gameDay ? "" : "Elite +3 is saved for game day"; } });
+    $$(".seg.mini").forEach((g) => { const p = g.dataset.part; if (!sc.gameDay && sc.parts[p] === 3) sc.parts[p] = 2; $$("button", g).forEach((b) => { const v = Number(b.dataset.v); b.setAttribute("aria-pressed", String(v === sc.parts[p])); if (v === 3) b.disabled = !sc.gameDay; }); });
+    $("#s-elite-hint").textContent = sc.gameDay ? "Game day: Elite +3 is on the table if you earned it." : "Elite +3 is saved for game day.";
+    const title = $("#s-title").value;
+    $("#s-save").disabled = sc.raw === null || !title.trim();
+    let html = capNote ? '<div class="notice">' + esc(capNote) + '</div>' : "";
+    if (sc.raw !== null) {
+      const r = CC.scoring.apply({ raw: sc.raw, gameDay: sc.gameDay, firstAttempt: sc.first, alreadyCredited: alreadyCredited(title) });
+      html += '<div class="notice ok" id="s-prev">Will record <b>' + fmt(r.recorded) + '</b> (' + esc(CC.scoring.label(r.recorded)) + ')' + (r.courageCredit ? ' <span class="badge cc">★ Courage Credit</span>' : "") + (sc.gameDay ? ' <span class="badge gd">Game day</span>' : "") + (r.notes.length ? '<br>' + r.notes.map(esc).join("<br>") : "") + '</div>';
+    }
+    $("#s-preview").innerHTML = html;
+  }
+  function saveScore() {
+    const title = $("#s-title").value.trim(); if (!title || sc.raw === null) return;
+    const r = CC.scoring.apply({ raw: sc.raw, gameDay: sc.gameDay, firstAttempt: sc.first, alreadyCredited: alreadyCredited(title) });
+    const parts = {}; Object.keys(sc.parts).forEach((k) => { if (sc.parts[k] !== undefined) parts[k] = sc.parts[k]; });
+    const rep = { id: Date.now().toString(36), at: new Date().toISOString(), title, focus: $("#s-focus").value, gameDay: sc.gameDay, raw: r.raw, recorded: r.recorded, courageCredit: r.courageCredit, parts, note: $("#s-note").value.trim() };
+    data.reps.push(rep); save();
+    renderScore();
+    $("#s-result").innerHTML = '<div class="notice ok" id="s-saved"><b>Saved: ' + fmt(rep.recorded) + ' (' + esc(CC.scoring.label(rep.recorded)) + ')</b>' + (rep.courageCredit ? ' <span class="badge cc">★ Courage Credit</span><br>That\'s a Courage Credit. Not Good yet … but more than Average, because you tried.' : "") + '<br>One way to read it: <b>' + CC.scoring.path(rep.recorded) + '</b>. ' + (rep.gameDay && rep.recorded === 3 ? "Well done … AND Not Done Yet. Time to ReLoad." : "Proud of you.") + ' <button class="btn ghost small" id="s-talk">Debrief with CoachClint</button></div>';
+    $("#s-talk").onclick = () => { if (!matchMedia("(min-width:980px)").matches) show("coach"); sendChat("I scored " + fmt(rep.recorded) + " on: " + rep.title + (rep.courageCredit ? " (first time)" : "")); };
+  }
+  function prefillScore(p) {
+    if (!$("#s-title")) renderScore();
+    if (p.title) $("#s-title").value = p.title;
+    if (p.focus) { const o = Array.from($("#s-focus").options).find((x) => x.value === p.focus); if (o) $("#s-focus").value = p.focus; }
+    if (p.gameDay) $$("#s-kind button")[1].click();
+    if (p.firstAttempt) { $("#s-first").checked = true; sc.first = true; }
+    if (typeof p.raw === "number") sc.raw = p.raw;
+    syncScale();
+  }
+
+  /* ---------- Trends ---------- */
+  function renderTrends() {
+    const reps = data.reps.slice().sort((a, b) => a.at.localeCompare(b.at));
+    const n = reps.length, avg = n ? reps.reduce((s, r) => s + r.recorded, 0) / n : 0;
+    const cc = reps.filter((r) => r.courageCredit).length, elite = reps.filter((r) => r.recorded === 3).length;
+    const groups = {}; reps.forEach((r) => { (groups[r.focus] = groups[r.focus] || []).push(r.recorded); });
+    const parts = {}; reps.forEach((r) => Object.keys(r.parts || {}).forEach((k) => { (parts[k] = parts[k] || []).push(r.parts[k]); }));
+    const bar = (label, arr) => { const a = arr.reduce((s, x) => s + x, 0) / arr.length; const pct = ((a + 1) / 4) * 100; return '<div class="bar"><span>' + esc(label) + '</span><span class="track"><span class="zero"></span><i style="left:' + Math.min(25, pct) + '%;width:' + Math.abs(pct - 25) + '%"></i></span><b>' + fmt(Math.round(a * 10) / 10) + '</b></div>'; };
+    const last = reps.slice(-20), W = 300, H = 80, y = (v) => H - ((v + 1) / 4) * (H - 10) - 5;
+    const pts = last.map((r, i) => [last.length === 1 ? W / 2 : (i / (last.length - 1)) * (W - 10) + 5, y(r.recorded)]);
+    const spark = n ? '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Recent scores"><line x1="0" x2="' + W + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="#5d7594" stroke-dasharray="4 4"/><polyline fill="none" stroke="#c9a227" stroke-width="2.5" points="' + pts.map((p) => p.join(",")).join(" ") + '"/>' + pts.map((p, i) => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (last[i].courageCredit ? 5 : 3.5) + '" fill="' + (last[i].courageCredit ? "#f0a640" : "#e2c15a") + '"/>').join("") + '</svg><small style="color:var(--mut)">Last ' + last.length + ' reps (dashed line = Average 0; orange dots = Courage Credits)</small>' : "";
+    $("#v-trends").innerHTML = '<h2>My trends</h2><p style="color:var(--mut)">You versus yesterday\'s you. Saved only on this device.</p>' +
+      '<div class="stats"><div class="stat"><b id="t-count">' + n + '</b><small>reps scored</small></div><div class="stat"><b>' + (n ? fmt(Math.round(avg * 10) / 10) : "—") + '</b><small>average score</small></div><div class="stat"><b id="t-cc">' + cc + '</b><small>Courage Credits</small></div><div class="stat"><b>' + elite + '</b><small>Elite game days</small></div><div class="stat"><b>' + modulesDone() + '/' + A.modules.length + '</b><small>lessons done</small></div></div>' +
+      (n ? '<div class="card">' + spark + '</div><div class="card bars"><h3>By ' + esc(A.scoreFocusLabel.toLowerCase()) + '</h3>' + Object.keys(groups).map((k) => bar(k, groups[k])).join("") + '</div>' + (Object.keys(parts).length ? '<div class="card bars"><h3>Equation breakdown</h3>' + A.breakdown.flatMap((g) => g.items).filter((k) => parts[k]).map((k) => bar(k, parts[k])).join("") + '</div>' : "") +
+        '<div class="card"><h3>History</h3><ul class="hist">' + reps.slice().reverse().map((r) => '<li><span class="sc">' + fmt(r.recorded) + '</span><span class="bd"><b>' + esc(r.title) + '</b> ' + (r.courageCredit ? '<span class="badge cc">★ Courage Credit</span> ' : "") + (r.gameDay ? '<span class="badge gd">Game day</span> ' : "") + (r.recorded === 3 ? '<span class="badge elite">Elite</span>' : "") + '<small>' + esc(r.focus) + ' · ' + new Date(r.at).toLocaleDateString() + (r.note ? ' · ' + esc(r.note.slice(0, 80)) : "") + '</small></span><button class="del" data-del="' + r.id + '" aria-label="Delete">×</button></li>').join("") + '</ul></div>'
+        : '<div class="card">No reps yet. Score your first one in the Score tab. A first attempt earns a Courage Credit.</div>') +
+      '<div class="row"><button class="btn ghost small" id="t-export">Export my data</button><button class="btn ghost small" id="t-clear">Clear all data</button></div>';
+    $$("#v-trends [data-del]").forEach((b) => b.onclick = () => { data.reps = data.reps.filter((r) => r.id !== b.dataset.del); save(); renderTrends(); });
+    $("#t-export").onclick = () => { const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }); const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = A.id + "-my-data.json"; a.click(); };
+    $("#t-clear").onclick = () => { if (confirm("Delete all lessons progress, notes, scores and chat history on this device?")) { localStorage.removeItem(KEY); localStorage.removeItem(KEY + "-chat"); localStorage.removeItem(KEY + "-alerts"); data = load(); chat = CC.loadState(); chatOpened = false; $("#msgs").innerHTML = ""; renderLearn(); renderTrends(); } };
+  }
+
+  /* ---------- CoachClint chat ---------- */
+  let chat = CC.loadState(), chatOpened = false, busy = false;
+  function bubble(m) {
+    const d = document.createElement("div"); d.className = "msg " + (m.role === "user" ? "user" : "coach") + (m.kind === "crisis" ? " crisis" : m.kind === "gray" ? " gray" : "");
+    if (m.role !== "user") d.innerHTML = '<span class="who">CoachClint · AI</span>';
+    const body = document.createElement("span"); body.textContent = m.text; d.appendChild(body);
+    if (m.kind === "crisis") d.insertAdjacentHTML("beforeend", '<div class="lifelines"><a href="tel:988">Call 988 · Suicide &amp; Crisis Lifeline</a><a href="sms:988">Text 988</a><a class="alt" href="tel:988">Veterans: call 988, then press 1</a><a class="alt" href="sms:838255">Veterans: text 838255</a><a href="tel:911">Immediate danger: call 911</a></div><div class="alertnote">In the live product, a real person at HoldFast is alerted automatically (clint@holdfasthq.com and cb@get-highground.com). This v1 preview sends nothing.</div>');
+    (m.actions || []).forEach((a) => { const b = document.createElement("button"); b.className = "btn ghost small"; b.style.marginTop = "8px"; b.textContent = a.label; b.onclick = () => { show("score"); prefillScore(a.prefill || {}); }; d.appendChild(document.createElement("br")); d.appendChild(b); });
+    $("#msgs").appendChild(d); $("#msgs").scrollTop = $("#msgs").scrollHeight;
+  }
+  function openChat() {
+    if (chatOpened) return; chatOpened = true;
+    if (!chat.conv.messages.length) { chat.conv.messages.push({ role: "coach", text: CC.intro(chat, A.name), at: Date.now() }); CC.saveState(chat); }
+    $("#msgs").innerHTML = ""; chat.conv.messages.forEach(bubble);
+  }
+  function setCtx() { $("#ctx").textContent = currentModule ? "Talking about: " + currentModule.title : ""; }
+  async function sendChat(text) {
+    text = (text || "").trim(); if (!text || busy) return;
+    openChat(); busy = true;
+    const um = { role: "user", text, at: Date.now() }; chat.conv.messages.push(um); bubble(um);
+    const t = document.createElement("div"); t.className = "msg coach typing"; t.textContent = "CoachClint is thinking …"; $("#msgs").appendChild(t);
+    try {
+      const r = await CC.respond(text, { state: chat, moduleId: currentModule && currentModule.id, moduleRelated: currentModule ? currentModule.related : [], modulesDone: modulesDone() });
+      await new Promise((res) => setTimeout(res, 250));
+      t.remove();
+      const cm = { role: "coach", text: r.text, kind: r.kind, actions: r.actions, at: Date.now() }; chat.conv.messages.push(cm); bubble(cm);
+    } finally { busy = false; chat.conv.messages = chat.conv.messages.slice(-80); CC.saveState(chat); }
+  }
+  window.CoachClintUI = { send: sendChat, show, openModule, data: () => data, chat: () => chat };
+
+  /* ---------- boot ---------- */
+  function setHH() { document.documentElement.style.setProperty("--hh", $("header.top").offsetHeight + "px"); }
+  function boot() {
+    setHH(); addEventListener("resize", setHH);
+    document.title = A.name + " · HoldFast";
+    $("#app-name").textContent = A.name;
+    $("#chips").innerHTML = A.chips.map((c) => '<button type="button">' + esc(c) + '</button>').join("");
+    $$("#chips button").forEach((b) => b.onclick = () => sendChat(b.textContent));
+    $("#ch-form").onsubmit = (e) => { e.preventDefault(); const v = $("#ch-in").value; $("#ch-in").value = ""; sendChat(v); };
+    $("#ch-new").onclick = () => { CC.newConversation(chat); chatOpened = false; openChat(); };
+    $(".closech").onclick = () => show("learn");
+    $$("nav.tabs button").forEach((b) => b.onclick = () => show(b.dataset.tab));
+    renderLearn(); renderScore();
+    show("learn");
+    if (matchMedia("(min-width:980px)").matches) openChat();
+    matchMedia("(min-width:980px)").addEventListener("change", (e) => { if (e.matches) { $("#coach").classList.add("on"); openChat(); } else if (!$('nav.tabs button[data-tab="coach"]').getAttribute("aria-selected").includes("true")) $("#coach").classList.remove("on"); });
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
