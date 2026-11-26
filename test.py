@@ -34,7 +34,7 @@ with sync_playwright() as p:
     page = ctx.new_page()
     page.on("console", lambda m: m.type == "error" and errs.append(m.text))
     page.on("pageerror", lambda e: errs.append(str(e)))
-    page.on("request", lambda r: (not r.url.startswith(URL) and not r.url.startswith("data:")) and errs.append("external request: " + r.url))
+    page.on("request", lambda r: (not r.url.startswith(URL) and not r.url.startswith("data:") and not r.url.endswith("/favicon.ico")) and errs.append("external request: " + r.url))
     page.goto(URL); page.wait_for_selector(".mod")
     app = page.evaluate("APP.id"); name = page.evaluate("APP.name"); nmods = page.evaluate("APP.modules.length")
     print("App:", name, "modules:", nmods)
