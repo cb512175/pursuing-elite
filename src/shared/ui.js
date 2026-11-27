@@ -220,5 +220,5 @@
     if (matchMedia("(min-width:980px)").matches) openChat();
     matchMedia("(min-width:980px)").addEventListener("change", (e) => { if (e.matches) { $("#coach").classList.add("on"); openChat(); } else if (!$('nav.tabs button[data-tab="coach"]').getAttribute("aria-selected").includes("true")) $("#coach").classList.remove("on"); });
   }
-  boot();
+  (window.HFGate ? window.HFGate.whenUnlocked(boot) : boot());
 })();

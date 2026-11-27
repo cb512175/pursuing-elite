@@ -6,6 +6,10 @@ CoachClint is an AI coaching "DeliveryDouble" built on Clint Bruce's words, fram
 
 **79/21, tied to 21toNone.** CoachClint is the **79%**: about 79% of what Clint would say if he were sitting beside you. Real humans (Clint and the ReadyLAB coaches) are the **21%**. The 21 is deliberate: it echoes **21toNone**, the mission behind everything HoldFast does.
 
+## Early tester phase (this version)
+
+Right now the apps are going to a few friends to test, so they open on a **tester-code welcome screen** (enter once per device) with a short "early version" note, and they send **anonymous open and unlock tallies** to a free counter so Clint can see how many people tried each app (`stats.html`, unlisted). Both are light, honest conveniences, not security or analytics. Details and how to change the code: `README.md`.
+
 ## The three parts of a HoldFast program
 
 | Part | What it is | Where it lives |

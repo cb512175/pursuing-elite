@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>HoldFast tester stats</title>
+<style>
+:root{--navy:#0b1b2e;--card:#172e4a;--line:#2a4566;--brass:#c9a227;--brass2:#e2c15a;--ink:#f4f1e8;--mut:#a9b7c9}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--navy);color:var(--ink);line-height:1.5;padding:20px}
+main{max-width:640px;margin:0 auto}small.k{color:var(--brass);letter-spacing:.14em;text-transform:uppercase;font-size:11px;font-weight:700}
+h1{margin:4px 0 4px;font-size:26px}p{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.card h2{margin:0 0 8px;font-size:18px}.card a{color:var(--brass2)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.s{background:var(--navy);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.s b{display:block;font-size:30px;color:var(--brass2);line-height:1.1}.s span{font-size:12px;color:var(--mut)}
+button{background:var(--brass);color:var(--navy);border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:700;cursor:pointer;min-height:44px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}#when{font-size:13px;color:var(--mut)}.err{color:#ffb4a9}
+</style>
+</head>
+<body>
+<main>
+<small class="k">HoldFast · early testers</small>
+<h1>Tester stats</h1>
+<p>Anonymous tallies only. <b>Opens</b> = the app was loaded on a device (once per device per day). <b>Code unlocks</b> = a correct tester code was entered (once per device per day). Nothing else is collected.</p>
+<div id="apps"></div>
+<div class="row"><button id="refresh">Refresh</button><span id="when"></span></div>
+<p style="font-size:12px;margin-top:18px">This page is unlisted, not secret: anyone with the link can read these totals. Add <code>?test=1</code> to the URL to see the separate test counters used for site checks.</p>
+</main>
+<script>
+(function () {
+  var BASE = "https://abacus.jasoncameron.dev", NS = "holdfast-testers-x7k2q9";   // keep in sync with gate.js
+  var TEST = new URLSearchParams(location.search).get("test") === "1", P = TEST ? "test-" : "";
+  var APPS = [
+    { slug: "pursuing-elite", name: "PursuingElite", url: "https://cb512175.github.io/pursuing-elite/" },
+    { slug: "achievement-equation", name: "AchievementEquation", url: "https://cb512175.github.io/achievement-equation/" }
+  ];
+  function get(key) {
+    return fetch(BASE + "/get/" + NS + "/" + P + key, { cache: "no-store", credentials: "omit" })
+      .then(function (r) { if (r.status === 404) return 0; if (!r.ok) throw new Error("HTTP " + r.status); return r.json().then(function (j) { return j.value; }); });
+  }
+  function render(rows) {
+    var tot = { o: 0, u: 0 };
+    document.getElementById("apps").innerHTML = rows.map(function (r) {
+      if (typeof r.o === "number") tot.o += r.o; if (typeof r.u === "number") tot.u += r.u;
+      var rate = (typeof r.o === "number" && typeof r.u === "number" && r.o > 0) ? Math.round(r.u / r.o * 100) + "%" : "—";
+      return '<div class="card"><h2><a href="' + r.url + '">' + r.name + '</a></h2><div class="grid"><div class="s"><b data-k="' + r.slug + '-opens">' + (r.o == null ? "—" : r.o) + '</b><span>opens</span></div><div class="s"><b data-k="' + r.slug + '-unlocks">' + (r.u == null ? "—" : r.u) + '</b><span>code unlocks</span></div><div class="s"><b>' + rate + '</b><span>unlocked / opened</span></div></div></div>';
+    }).join("") + '<div class="card"><h2>Both apps</h2><div class="grid"><div class="s"><b id="tot-o">' + tot.o + '</b><span>opens</span></div><div class="s"><b id="tot-u">' + tot.u + '</b><span>code unlocks</span></div><div class="s"><b>' + (TEST ? "TEST" : "live") + '</b><span>counters</span></div></div></div>';
+  }
+  function load() {
+    var w = document.getElementById("when"); w.className = ""; w.textContent = "Loading …";
+    Promise.all(APPS.map(function (a) {
+      return Promise.all([get(a.slug + "-opens").catch(function () { return null; }), get(a.slug + "-unlocks").catch(function () { return null; })])
+        .then(function (v) { return { slug: a.slug, name: a.name, url: a.url, o: v[0], u: v[1] }; });
+    })).then(function (rows) {
+      render(rows);
+      var bad = rows.some(function (r) { return r.o === null || r.u === null; });
+      w.className = bad ? "err" : ""; w.textContent = bad ? "Couldn't reach the counter service for some numbers. Try Refresh." : "Updated " + new Date().toLocaleString();
+    });
+  }
+  document.getElementById("refresh").onclick = load; load();
+})();
+</script>
+</body>
+</html>

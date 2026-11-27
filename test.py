@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Playwright tests for the HoldFast CoachClint apps (PursuingElite / AchievementEquation).
 Usage: python3 test.py http://127.0.0.1:8765/   (run from the app folder being served)"""
-import sys, json
+import sys, json, os, re
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
+CODE = os.environ.get("HF_TEST_CODE")
+if not CODE: sys.exit("Set HF_TEST_CODE to the tester code (it is never stored in the repo)")
 URL = sys.argv[1] if len(sys.argv) > 1 else "http://127.0.0.1:8765/"
 SHOTS = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("shots")
 SHOTS.mkdir(parents=True, exist_ok=True)
@@ -14,6 +16,13 @@ fails, errs = [], []
 def check(cond, msg):
     print(("PASS " if cond else "FAIL ") + msg)
     if not cond: fails.append(msg)
+
+def open_app(page, wait=".mod"):
+    page.goto(URL)
+    page.wait_for_selector("#gate:not([hidden]), " + wait)
+    if page.locator("#gate:not([hidden])").count():
+        page.fill("#gate-code", CODE); page.click("#gate-form button[type=submit]")
+    page.wait_for_selector(wait)
 
 def last_coach(page):
     return page.locator("#msgs .msg.coach:not(.typing)").last.inner_text()
@@ -35,7 +44,20 @@ with sync_playwright() as p:
     page.on("console", lambda m: m.type == "error" and errs.append(m.text))
     page.on("pageerror", lambda e: errs.append(str(e)))
     page.on("request", lambda r: (not r.url.startswith(URL) and not r.url.startswith("data:") and not r.url.endswith("/favicon.ico")) and errs.append("external request: " + r.url))
-    page.goto(URL); page.wait_for_selector(".mod")
+    page.goto(URL); page.wait_for_selector("#gate:not([hidden])")
+    check(page.locator(".app").is_hidden() and page.locator("#gate").is_visible(), "gate shown, app hidden before code")
+    gt = page.inner_text("#gate")
+    check("early" in gt.lower() and "tester" in gt.lower() and "holdfast" in gt.lower(), "gate: HoldFast welcome + early tester note")
+    check(not overflow(page), "no horizontal overflow (390 gate)")
+    page.screenshot(path=str(SHOTS / "gate-390.png"), full_page=True)
+    page.fill("#gate-code", "WRONGCODE"); page.click("#gate-form button[type=submit]")
+    check(page.locator("#gate-err").is_visible() and page.locator("#gate").is_visible(), "wrong code rejected with friendly message")
+    page.fill("#gate-code", CODE.lower()); page.click("#gate-form button[type=submit]"); page.wait_for_selector(".mod")
+    check(page.locator("#gate").is_hidden() and page.locator(".app").is_visible(), "correct code (lowercase) unlocks the app")
+    page.reload(); page.wait_for_selector(".mod")
+    check(page.locator("#gate").is_hidden(), "unlock remembered after reload (enter once)")
+    src_html = page.content()
+    check(CODE.lower() not in src_html.lower() and "f9a943b4ae38b02e" in src_html, "page source has the SHA-256 hash, not the plain code")
     app = page.evaluate("APP.id"); name = page.evaluate("APP.name"); nmods = page.evaluate("APP.modules.length")
     print("App:", name, "modules:", nmods)
     check(page.title().startswith(name), "title has app name")
@@ -179,7 +201,7 @@ with sync_playwright() as p:
     # ---------- fresh user: CoachClint prompts DryDock setup ----------
     ctx = b.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True)
     page = ctx.new_page(); page.on("pageerror", lambda e: errs.append(str(e)))
-    page.goto(URL); page.wait_for_selector(".mod")
+    open_app(page)
     page.click('nav.tabs button[data-tab="coach"]'); page.wait_for_selector("#msgs .msg.coach")
     r = say(page, "I feel lost")
     check("DryDock" not in r, "nudge not on first message")
@@ -198,11 +220,45 @@ with sync_playwright() as p:
     # ---------- desktop ----------
     ctx = b.new_context(viewport={"width": 1280, "height": 800})
     page = ctx.new_page(); page.on("pageerror", lambda e: errs.append(str(e)))
-    page.goto(URL); page.wait_for_selector(".mod")
+    open_app(page)
     check(page.locator("#coach").is_visible() and page.locator("#msgs .msg.coach").count() >= 1, "desktop: chat docked + intro visible")
     check(not overflow(page), "no horizontal overflow (1280)")
     page.screenshot(path=str(SHOTS / f"{app}-1280.png"), full_page=False)
-    ctx.close(); b.close()
+    ctx.close()
+    # ---------- anonymous counter (mocked service, so real numbers are never touched) ----------
+    hits = []
+    def mock(route):
+        u = route.request.url
+        if "/hit/" in u: hits.append(u.split("/hit/")[1]); route.fulfill(status=200, content_type="application/json", headers={"access-control-allow-origin": "*"}, body='{"value":1}')
+        else: route.fulfill(status=404, content_type="application/json", headers={"access-control-allow-origin": "*"}, body='{"error":"Key not found"}')
+    ctx = b.new_context(viewport={"width": 390, "height": 844}); ctx.route("https://abacus.jasoncameron.dev/**", mock)
+    page = ctx.new_page(); page.on("pageerror", lambda e: errs.append(str(e)))
+    slug = {"pe": "pursuing-elite", "ae": "achievement-equation"}[app]
+    page.goto(URL + "?hfcount=test"); page.wait_for_selector("#gate:not([hidden])"); page.wait_for_timeout(500)
+    check(hits == [f"holdfast-testers-x7k2q9/test-{slug}-opens"], "open counted once (test key, anonymous increment only)")
+    page.fill("#gate-code", "nope"); page.click("#gate-form button[type=submit]"); page.wait_for_timeout(300)
+    check(len(hits) == 1, "wrong code is not counted")
+    page.fill("#gate-code", CODE); page.click("#gate-form button[type=submit]"); page.wait_for_selector(".mod"); page.wait_for_timeout(500)
+    check(hits[-1] == f"holdfast-testers-x7k2q9/test-{slug}-unlocks" and len(hits) == 2, "successful unlock counted")
+    page.goto(URL + "?hfcount=test"); page.wait_for_selector(".mod"); page.wait_for_timeout(500)
+    check(len(hits) == 2, "no repeat count on the same device the same day")
+    page.evaluate("localStorage.setItem('hf-ctr-%s-opens-test','2000-01-01')" % slug); page.goto(URL + "?hfcount=test"); page.wait_for_selector(".mod"); page.wait_for_timeout(500)
+    check(len(hits) == 3 and hits[-1].endswith(f"test-{slug}-opens"), "counts again the next day")
+    ctx.close()
+    # ---------- stats page (mocked values) ----------
+    vals = {"pursuing-elite-opens": 12, "pursuing-elite-unlocks": 7, "achievement-equation-opens": 5}
+    def mock2(route):
+        k = route.request.url.split("/get/holdfast-testers-x7k2q9/")[1]
+        if k in vals: route.fulfill(status=200, content_type="application/json", headers={"access-control-allow-origin": "*"}, body=json.dumps({"value": vals[k]}))
+        else: route.fulfill(status=404, content_type="application/json", headers={"access-control-allow-origin": "*"}, body='{"error":"Key not found"}')
+    ctx = b.new_context(viewport={"width": 390, "height": 844}); ctx.route("https://abacus.jasoncameron.dev/**", mock2)
+    page = ctx.new_page(); page.goto(URL + "stats.html"); page.wait_for_function("document.getElementById('tot-o')")
+    check(page.inner_text("#tot-o") == "17" and page.inner_text("#tot-u") == "7", "stats page totals (404 shown as 0)")
+    check(page.inner_text('[data-k="achievement-equation-unlocks"]') == "0" and page.inner_text('[data-k="pursuing-elite-opens"]') == "12", "stats page per-app numbers")
+    check(not overflow(page), "no horizontal overflow (390 stats)")
+    page.screenshot(path=str(SHOTS / "stats-390.png"), full_page=True)
+    ctx.close()
+    b.close()
 
 check(not errs, "no console/page errors or external requests " + json.dumps(errs[:5]))
 print("\n%d failure(s)" % len(fails))

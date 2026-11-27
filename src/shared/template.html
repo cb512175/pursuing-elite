@@ -4,12 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1b2e">
+<meta name="robots" content="noindex,nofollow">
 <meta name="description" content="{{DESC}}">
 <title>{{TITLE}} · HoldFast</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1b2e'/%3E%3Cg fill='none' stroke='%23c9a227' stroke-width='5' stroke-linecap='round'%3E%3Ccircle cx='32' cy='13' r='5'/%3E%3Cpath d='M32 18v34M20 28h24M12 38c2 10 11 15 20 15s18-5 20-15'/%3E%3C/g%3E%3C/svg%3E">
 <style>{{CSS}}</style>
 </head>
-<body>
+<body class="locked">
+<div id="gate" class="gate" hidden>
+  <form id="gate-form" class="gate-card" autocomplete="off">
+    <svg class="gate-anchor" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#c9a227" stroke-width="5" stroke-linecap="round"><circle cx="32" cy="13" r="5"/><path d="M32 18v34M20 28h24M12 38c2 10 11 15 20 15s18-5 20-15"/></g></svg>
+    <small class="gate-kicker">HoldFast · Early tester version</small>
+    <h1>Welcome aboard.</h1>
+    <p>Thanks for helping test <b id="gate-app">{{TITLE}}</b>. Enter your tester code to come in. You'll only need to do this once on this device.</p>
+    <label for="gate-code" class="f">Tester code</label>
+    <input type="text" id="gate-code" autocapitalize="characters" autocomplete="off" spellcheck="false" maxlength="40" placeholder="Enter your code" aria-describedby="gate-err">
+    <p id="gate-err" class="gate-err" role="alert" hidden></p>
+    <button class="btn" type="submit" style="width:100%;margin-top:12px">Let me in</button>
+    <p class="gate-note"><b>Heads up:</b> this is an early version, so things will change and some edges are rough. Your honest feedback is the whole point. Hold Fast.</p>
+    <p class="gate-note">Privacy: your progress stays on this device. The only thing sent anywhere is an anonymous tally that someone opened the app or entered the code. No names, no personal data.</p>
+  </form>
+</div>
 <div class="app">
 <header class="top">
   <svg class="anchor" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#c9a227" stroke-width="5" stroke-linecap="round"><circle cx="32" cy="13" r="5"/><path d="M32 18v34M20 28h24M12 38c2 10 11 15 20 15s18-5 20-15"/></g></svg>
@@ -41,6 +56,7 @@
 <script>{{KNOWLEDGE}}</script>
 <script>{{ENGINE}}</script>
 <script>{{CONTENT}}</script>
+<script>{{GATE}}</script>
 <script>{{UI}}</script>
 </body>
 </html>

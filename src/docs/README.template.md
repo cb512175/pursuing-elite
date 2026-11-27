@@ -3,6 +3,7 @@
 {{BLURB}}
 
 **Live:** https://cb512175.github.io/{{SLUG}}/
+**Tester stats (unlisted):** https://cb512175.github.io/{{SLUG}}/stats.html
 **Sister app:** [{{SISTER_NAME}}](https://cb512175.github.io/{{SISTER_SLUG}}/), which shares the same CoachClint engine
 
 A content-first HoldFast app with **CoachClint** built in. CoachClint is the AI coaching "DeliveryDouble" built on Clint Bruce's words, frameworks, and scars, and billed as the 79/21 coach (CoachClint is the 79%, real humans are the 21, echoing 21toNone, the mission behind everything HoldFast does).
@@ -21,7 +22,38 @@ A content-first HoldFast app with **CoachClint** built in. CoachClint is the AI 
 - **Trends:** reps scored, average, Courage Credits, Elite Game Days, lessons done, a trend line, averages by focus, history with delete, export to JSON, and clear-all.
 - **CoachClint:** a chat tab on phones, docked on the right on desktop. It has a light AI disclosure, quick-start chips, lesson context, and "Log it" buttons that pre-fill the Score form.
 
-Everything is saved **only in this browser** (localStorage key `{{KEY}}` and related keys). There are no accounts, no analytics, and no network calls.
+Everything you do is saved **only in this browser** (localStorage key `{{KEY}}` and related keys). There are no accounts and no analytics. The only network call is the anonymous tester tally described under *Visit counter* below.
+
+## Tester access code (early tester version)
+
+The app opens on a friendly HoldFast welcome screen that asks for a tester code and notes that this is an early version. A correct code unlocks the app, and the device remembers it, so testers enter it **once** (the unlock is shared by both HoldFast apps, since they live on the same site). Matching is case-insensitive and ignores spaces.
+
+- **The code is never stored in plain text.** The repo contains only a SHA-256 hash of `"holdfast-tester:" + the code in lowercase` (the constant `HF_CODE_HASH` at the top of `src/shared/gate.js`). Clint has the code; it is not in this repo, the docs, or the tests.
+- **To change the code** (one constant):
+  1. Compute the new hash. Lowercase the new code and keep the prefix:
+     ```bash
+     printf '%s' 'holdfast-tester:mynewcode' | shasum -a 256
+     ```
+  2. Paste the 64-character result into `HF_CODE_HASH` in `src/shared/gate.js`.
+  3. Rebuild and push: `python3 src/build.py .. && git add -A && git commit -m "new tester code" && git push` (do this in both repos, with the same hash, if you want the shared unlock).
+  Anyone who unlocked with the old code is asked again, because devices remember the hash, not the code.
+- **To open the app to everyone** (end of testing): set `HF_GATE_ENABLED = false` in the same file and rebuild.
+- **Be honest about what this is: a light gate, not security.** The app is a public static site, so the files (and the hash) are visible to anyone, and someone determined can skip the screen or guess a short code offline. It keeps casual visitors out and tells testers they're in an early version. It protects nothing sensitive: the app has no accounts or secrets, and all data stays on each person's device. Don't treat it as access control for anything private. Real protection would need a server (sign-in or a signed link).
+
+## Visit counter (Clint can check it)
+
+To see roughly how many testers are trying the apps, each app sends **anonymous increments only** to [Abacus](https://abacus.jasoncameron.dev), a free counting service that needs no account:
+
+- **Opens:** the app was loaded on a device.
+- **Code unlocks:** a correct tester code was entered.
+- Each is counted **at most once per device per day** (the device remembers the date locally), separately for each app. Counters are named `holdfast-testers-x7k2q9/<app>-opens` and `…/<app>-unlocks`, so the four live counters are `pursuing-elite-opens`, `pursuing-elite-unlocks`, `achievement-equation-opens` and `achievement-equation-unlocks`.
+- **Nothing personal is sent.** No cookies, no IDs, no IP logging by us, no referrer, no code, no scores, no chat text. A counter hit is just "add one to this number." (Like any web request, the counting service can see a visitor's IP address at the network level; we don't send or store anything with it.)
+- It never blocks the app: if the counter is unreachable, the app works exactly the same.
+- Automated browsers (our test suite) are never counted, and `?hfcount=test` writes to separate `test-…` counters so site checks never touch the real numbers.
+
+**See the numbers:** open `stats.html` in either repo's site: https://cb512175.github.io/{{SLUG}}/stats.html (both apps' totals appear on both pages). It is unlisted and not linked from the apps, but not secret: anyone with the link can read the totals. Add `?test=1` to see the test counters.
+
+**Limits:** Abacus is a free hobby service with a rate limit (30 requests per 10 seconds per IP) and no uptime guarantee, so treat the numbers as approximate. A counter's value expires only after six months with no activity. Because the counter names are public to anyone who reads the page source, someone could inflate them. To change counters or turn them off, edit `HF_COUNTER` in `src/shared/gate.js` (`enabled: false`) and `stats.html`. If you outgrow this, the next step is a small server-side tally.
 
 ## How CoachClint v1 works (no AI backend yet)
 
@@ -96,7 +128,7 @@ The deployable app is the single file `index.html`. Its sources are in `src/`:
 ```bash
 python3 src/build.py ..      # rebuilds ../{{SLUG}}/index.html from src/
 python3 -m http.server 8765  # then open http://localhost:8765
-python3 test.py http://127.0.0.1:8765/   # Playwright tests (390px and 1280px)
+HF_TEST_CODE='<the tester code>' python3 test.py http://127.0.0.1:8765/   # Playwright (390px + 1280px); the code comes from the environment and is never stored
 ```
 
 ## About HoldFast apps and HighGrounder
