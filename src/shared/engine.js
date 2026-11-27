@@ -101,6 +101,11 @@
 
   /* ---------------- 3. State ---------------- */
   const NEW_SESSION_MS = 4 * 60 * 60 * 1000;
+  const CLARVIS_REPLIES = [
+    "CLARVIS reporting. Meathead JARVIS mode engaged. 79% current, 100% committed. What are we working on?",
+    "CLARVIS online. No holograms, no fancy voice … just me yelling at you to get your reps in. What's the X on your map today?",
+    "Ha … somebody's been talking. Call me CLARVIS if you want, I'm still CoachClint, the AI built on Clint's words. Now … what's the rep?"
+  ];
   function blankConv() { return { id: Date.now().toString(36), startedAt: Date.now(), messages: [], flags: { disclosed: false, chronicleUsed: false, reframeUsed: false, grayNoted: false, gray: false, crisis: false, crisisAlerted: false, awaitingCheck: false, awaitingReframe: false, faithMatched: false, escalated: false, fallbacks: 0, lastEntry: null, userCount: 0 } }; }
   CC.loadState = function () {
     let s = null; try { s = JSON.parse(localStorage.getItem(CC.config.storageKey + "-chat") || "null"); } catch (e) {}
@@ -332,6 +337,12 @@
       if (safety.check) { f.awaitingCheck = true; return out({ text: lead + "Can I ask you something straight, because I care about the answer: when you say that, are you having any thoughts of hurting yourself?" }, "gray"); }
       const r = CC.localReply(text, Object.assign({}, opts, { flags: f, state: s, events: opts.events || [] }));
       return out({ text: lead + "Now … let's look at where you actually are on the map.\n" + (r ? r.text : FALLBACKS[0]), actions: r && r.actions }, "gray");
+    }
+
+    // Easter egg (unadvertised): a teammate's nickname for CoachClint. Safety above always wins; never while a safety check is pending.
+    if (/\bclarvis\b/i.test(text) && !f.awaitingCheck) {
+      const n = f.clarvisN || 0; f.clarvisN = n + 1;
+      return out({ text: CLARVIS_REPLIES[n % CLARVIS_REPLIES.length] }, "normal");
     }
 
     const ctx = { text, state: s, flags: f, familiar, events: opts.events || [], moduleId: opts.moduleId, moduleRelated: opts.moduleRelated, history: s.conv.messages.slice(-20) };
